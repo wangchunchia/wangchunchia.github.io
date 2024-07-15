@@ -1,0 +1,1757 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>2024软件系统设计期末复习 | 祇树给孤独园</title><meta name="author" content="Chunchia Wang"><meta name="copyright" content="Chunchia Wang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="2024软件系统设计期末复习出分了，今年这课给分极其诡异，我不做评价。总之还是纪念一下期末周大家一起快乐复习（破防）的日子。 以下依旧是集体劳动的成果。感谢文档创作者金君、张君、刘君等。  1.Software Architecture in General What is software architecture SEI 程序或计算系统的软件系统架构是系统的一个或多个结构（Structure）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2024软件系统设计期末复习">
+<meta property="og:url" content="https://wangchunchia.github.io/2024/07/15/2024%E8%BD%AF%E4%BB%B6%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/index.html">
+<meta property="og:site_name" content="祇树给孤独园">
+<meta property="og:description" content="2024软件系统设计期末复习出分了，今年这课给分极其诡异，我不做评价。总之还是纪念一下期末周大家一起快乐复习（破防）的日子。 以下依旧是集体劳动的成果。感谢文档创作者金君、张君、刘君等。  1.Software Architecture in General What is software architecture SEI 程序或计算系统的软件系统架构是系统的一个或多个结构（Structure）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wangchunchia.github.io/image/%E7%AB%A0%E9%B1%BC%E5%93%A5.jpg">
+<meta property="article:published_time" content="2024-07-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-15T01:08:23.775Z">
+<meta property="article:author" content="Chunchia Wang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wangchunchia.github.io/image/%E7%AB%A0%E9%B1%BC%E5%93%A5.jpg"><link rel="shortcut icon" href="/image/W%E7%8E%8B.svg"><link rel="canonical" href="https://wangchunchia.github.io/2024/07/15/2024%E8%BD%AF%E4%BB%B6%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '2024软件系统设计期末复习',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-15 09:08:23'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/image/%E7%AB%A0%E9%B1%BC%E5%93%A5.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/image/Almond_blossom.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="祇树给孤独园"><span class="site-name">祇树给孤独园</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">2024软件系统设计期末复习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-14T16:00:00.000Z" title="发表于 2024-07-15 00:00:00">2024-07-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-15T01:08:23.775Z" title="更新于 2024-07-15 09:08:23">2024-07-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软件工程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="2024软件系统设计期末复习"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="2024软件系统设计期末复习"><a href="#2024软件系统设计期末复习" class="headerlink" title="2024软件系统设计期末复习"></a>2024软件系统设计期末复习</h1><p>出分了，今年这课给分极其诡异，我不做评价。总之还是纪念一下期末周大家一起快乐复习（破防）的日子。</p>
+<p>以下依旧是集体劳动的成果。感谢文档创作者金君、张君、刘君等。</p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NzVkODNkZjExODYzYTJjYzJiYzA4MDA1YzU4ZDAxZjRfNld4cXNESmN3WHh1Y1VlYTc5UFZKTUYwcFNwRDM5MEpfVG9rZW46TGZ6OGJXeFI0b0ZuVzV4c2FMT2NwclJHbjFjXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h2 id="1-Software-Architecture-in-General"><a href="#1-Software-Architecture-in-General" class="headerlink" title="1.Software Architecture in General"></a>1.Software Architecture in General</h2><p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=MzZlNDFlY2QxOWE4NzljNWJmYTExNzJkNTI3YjY5YmNfWHU0eDhDdzNHSlNYTXMycTRvOXVoZHE3OE5UTFNPRExfVG9rZW46UWJDS2JodDZwb2hzNUl4NkJYTWNjMjBibmFoXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h3 id="What-is-software-architecture"><a href="#What-is-software-architecture" class="headerlink" title="What is software architecture"></a>What is software architecture</h3><ul>
+<li>SEI<ul>
+<li>程序或计算系统的软件系统架构是系统的一个或多个结构（Structure），包含了程序的元素（Elements）和他们的外部可见元素属性（Properties）以及元素之间的关系（Relationships）</li>
+</ul>
+</li>
+<li>IEEE<ul>
+<li>一个系统的基本组织，包含了它的所有组件（Components）、组件之间的关系、环境以及指导该系统的设计(Design)和演化(Evolution)的原则(Principle)</li>
+</ul>
+</li>
+</ul>
+<p>架构和结构：包括结构，不仅是静态，还包括行为</p>
+<p>架构与设计：架构在设计早期，高抽象层次的设计</p>
+<p>【2019】Architecture，structure和Design的区别？</p>
+<ol>
+<li>Design 包含 Architecture，Architecture 包含 Structure</li>
+<li>结构是静态的、逻辑的，是关于系统如何构成的</li>
+<li>体系结构除包含架构，还会包含组件之间的相关的关系结构，并定义一些动态的行为。</li>
+<li>体系结构是关于软件设计的，所有体系结构都是设计，但是不是所有的设计都是体系结构，体系结构是软件设计的一个部分</li>
+</ol>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=YmZmZTMzODZiODQ2Njk0YjdiOTgyYmU5YzlhYmM0M2NfZ2ZMakFJVURzZkU0Q0xCM1ZjdTBxT2hRY0ROWXF2UnVfVG9rZW46S0VFOWI0cHR2b1JlQ0F4WlFaamNYa29xbm13XzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h3 id="What-does-a-software-architect-do"><a href="#What-does-a-software-architect-do" class="headerlink" title="What does a software architect do"></a>What does a software architect do</h3><ul>
+<li>联络<ul>
+<li>在客户、技术团队和商业&#x2F;需求分析师之间</li>
+<li>与管理层或营销层</li>
+</ul>
+</li>
+<li>软件工程<ul>
+<li>软件工程最佳实践</li>
+</ul>
+</li>
+<li>技术知识<ul>
+<li>技术领域很深的理解</li>
+</ul>
+</li>
+<li>危机管理<ul>
+<li>与设计、技术选择有关的危机</li>
+</ul>
+</li>
+</ul>
+<h3 id="Where-do-architectures-come-from【2015】"><a href="#Where-do-architectures-come-from【2015】" class="headerlink" title="Where do architectures come from【2015】"></a>Where do architectures come from【2015】</h3><ul>
+<li>NFRs（Non-Functional Requirements，非功能性需求）</li>
+<li>ASRs（Architecturally Significant Requirements，架构攸关需求）</li>
+<li>质量需求(quality requirements)</li>
+<li>系统利益相关者(stakeholders)</li>
+<li>开发组织(organizations)</li>
+<li>技术环境(Technical Environments)</li>
+</ul>
+<h3 id="Architecture（4-1）views（K-Kruchen-4-1-views）"><a href="#Architecture（4-1）views（K-Kruchen-4-1-views）" class="headerlink" title="Architecture（4+1）views（K.Kruchen 4+1 views）"></a>Architecture（4+1）views（K.Kruchen 4+1 views）</h3><p><strong>逻辑视图****（Logical View）</strong>：描述了体系结构中的在体系结构上明显重要的元素和他们之间的关系。</p>
+<p><strong>过程视图****（Process View）</strong>：描述了体系结构中的并发和体系结构元素之间的交流。 </p>
+<p><strong>物理视图****（Physical &#x2F; Deployment View ）</strong>：描述了主要过程和组件是如何被映射到硬件上的。</p>
+<p><strong>发展视图****（Development &#x2F; Implementation View）</strong>：描述了软件组件的内部组织，比如使用配置管理工具存储</p>
+<p><strong>架构用例（Use Case）</strong>：描述了体系结构的需求，往往关联超过一个常规视图，是质量属性方案</p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTJhZDU1YTdkMzAzZDA2MDgxMzhmNTQxNjVkZWY2NmFfRmdVc2VJOVNuSmZGTkR4QkJiN1JITGtmMDZ3N0tVTHhfVG9rZW46SzRFUmIwc1AwbzVOMll4MGRXQ2NwNTZKbkxjXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h3 id="Architectural-Activities"><a href="#Architectural-Activities" class="headerlink" title="Architectural Activities"></a>Architectural Activities</h3><ul>
+<li>为系统创建业务用例</li>
+<li>理解需求</li>
+<li>构造并选择架构</li>
+<li>与利益相关者交流架构（包括开发者）</li>
+<li>分析评估架构<ul>
+<li>整体方法</li>
+<li>质量具体技术</li>
+</ul>
+</li>
+<li>实现结构</li>
+<li>确保与架构一致</li>
+</ul>
+<h3 id="Architectural-process"><a href="#Architectural-process" class="headerlink" title="Architectural process"></a>Architectural process</h3><ol>
+<li>通过 StackHolder 获取到 ASRs（架构攸关需求）</li>
+<li>通过分析得到高优先级质量属性解决方案（Prioritized Quality Attribute Scenarios）和需求和约束（Requirements and Constraints）</li>
+<li>将上述部分，结合模式和策略，综合可以得到架构的设计</li>
+<li>根据架构的设计得到由模式决定的候选视图的示意图，之后完成文档化</li>
+<li>选择、组合视图，将文档进行进一步的评估，这一部分需要 StackHolder 的参与、也需要 Prioritized Quality Attribute Scenarios 和文档等作为参考。</li>
+</ol>
+<blockquote>
+<p>Briefly describe the general activities in a software architecture process, and the major inputs and outputs at each activity.</p>
+<ol>
+<li>识别ASRs<ol>
+<li>输入：无</li>
+<li>输出：优化的质量属性场景</li>
+</ol>
+</li>
+<li>架构设计<ol>
+<li>输入：优化的质量属性场景、需求和约束、模式和决策</li>
+<li>输出：一组候选视图的草图（模式决定）</li>
+</ol>
+</li>
+<li>架构文档化<ol>
+<li>输入：一组模式决定的草图（由模式决定）</li>
+<li>输出：View &amp; Beyond</li>
+</ol>
+</li>
+<li>架构评估<ol>
+<li>输入：View &amp; Beyond、优化的质量属性场景</li>
+<li>输出：View &amp; Beyond</li>
+</ol>
+</li>
+</ol>
+</blockquote>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NGJlNTFkYjhmZjRlODA2Y2FhZTU5YWY5NmU0ODZmZjhfd1lrdzdDN1ZwWmlHR0RacW13bHVIajdmZ3ZwcDJVdGhfVG9rZW46SGhZVGJFZGc4b3dzcWx4N3hiTGNhN0sybjliXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h3 id="Software-architecture-knowledge-areas"><a href="#Software-architecture-knowledge-areas" class="headerlink" title="Software architecture knowledge areas"></a>Software architecture knowledge areas</h3><ul>
+<li>软件设计的基本观念（软件开发的生命周期，设计过程等）</li>
+<li>关键问题(技术)：并发性、事件的控制和处理、分发、异常处理、交互系统、持久性</li>
+<li>软件结构和架构：体系结构样式和模式(宏观体系结构)，设计模式(微观体系结构) </li>
+<li>软件设计方法：架构方法(如+ADD)设计方法(如动态系统开发方法) </li>
+<li>软件设计质量分析和评估：质量属性、质量分析和评估的方法技术和工具、度量</li>
+<li>设计建模和表现方式：架构设计符号（ADL），UML，设计文档（Views&amp;Beyond），其他</li>
+</ul>
+<h2 id="2-Quality-Attributes"><a href="#2-Quality-Attributes" class="headerlink" title="2.Quality Attributes"></a>2.Quality Attributes</h2><p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=Y2UwYzVjZmIyMGY2OTVhOTY2MjE0N2Y2YjNmMWFjMWVfU2pjUTB6bDcwWjgzVHBFejhKOUUwdnhZNVA3dU1SMWdfVG9rZW46T01UWGJ1cHFMb2NzNGp4YXpwMmM4bVhxblJkXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h3 id="What-are-Software-Requirements"><a href="#What-are-Software-Requirements" class="headerlink" title="What are Software Requirements"></a>What are <strong>Software Requirements</strong></h3><ul>
+<li>功能需求 Functional requirements<ul>
+<li>功能需求说明系统必须做什么，并说明系统如何为涉众提供价值</li>
+<li>功能需求是指系统的行为。</li>
+<li>功能是系统完成其预期工作的能力，例如，允许学生在线注册。</li>
+<li>功能可以通过使用任意数量的可能结构来实现。</li>
+<li>功能在很大程度上独立于结构，因为它可以作为一个单独的单片系统存在，而不需要任何内部结构。</li>
+</ul>
+</li>
+<li>质量需求 Quality requirements（NFRs）<ul>
+<li>质量要求是整个系统的理想特性。系统应该在其功能需求之上提供的质量属性。</li>
+<li>质量要求是功能需求或整个产品的资格。</li>
+<li>如果质量属性很重要，那么软件架构会限制将功能分配(映射)到各种结构上。</li>
+</ul>
+</li>
+<li>约束 Constraints <ul>
+<li>约束是零自由度的设计决策</li>
+<li>约束是预先指定的已经做出的设计决策。</li>
+<li>通过接受设计决策并将其与其他受影响的设计决策进行协调，可以满足约束</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>【2022】Software requirements, Quality attributes, ASRs 的区别和联系</p>
+<ol>
+<li>软件需求包括功能性需求和非功能性需求（又称质量需求）</li>
+<li>质量属性是由软件的业务目标所决定，在功能性需求的基础上提供的整个系统的合乎需求的特性，是非功能需求的一种反应。</li>
+<li>ASRs架构攸关需求是对于体系结构有着深远影响的需求，如果没有这样的需求，架构可能会有很大的不同。肯定是软件需求的一部分。</li>
+</ol>
+</blockquote>
+<h3 id="Quality-Attributes"><a href="#Quality-Attributes" class="headerlink" title="Quality Attributes"></a>Quality Attributes</h3><h4 id="Internal-vs-external-attributes（from-gpt）"><a href="#Internal-vs-external-attributes（from-gpt）" class="headerlink" title="Internal vs external attributes（from gpt）"></a>Internal vs external attributes（from gpt）</h4><p><strong>内在属性</strong>是指那些可以在软件内部直接衡量和评估的特性。这些属性通常与软件的内部结构和代码有关。常见的内在属性包括：模块性（Modularity）、可重用性（Reusability）、可维护性（Maintainability）、可测试性（Testability）、互操作性（Interoperability）</p>
+<p><strong>外在属性</strong>是指那些从软件系统外部衡量和评估的特性，通常与用户体验和系统整体运行效果相关。常见的外在属性包括：可用性（Availability）、性能（Performance）、易用性（Usability）、互操作性（Interoperability）</p>
+<p>zh：外部，系统当成黑盒，用户和系统交互体验，可用性、性能、安全等；内部，只有了解系统内部的开发人员能感知到，所关注 互操作性、可修改性、可测试性等</p>
+<ul>
+<li><strong>Adaptability（适应性）</strong> 系统适应变化的能力。</li>
+<li><strong>Extensibility（可扩展性）</strong> 系统在不影响现有功能的情况下增加新功能的能力。</li>
+<li><strong>Availability（可用性）</strong> 系统在需要时可用的程度。</li>
+<li><strong>Modularity（模块性）</strong> 系统被组织成模块化结构的能力。</li>
+<li><strong>Configurability（可配置性）</strong> 系统根据用户需求进行配置的能力。</li>
+<li><strong>Portability（可移植性）</strong> 系统从一个环境迁移到另一个环境的能力。</li>
+<li><strong>Flexibility（灵活性）</strong> 系统适应不同条件或需求的能力。</li>
+<li><strong>Reusability（可重用性）</strong> 组件或代码在不同情境下重复使用的能力。</li>
+<li><strong>Interoperability（互操作性）</strong> 不同系统或组件之间协同工作的能力。</li>
+<li><strong>Testability（可测试性）</strong> 系统进行测试的能力。</li>
+<li><strong>Performance（性能）</strong> 系统执行任务的速度和效率。</li>
+<li><strong>Auditability（可审计性）</strong> 系统记录和审查的能力。</li>
+<li><strong>Reliability（可靠性）</strong> 系统在规定条件下持续运行的能力。</li>
+<li><strong>Maintainability（可维护性）</strong> 系统进行维护和升级的容易程度。</li>
+<li><strong>Responsiveness（响应性）</strong> 系统对用户输入的响应速度。</li>
+<li><strong>Manageability（可管理性）</strong> 系统进行管理的容易程度。</li>
+<li><strong>Recoverability（可恢复性）</strong> 系统从故障中恢复的能力。</li>
+<li><strong>Sustainability（可持续性）</strong> 系统长期运行和维护的能力。</li>
+<li><strong>Scalability（可扩展性）</strong> 系统处理增长的工作量的能力。</li>
+<li><strong>Supportability（可支持性）</strong> 系统获得支持和维护的能力。</li>
+<li><strong>Stability（稳定性）</strong> 系统在长时间运行中保持性能的能力。</li>
+<li><strong>Usability（易用性）</strong> 系统对用户友好和易于使用的程度。</li>
+<li><strong>Security（安全性）</strong> 系统保护数据和资源免受未授权访问的能力。</li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=YmQ4MjZkNTEyYzVkZDAwZTY2ZDg2Njk2YTI4M2JmZThfaEJ5ZlZoRndnWURWcWkzT1c2YzFBWUNEdkNNOUlubXpfVG9rZW46TFVLTGJqMDNrb0tRMWt4MXhoNmNFRm9tbjFqXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=MzFlOTQyMTlhNWVlZjk4ODZmZWM4ZGQxMTNkOTUwM2NfT2prdlZhYlBHb2RLOGxMN0Y3U1NuR1pXU1ZvMjZha0JfVG9rZW46SG1mRGI3bElub1NjS2Z4S2lsS2NoY3dybm5mXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h4 id="Modeling-quality-attribute-scenaris"><a href="#Modeling-quality-attribute-scenaris" class="headerlink" title="Modeling quality attribute scenaris"></a>Modeling quality attribute scenaris</h4><p>Source, stimulus, artifact, environment, response, response measure</p>
+<ul>
+<li>刺激（Stimulus）：到达系统时需要考虑的条件</li>
+<li>刺激源（Source of Stimulus）：产生刺激的实体（人，系统或任何其他触发），可能是输入、信息等，对当前的状态的一个变化</li>
+<li>响应（Response）：刺激到来后工件开展的行为</li>
+<li>响应度量（Response Measure）：对刺激的响应以某种方法进行测量，以便可以测试需求（比如多长时间系统有反馈）</li>
+<li>环境（Environment）：发生刺激时系统的状况，例如系统正常运行、系统过载、 系统受到攻击、系统网络出现故障等</li>
+<li>工件（Artifact）：完成需求的整个系统或者系统的一部分（软件制品）</li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=MTQzNjNlMmQ5YmIxMzIyNGI5ZTRmNzJiOTgyMDFmNmNfQVlkbnlTTllxMlZiU2hhUzhsTnN3eEVQZjYwVTltcThfVG9rZW46SmJ2amJpTXpnb2V0Qjh4eVFTeGN2WHU5bnlvXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h3 id="答题总结"><a href="#答题总结" class="headerlink" title="答题总结"></a>答题总结</h3><p>availability：detect faults（heartbeat、timestamp）</p>
+<p><strong>Availability</strong></p>
+<p>可用性是应用程序的关键要求，以所需的可用时间来度量。</p>
+<p><strong>来源</strong>：内部&#x2F;外部：人员、硬件、软件、物理基础设施、物理环境</p>
+<p><strong>刺激</strong>：故障：遗漏、崩溃、时间错误、响应错误</p>
+<p><strong>工件：</strong>处理器、通信渠道、持久存储、进程</p>
+<p><strong>环境：</strong>正常操作、启动、关闭、维修模式、降级操作、过载操作</p>
+<p><strong>响应</strong>：</p>
+<ul>
+<li>防止故障变成失败</li>
+<li>检测故障：<ul>
+<li>记录故障</li>
+<li>通知适当的实体（人员或系统）</li>
+</ul>
+</li>
+<li>从故障中恢复：<ul>
+<li>禁用引起故障的事件源</li>
+<li>在进行修复时暂时不可用</li>
+<li>修复或掩盖故障&#x2F;失败或控制它造成的损害</li>
+<li>在进行修复时以降级模式运行</li>
+</ul>
+</li>
+</ul>
+<p><strong>度量</strong>：</p>
+<ul>
+<li>系统必须可用的时间或时间间隔</li>
+<li>可用性百分比（例如，99.999%）</li>
+<li>检测故障的时间</li>
+<li>修复故障的时间</li>
+<li>系统可以在降级模式中运行的时间或时间间隔</li>
+<li>一定类别的故障，系统防止或处理而没有失败的比例（例如，99%）或速率（例如，每秒高达100次）</li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NGI3N2U3MTJkNzM5ZTAwMzRhNWZiYzAzZTJlODMxNmFfbFh1SndWMU9tYkJ4cDFPem44U0ZlMXZLVml6dzBZbm5fVG9rZW46SW9USGJGNGlZb21BS3J4Q0pBZWNaS1BqbjBWXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=M2QwNTE4OGMzMzNhYmVmODc5YTFjMDAzMDU0ZjRjZjFfTGphT016RG83U1hJd01Db0dyT2J6TFc4RjE1MEliTXBfVG9rZW46Sk5oNWJDc0g4b25YOW14QWs4RmNEQmFGbnhnXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTc5YTU4ZjU3ZjFlYTMxY2I2ZmRmYWFlZWZmNzIwOGVfaHlvTlpabXZkdHFON3BoeVVDSlNjSWx0YXR0aDkzTW1fVG9rZW46Q0RLUGJIcDc0b1pTaFN4UUhaQWN1T09XbnBiXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><strong>Interoperability</strong></p>
+<p>互操作性是指两个或多个系统可以在特定的上下文中通过接口有效交换有意义的信息的程度，包括语法可操作性（交换数据的能力）和语义可操作性（能够正确解释数据）。互操作性需要确定谁，什么以及在什么情况下（上下文）。</p>
+<p>影响因素：发现（发现服务位置、身份和接口）、处理响应。 </p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=OWEwYWMwOWZkNTg0YWJlODUzYjU5ZTE4NjhiZTRjMjlfZWRNU3pIYUxXVXhSQUY3WWR2YUkwZHVsZTBuWW9kQmlfVG9rZW46VkRxbWJISlkyb3BGMEd4SDN5UGNHMGFjbjFjXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=OTY2ZTZjOTc3YjU1NTJiNDZlNjU5YjQyZWU1MGQxZDlfRDhZYWZLaFZMYXlkd2JiaEVjWTROZjFpVVQ2d1FwMzdfVG9rZW46VGRsT2JZa0d4bzNOeUt4b2VkcGNUTmdkbmZnXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NWU2ZjFhNDlmZTUyZDY1OGI4NjgwZWRjMDI3YTIxYWVfdzVwdWhQdXJyc2RrdnZqT0VmUk5jbU1KbzN5TkF3aGZfVG9rZW46T25CTmJQTjVMb3BtdGl4bE8zZGNxSGdlbjZGXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><strong>Modifiability</strong></p>
+<p>可修改性涉及到更改以及进行更改所需花费的时间或金钱，包括这种可变更性影响其他功能或质量属性的程度。</p>
+<p>影响因素：变更是什么？变更可能性？何时谁进行变更？变更成本？ </p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=ZGVmODVkNTg5ZGZiNmJmMmIyNjVhZTg0NmEyYzlkYmZfZTNhYU1sNHhFYzg1ZEJRQ3RUVFRuVTVncWtnMGY2TzNfVG9rZW46UWhlaGJPMVFlb1U1cHV4WTFmUmNNeWFvbmhiXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDEyOWJhNGI1MjRkNjdhNWEyZjUyNzZlZGMxMjEyNjVfVmZiU1VnQlRwakkyU1MyckJJOHFBaGJwQk1zT2xVZ3JfVG9rZW46Q1I4Y2IxYkREb2ZCQkJ4bmJtMGNuUkF4bnNLXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NzIyMDg3Yzk0ZmVmNDk5MDAzZjQyYTk4NWJjZjI1ZTVfN1NQV3dDTjlFVDNNR3MzVkYyREpmcUtIaXVrSWRFeENfVG9rZW46V0lEMmJpOWlBb0ZWMmp4QWFxbWNzUGdNbkJkXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><strong>Performance</strong></p>
+<p>性能与时间有关，和系统满足时序要求的能力有关（单位时间能做多少事情）。</p>
+<p>影响要素：处理时间（正在相应）和阻塞时间（无法相应）。</p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NzAwNDIwNTY1ZjM0NzRjMWRlODY3NmMxZmY5YjgwNDlfOGhvUFdLT1pQeDB0bUE3R1kwQVpzcnRRT2tHTXZ1ZmlfVG9rZW46Sk43WWJCa1VGb3A3bHR4RXlKRWNyNWFxbk1lXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=MDcyNDdiZGI2ODNiMTIwZDkyYjg0Mjg2OTBlY2U3YjRfNTZzc2Q5SXVlWGZDdHJxZjZmTWhhZTVCSmNoYXpDQmFfVG9rZW46UnEzbGJqb2RTb0hvbmF4YU5QZ2N4ZFJjbmNjXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjkwYmRiZTVjMDEwNjhjZDA3NTAyYjYzYWIxOTcxODBfbWJPRUJyek5XMHJkNnhwUWdsaUFwamVMb2JvTk1wRXVfVG9rZW46R0ppeGJ0SzZ1b3EwVVh4eVBNV2NUVml4bnFiXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><strong>Security</strong></p>
+<p>安全性衡量系统保护数据和信息免遭未授权应用的能力，同时仍提供对授权人员和系统的访问权限。 </p>
+<p>影响要素：机密性（防止未授权访问）、完整性（防止未授权操纵）、可用性（系统可供合法使用）。 </p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDczMTNhMTg5NzY0OWE1OTc0YjliNTYwOTFjZGE0MTZfMEVDNVZUUnhuM3VxTkhEOW9HVzlJaG14bGJWTzFvRlVfVG9rZW46SU5GS2JpdWppb2g4U3F4elFMRWNtV2Z1bm9kXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NjA4MjFkMzdiMDlmMzM5NzdlMTJlOTkyZWZmNzM1NDhfREd0N2ZXdkFGVWJQMTYwUDFvTVdKTTdiRE9tSEd2bXdfVG9rZW46STUyU2JoU2wyb2I2Y0l4RHhDNWM3YVR0bkFoXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=ZmVjNmQxOWJiOWQ4YmJlODYxYzIyMzA1YWQ4MzM3NjlfaG1IMURzM3MwT3V0U2ZMd3NRSEVjZTRIRGdham1vZkNfVG9rZW46Qm9tSmIyOERYb0ttb3J4aUEzNWNoYUt3blppXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><strong>Testability</strong></p>
+<p>可测试性是指可以使软件通过（通常是基于执行）测试来证明其故障的难易程度。 </p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjJmMGFmNzJkNDNjZTJlYzFlMTQ3MDI1NzhmOTY0NGJfczhhRVV3Z2VxdkJabkdWTnRjWXloOUtDUlYxQ1U1WXZfVG9rZW46TTBCWmJHWGlDb3F4Wjl4UHhlZ2NHSUM5bmNoXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=Y2IwNzI4ZmU3OWIyMWVlODQwYTBhNWQwYWVjMDQ3YjRfMDIyTkI5UmtlQklaeEdEd0J1VVl0SEhPWW5zNHJ5UWpfVG9rZW46STRDQmJ3eHJTb0ZHR1R4dTh5V2NBZEtCbnpmXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=MzA5Y2I3ZTdmMzJlNzI0OWU4N2E4NzU0YzE3NzRiNmVfc0ZBVXcyRTRucnlNZDFXZ3lWSGtmNFJaUFpYYm1HcERfVG9rZW46TFp1ZmJOZjBrb3ZYb054N3B5VmNDa2J4blVnXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><strong>Usability</strong> </p>
+<p>易用性与用户完成所需任务的难易程度以及系统提供的用户支持的类型相关。 </p>
+<p>影响因素：学习系统功能、有效使用系统、最小化错误影响、使系统适应用户需求、增强信息和满意度。 </p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=OGMzY2U4NWRhZTlhNWExMWM2ZWM0NjQ1YjAyOTI4MzhfTUNPRzBxbzYwQzhpRTQwR3pEZExDWER0R0l3Yko4MDlfVG9rZW46S2xLWmJYU1E5b2ZNT3l4SGNUUGM4Rjc5bnl5XzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NGRjNzQxYThlNzViNGU0NDQxMzA3MGM0MDkyMDVhNTJfNkdWdXRKYnpiWGFsdmk3eDFITHhDaFhBVUhKdm15enBfVG9rZW46UUV2WWJMcUVObzNiOU14YlF1RmNNMGlubllmXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=M2I4NmE3MWEwNjU2M2I4ZGRlMzY0M2E4ZjcwYThiNjZfYXFsYWRXRjJjOUFyQWJINVVsRG5PdGVjUHFqczVtWHdfVG9rZW46UURSTWJ1cTd4b29xZ3R4bTExaGM2ck1YbnhjXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h4 id="Checklist-for-architecture-design-decisions"><a href="#Checklist-for-architecture-design-decisions" class="headerlink" title="Checklist for architecture design decisions"></a>Checklist for architecture design decisions</h4><h3 id="How-to-gather-and-identify-ASRs"><a href="#How-to-gather-and-identify-ASRs" class="headerlink" title="How to gather and identify ASRs"></a>How to gather and identify ASRs</h3><p>ASR: Architecturally significant requirements</p>
+<p>Requirements, Interviews, Business goals, Utiliy tree</p>
+<ul>
+<li><strong>从需求文档中收集 ASR</strong>：可以使用“MoSCoW”样式或用户故事来收集需求 （不过难以收集质量需求），但其中大部分的内容都不会影响体系结构，对架构师有用的部分甚至没有出现在需求文档中。</li>
+<li><strong>通过采访涉众来收集 ASR</strong>：可以使用质量属性工作坊（QAW）<ul>
+<li>QAW 演示和介绍</li>
+<li>业务任务介绍</li>
+<li>架构计划介绍</li>
+<li>架构驱动程序的识别</li>
+<li>场景集思广益：每一个利益相关者表达一个场景</li>
+<li>方案合并（合并类似方案）</li>
+<li>方案优先级（通过投票）</li>
+<li>方案细化</li>
+</ul>
+</li>
+<li><strong>通过了解业务目标来收集 ASR</strong></li>
+<li><strong>通过质量属性实体树（Utility）来管理 ASR</strong>：使用方案量化描述需求后，逐渐对质量需求进行分解细化，直到含有量化指标为止。</li>
+</ul>
+<h2 id="3-Architecture-Patterns"><a href="#3-Architecture-Patterns" class="headerlink" title="3.Architecture Patterns"></a>3.Architecture Patterns</h2><p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=OWQxZGU5ZTZjZDA4YTRiMGZlYWYwMWQzMzg4NjMxMzZfVzVLODRRN25ja0xOMWM1WlZmeENsT3NiZkZpODRWekhfVG9rZW46Q0N2UGJ5bmt4b2VOZVR4T1F2eGNzYjQwbjVjXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h3 id="Architecture-Patterns-架构模式"><a href="#Architecture-Patterns-架构模式" class="headerlink" title="Architecture Patterns 架构模式"></a>Architecture Patterns 架构模式</h3><ul>
+<li>架构模式是在实践中反复发现的一套设计决策，具有允许重复使用的已知属性，并且描述了一类架构。 </li>
+<li>架构模式关联了如下三种角色：<ul>
+<li><ol>
+<li>背景（context）：世界上经常发生问题的场景。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>问题（problem）：在给定上下文中出现经过适当概括的问题。</li>
+</ol>
+</li>
+<li>解决方案（Solution：Element + Relations + Constraints）：针对问题的成功的经过适当抽象的解决方案。</li>
+</ul>
+</li>
+<li>模式是在实践中发现的<ul>
+<li>模式不是发明的，而是发现的。</li>
+<li>永远不会有一个完整的模式列表。</li>
+</ul>
+</li>
+</ul>
+<h4 id="Module-Patterns-模块模式"><a href="#Module-Patterns-模块模式" class="headerlink" title="Module Patterns 模块模式"></a>Module Patterns 模块模式</h4><h5 id="分层模式-Layered-Pattern-micro-kernel-pattern"><a href="#分层模式-Layered-Pattern-micro-kernel-pattern" class="headerlink" title="分层模式 Layered Pattern&#x2F;micro-kernel pattern"></a>分层模式 Layered Pattern&#x2F;micro-kernel pattern</h5><p>分层模式用来构造可以分解为子任务组的程序，每个子任务组都处于一个特定的抽象级别，每层都为下一个提供更高层次的服务。分层模式的关键点在于确定依赖，核心是关注点分离（必须逐层访问）</p>
+<p>影响的质量属性：可修改性、可模块化、可维护性、可复用性。</p>
+<p><strong>上下文</strong>：一般桌面应用、Web（OSI 的七层网络模型）。</p>
+<p><strong>优点</strong>：高内聚、松耦合、易于维护</p>
+<p><strong>缺点</strong>：降低系统的性能，导致级联修改增加开发成本。 </p>
+<blockquote>
+<p>Context：系统模块可以独立开发和维护。</p>
+<p>Solution：分层模式将软件划分称为层的单元。每一层都是一组模块，提供了一组内聚的服务。层的使用必须是单向的（逐层访问）。</p>
+</blockquote>
+<ul>
+<li><strong>分层模式的解决方案</strong></li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NjI2OWE3YTJlOWMwNGQ2Yzk2NWI5N2NiYmE0ZTk4OWJfT1UxZ2oyQlBoNWZSNU1XQzRORFVtamFNQ2lqQ1ZxcUpfVG9rZW46Tm5USmJwa3Rnb0ZhSkp4ZG5lamNyZmN3bklmXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ul>
+<li><strong>分层模式变体</strong></li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDNkZWE2ZjYwMmNiMjM2NzBjOTliOTU0NzU5MDBhNDFfUHBUR2NFenRBR0Y2VWx4VWtlSHhXeEFZUWd4Y1pTWGxfVG9rZW46UHB0eWJLdDBRb2VERjV4dEpiM2NvZHVnblllXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p>左侧不是分层模式，形成环形依赖（没有实现关注点分离），是软件的坏味道。</p>
+<p>右侧在 D 不期待 A 的结果且 D 不期待 B 的结果时是分层模式，但是在严格意义和其他场景中不是分层模式</p>
+<ul>
+<li><strong>基于分层模式的系统实例</strong></li>
+</ul>
+<p>OSI 的七层网络模型</p>
+<h4 id="Component-Connector-Patterns-组件-连接器模式"><a href="#Component-Connector-Patterns-组件-连接器模式" class="headerlink" title="Component-Connector Patterns 组件-连接器模式"></a>Component-Connector Patterns 组件-连接器模式</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_64536054/article/details/135018189">https://blog.csdn.net/m0_64536054/article/details/135018189</a></p>
+<p>Broker pattern, Model-view-controller pattern, Pipe-and-filter pattern, Client-server pattern, Peer-to-peer pattern,Service-oriented pattern, Publish-subscribe pattern, Share-data pattern</p>
+<ol>
+<li><h5 id="代理模式-Broker-Pattern"><a href="#代理模式-Broker-Pattern" class="headerlink" title="代理模式 Broker Pattern"></a>代理模式 Broker Pattern</h5></li>
+</ol>
+<p>代理体系结构模式可以用于构建分布式软件系统，其中具有通过 RMI 交互的分离组件，代理组件负责协调通信，如转发请求，以及传输结果和异常。</p>
+<blockquote>
+<p>代理模式的定义：为其他对象提供一种<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BB%A3%E7%90%86/0?fromModule=lemma_inlink">代理</a>以控制对这个对象的访问。在某些情况下，一个对象不适合或者不能直接引用另一个对象，而代理对象可以在客户端和目标对象之间起到中介的作用。</p>
+</blockquote>
+<p><strong>上下文</strong>：多个同步或异步交互的远程对象组成的系统。</p>
+<p><strong>解决方案</strong>：通过提供隔离通讯相关的代理，将系统通信功能与主应用程序分开 </p>
+<p><strong>优点</strong>：提高了 Client 和 Server 之间的交互性，提高可伸缩性和可扩展性；整体大集群的性能可能会提高(QPS 等提高)，但是局部单点性能会下降，多次网络请求、多次匹配，有可能会抵消。</p>
+<p><strong>缺点</strong>：代理增加前期复杂度、可能成为通信的屏障、可能成为安全攻击的目标、难以测试。</p>
+<blockquote>
+<p>Context：许多系统是由分布在多个服务器上的服务集合构建成的。需要了解服务如何相互连接、相互操作、交换信息。还需要关心服务的可用性。</p>
+<p>Problem：如何构建分布式软件，使服务用户不需要知道服务商的性质和位置。</p>
+<p>Solution：插入一个代理。将client和server分开。当client需要服务时，可以通过服务接口查询代理，然后代理将client的请求转发给处理该请求的server。</p>
+</blockquote>
+<ul>
+<li><strong>代理模式的解决方案</strong></li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=YWJkYzExYTUxZmJlNjFkZTJkZGM4NzY3OGEyN2U0MjFfYVV0aGQ5UlN6cEpZc1BmSHk4M002a2FYYzIyVEhJRGhfVG9rZW46UlZpamJrTm5jbzd6eUF4M3FYOGNnSm9vbmRiXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ul>
+<li><strong>代理模式的概述图</strong></li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=M2UzMjNiNmMyMzI4ZGEyYmQ1MDg4Yjk0ODA0MTI2N2FfYTFVNk1rZ2ZiSFlCU2NXTHcyMmtnWnFqZ2VGN1hKSlJfVG9rZW46UEM1RWJHUWx5b2hWMER4VGFMd2NNS044bjBlXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ol>
+<li><h5 id="模型-视图-控制器模式-MVC-Pattern"><a href="#模型-视图-控制器模式-MVC-Pattern" class="headerlink" title="模型-视图-控制器模式 MVC Pattern"></a>模型-视图-控制器模式 MVC Pattern</h5></li>
+</ol>
+<p>使用运行时、动态、相互之间的关系来审视，集成到了开发框架中，也是分层架构 的变种（强调模块间约束关系，model 不可以直接返回到 controller），分为 model（业务逻辑）、view（处理用户展示，接收用户操作）、controller（对用户操作进行处理，将信息通知给 model）</p>
+<p><strong>优点</strong>：耦合性低，重用性高，生命周期成本低，部署快，可维护性高，方便管理 </p>
+<p><strong>缺点</strong>：没有明确定义，不适于中小型应用程序，增加实现复杂度，视图和控制器过于紧密，视图对模型访问低效</p>
+<ul>
+<li><strong>MVC 模式的解决方案</strong></li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=ODJmYzU5ZGEyMWQ3ZmIxY2ZiNjM1MTI4Y2YxMmZjNDJfa1JDM2hTV09Wa0k4dkZJVnBoUk1TVmNsQlRVZWdzbUZfVG9rZW46SXJ0ZGJnb1lZbzhKSzF4YXo5N2N2RFdmblZmXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ul>
+<li><strong>MVC 模式的概述图</strong></li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=YzRiNzc4YzhkZjUyMjg4NzIwYjBiYmYwOTU4NTIxZjBfZjBMQVc3OUhvT3JXR3RlQVg2WUtTN2VLUjBuZThLMDRfVG9rZW46QnM4emJnT1dWb3ZZelB4eUh2NWNPZE5MbnpFXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ol>
+<li><h5 id="管道和过滤模式-Pipe-and-Filter-Pattern"><a href="#管道和过滤模式-Pipe-and-Filter-Pattern" class="headerlink" title="管道和过滤模式 Pipe-and-Filter Pattern"></a>管道和过滤模式 Pipe-and-Filter Pattern</h5></li>
+</ol>
+<blockquote>
+<p>【2021】设计一个基于管道-过滤器模式的、输入文本文件、输出排序后的无重复的单词列表的程序。</p>
+<ol>
+<li>用组件部分和连接器画出程序图。</li>
+<li>画出组件的类图。</li>
+<li>用 Java 实现每个类。</li>
+<li>指出你的代码和 1、2 中图的映射。</li>
+</ol>
+<p> wjj：FileToObject——拆分——排序——去重</p>
+</blockquote>
+<p>管道和过滤器模式应用在顺序处理结构中，有一系列 filter 体现依赖关系。</p>
+<p><strong>Filter</strong>：相当于 Component，起数据处理、计算作用，每个 Filter 有 input 和多个output，将数据处理后传递给后续部分。</p>
+<p><strong>Pipe</strong>：相当于 Connector，连接 filter，将 output 导入到其他的 filter 的 input 中去，不会独立存在。</p>
+<p><strong>缺点</strong>：不适用于互动式系统，过多的过滤器导致大量的计算开销。</p>
+<ul>
+<li><strong>管道和过滤器模式的解决方案</strong></li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=Y2ZlNjJlMDViNmUxNzljZDEzZjcwMDJhMDMyNWFhMTBfSUJsaTJpMHJueWloYkhId082OHpyMlhnZEI5d2h0ejRfVG9rZW46RHkyZmJqQlV6b2tNblR4a2x5ZWNmeHY1bnBlXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ul>
+<li><strong>管道和过滤器模式的概述图</strong></li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=OWQwZjg0YzIwYjRhZWE4ODE0NDVhYTA0NmU2MDg4NDdfNTBQWHkyNUhNb2dzUE91MDNsZEdBNlkwSnpObnZKWm1fVG9rZW46Uko3b2JJSUJWb1Z3Z1Z4b0ZIdWNVVkJDblVoXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p>每一个组件表示 filter，连接组件的部分是 pipe，任何一个 filter 都依赖于前一个 filter 的输出（没有其他机会接收外部交互），不适合交互的场景（破坏依赖关系）。 </p>
+<ol>
+<li><h5 id="客户端服务器模式-Client-Server-Pattern"><a href="#客户端服务器模式-Client-Server-Pattern" class="headerlink" title="客户端服务器模式 Client-Server Pattern"></a>客户端服务器模式 Client-Server Pattern</h5></li>
+</ol>
+<p>客户端-服务器模型是一种分布式应用程序结构，它在资源或服务（称为服务器）和服务请求者（称为客户端）的提供者之间划分任务或工作负载。客户端和服务器通常通过计算机网络在单独的硬件上进行通信，但客户端和服务器可能位于同一系统中。服务器主机运行一个或多个与客户共享资源的服务器程序。客户端不共享其任何资源，但请求服务器的内容或服务功能。因此，客户端启动与等待传入请求的服务器的通信会话。使用客户端-服务器模型的计算机应用程序的示例是电子邮件，网络打印和万维网。 包含了两类不同的 Component，没有 broker 可以动态改变 Client 和 Server 的关系， 成对的关系相对固定。</p>
+<p>包含了两类不同的 Component，没有 broker 可以动态改变 Client 和 Server 的关系，成对的关系相对固定。</p>
+<p><strong>上下文</strong>：Windows 的客户端应用（桌面应用）。</p>
+<p><strong>缺点</strong>：服务器成为性能瓶颈、可能单点失效、决定在哪里实现功能的决定也是复杂的（并且难以修正。）</p>
+<ul>
+<li><strong>客户端-服务器模式的解决方案</strong></li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NzEwMzY3OWJkMDEzOWZiMGQ2MmQ0ZTk0ZTk2YWEyMmJfdmRFb00wUFRnZzBRTEJIM3Vob3M4cEVTckpXWWhPQmdfVG9rZW46UFdWUGJSYjNmb0R1Rmx4M1pLWGM2VUx0blZjXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ul>
+<li><strong>客户端-服务器端的概述图</strong></li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=YWU5NDRkMWFiM2JmNjRmNWVjMTFiNzk3OTg2MjQ0MDBfMFphNEpoU1czNTBrM1hIUjBjM2pFQ2UyZUhmbnVaNkhfVG9rZW46TEtXaGJGWWhibzN0cUp4S2VFdmN5QlJpbjhlXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p>ATM 验证身份，某一个验证 Server 可以给很多设备提供服务。</p>
+<p>ATM 操作安全监控、盗刷之类，通过 monitoring 可以发现问题找到记录。</p>
+<p>对于银行工作人员，需要添加新的业务，policy 发生变化，银行工作人员可以定义 ATM 的操作。</p>
+<p>银行负责安全金融的可以根据 ATM、对照用户操作行为是否有安全隐患，多对多。 </p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=YTFhODc0OTliMmNjOTI5MzQ2OWU3ZTdlOTNjYzc2YzNfbUlsSUNPR29UWkJHM2UwSllHQ1hublNXdEZCek9Fd0tfVG9rZW46VjkwNGJSMm56b0hmTFB4TEJTV2NoUVB4bkN0XzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ol>
+<li><h5 id="点对点模式-Peer-to-Peer-Pattern"><a href="#点对点模式-Peer-to-Peer-Pattern" class="headerlink" title="点对点模式 Peer-to-Peer Pattern"></a>点对点模式 Peer-to-Peer Pattern</h5></li>
+</ol>
+<p>点对点模式中的组件，可能这一时刻为提供者，下一时刻是消费者（对等的）。同时点对点模式不仅仅提供服务，还能提供物流，每个 peer 可能有一个规定对的连接数。 </p>
+<p>对等（P2P）计算或网络是分布式应用程序体系结构，用于在对等体之间划分任务或工作负载。同行在申请中享有同样的特权，等同参与者。据说它们形成了节点的点对点网络。 </p>
+<p>上下文：分布式应用程序体系结构，应用于对等体之间划分任务或工作负载。 缺点：安全性管理、数据持久化、数据&#x2F;服务可用性（availability）、备份、修复更 复杂、小型点对点系统不能持续实现质量目标，类似性能（performance）和可用性 （availability）</p>
+<p><strong>上下文</strong>：分布式应用程序体系结构，应用于对等体之间划分任务或工作负载。</p>
+<blockquote>
+<p>Context：分布式计算实体——既提供资源又消耗资源，是对等的，需要合作与协作</p>
+<p>Problem：如何将一组对等的分布式实体通过协议相连接</p>
+<p>Solution：组件作为对等实体直接交互，对等通信是一种请求&#x2F;回复交互</p>
+</blockquote>
+<p><strong>缺点</strong>：安全性管理、数据一致性、数据持久化、数据&#x2F;服务可用性（availability）、备份、修复更复杂、小型点对点系统不能持续实现质量目标，类似性能（performance）和可用性（availability）</p>
+<ul>
+<li><strong>点对点模式的解决方案</strong></li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=YjUzNWExOWI5ZWY4NWRhZTUzNzU2OTkyM2Q5ZTIyYTVfREs3MnozZnoza0dUWnlpYTlxOEJBV0dLQ0NsMDZPNEFfVG9rZW46TDFVdWJhVkMwb1oxYXd4MUdoVGN2QTVNbm5iXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ul>
+<li><strong>点对点模式的概述图</strong></li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDBmZDQwNDE5MDJkNmRlODM4NTYxZTY2YzQwNjk3MzBfU0w0a1NBaG1MaEtSdEQ0ajVJWm9ZeXhxWnBnVzhNMjVfVG9rZW46WU1IV2JKcjJpb243akh4U2laUGMybUtPblhnXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ol>
+<li><h5 id="面向服务的模式-Service-Oriented-Pattern"><a href="#面向服务的模式-Service-Oriented-Pattern" class="headerlink" title="面向服务的模式 Service-Oriented Pattern"></a>面向服务的模式 Service-Oriented Pattern</h5></li>
+</ol>
+<p>面向服务的体系结构（SOA）是一种软件设计风格，其服务通过应用程序组件，通过网络上的通信协议提供给其他组件。</p>
+<p>面向服务的体系结构的基本原则独立于供应商，产品和技术。服务是一个独立的功能单元，可以远程访问并独立操作和更新，例如在线检索信用卡对帐单。</p>
+<p>面向服务的模式是 Broker Pattern 的延伸，Component 包含服务提供者、服务消费者、ESB（企业服务总线）、企业服务组件、连接处理（注册、发现），Connector 包含 SOAP、REST、Asynchronous messaging connector。</p>
+<blockquote>
+<p>Context：许多服务是由服务提供者提供，服务消费者消费。服务消费者只需要理解并使用服务，而不需要了解服务的详细实现。</p>
+<p>Problem：如何支持在不同平台用不同语言编写的由不同组织提供的分布式组件的互操作性。</p>
+<p>Solution：SOA描述了提供&#x2F;使用服务的分布式组件的集合。服务使用者被连接到服务提供者，可以使用中间组件连接（例如ESB、注册表）。</p>
+</blockquote>
+<p><strong>缺点</strong>：构建复杂、无法管理独立服务的演化、服务可能成为性能瓶颈（无法提供性 能保障）、使用中间件导致的性能开销（Overhead）。</p>
+<ul>
+<li><strong>面向服务的模式的解决方案</strong></li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NjUzZjViYmUzNjg1YWY5ZWYwYTM3ZGJkM2ZmMzAwNzZfNTJ4VUVuVGdjSXoyZWs1V2UwTHJSV09kMERhSGJRS21fVG9rZW46QWhqYmJUYzJPb3B2SXF4bFd6RWNOckN5bjljXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ul>
+<li><strong>面向服务的模式的概述图</strong></li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=ODM4N2EyMmQyM2ExODZiN2NjNzZkOWRiOTM1MWJkNTlfRzNtckMwQ2N6NVVBemJuWEJtZHEydnJRc0wxdFhDYnVfVG9rZW46VTRpbGJzUmczb1NpeEZ4aTM2bmNxM0pxbkJjXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=YTRmZjM2OWM2NWVlNmNlNzc0ZjliOTliYzcyMDVlMmRfMEhmbWlFQ1c2TFZLV0hlNFJaMGNsbWVaeVlRM25BOHJfVG9rZW46QkpGemJqY0tsb1dzRlp4RmdydmNhaEY5bkpoXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=OWI1N2YwYTk4MzE1NzBjODUzYTY4YzcwMGIzYmUyMGFfU21qdjJCdG5NSWlmRDFSMUhKOVZSVnZsOTlzalFwVEJfVG9rZW46UVlEQWJWMmZDbzZzZ3l4WVVxU2NPdHVDbmVoXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ol>
+<li><h5 id="发布-订阅模式-Publish-Subscribe-Pattern"><a href="#发布-订阅模式-Publish-Subscribe-Pattern" class="headerlink" title="发布-订阅模式 Publish-Subscribe Pattern"></a>发布-订阅模式 Publish-Subscribe Pattern</h5></li>
+</ol>
+<p>Subscribe 对 Publish 进行注册，某个 Publisher 发布自己的消息可能订阅其他的消息（朋友圈微博）。随着订阅的增加，可能会导致性能的延迟（Subscriber 数量订阅越多性能下降）</p>
+<p>在软件体系结构中，发布-订阅是一种消息模式，其中消息的发送者（称为发布者）不将消息直接发送到称为订阅者的特定接收者，而是将发布的消息送到连接器中（不知道有哪些订阅者）。类似地，订户表达对一个或多个类的兴趣并且仅接收感兴趣的消息，会接受到连接器的通知，而不知道哪些发布者（如果有的话）存在。</p>
+<p>传统操作系统使用事件驱动方式来管理。</p>
+<blockquote>
+<p>Context：有许多独立的生产者和消费者相互作用。生产者和消费者的数量和性质没有预先设定。</p>
+<p>Problem：如何创建集成，支持生产者和消费者之间的信息传输。（生产者和消费者可能都不知道彼此的存在）</p>
+<p>Solution：组件通过已经发布的消息进行交互。订阅者组件可以订阅一组事件，发布服务器组件通过宣布事件将事件放置在总线上，然后连接器将这些事件传递给已对这些事件感兴趣的订阅者组件。</p>
+</blockquote>
+<p><strong>优点</strong>：松耦合、可伸缩性、此模式提供更高的网络可扩展性和更动态的网络拓扑，从而降低了修改发布者和已发布数据结构的灵活性。 </p>
+<p><strong>缺点</strong>：通常会增加延迟并对消息传递时间的可伸缩性和可预测性产生负面影响。对消息排序的控制较少，并且不保证消息的传递。</p>
+<ul>
+<li><strong>发布-订阅模式的解决方案</strong></li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NjYyNDlkNzM2YTljMjliZmQzMTA0Y2MzM2ZlNzJjMjZfY1BnYjdqUU1ZVDB4enhhTXhKazVERlhLRjVLM2hNRkxfVG9rZW46QzZTQmJNRGFXb3A0Skd4ZGpmYWNwZERWbkdjXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ul>
+<li><strong>发布-订阅模式的概述图</strong></li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=YzEyZWExYjFhNTMyM2M4NTg1YTAxOGEyNDEzYjYyYWJfenM1dlBGNTBGV3J5WmlJaE9ZblQwSHlDMGZPV1ltZjNfVG9rZW46SktJdmJRQXR5b1dIcHZ4dUF5Y2NYbmU5blpnXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ol>
+<li><h5 id="共享数据模式-Shared-Data-Pattern"><a href="#共享数据模式-Shared-Data-Pattern" class="headerlink" title="共享数据模式 Shared-Data Pattern"></a>共享数据模式 Shared-Data Pattern</h5></li>
+</ol>
+<p>中间安全数据会被很多人共享登录访问。</p>
+<blockquote>
+<p>Context：各个计算组件需要共享和操作大量的数据。</p>
+<p>Problem：系统如何存储和操作由多个组件同时共享访问的数据？</p>
+<p>Solution：在共享数据模式中，交互是由多个数据访问器和至少一个共享数据存储器之间的持久数据交换组成。交换可以由访问器或存储器发起，连接器类型是数据读写。</p>
+</blockquote>
+<p>一致性：CAP 原则（定理）：在一个分布式系统中，一致性（Consistency）、可用性 (Availability)、分区容错性（Partition Tolerance），需要平衡三者。</p>
+<p>一致性实现：最终一致性（不保证任何时间数据访问都一致但是保证最终结果要一致）、互联网不可能牺牲可用性来保障一致性（信号要求高），因此设计难度非常大。</p>
+<p>缺点：共享数据模型可能存在性能瓶颈、可能存在单点失效、数据的生产者和消费者紧密耦合、中心点被攻击有安全风险、对安全性数据而言强调一致性，如果副本有一段时间不一致可能会成为漏洞（保证任何时刻访问数据都是一致的）。</p>
+<ul>
+<li><strong>共享数据模式的解决方案</strong></li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=MDc3ZjI2NTc4MWQ4YTQ0NWQzYjlkZGY4M2I0NTMxZWJfdnJwTFNCaE5LWld1QU9LMGlIU3pHcVN5Q3JOaEhzZUxfVG9rZW46RGpyc2IwbUVtb0tYc3N4NDZlRGNnNGFFbnFnXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ul>
+<li><strong>共享数据模式的概述图</strong></li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NDI5YzFjOGUzNjkzMDhhOTY0N2Y2YjY4ZjRmYTViMzhfN282Q3R6NXNCRVZQc3k0ZHY2TDdBWEJPTXdnd0J5SkhfVG9rZW46UW1LTmJmTUxsb1hkaUx4MWUzZ2N5elFtbnBnXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h4 id="Allocation-Patterns"><a href="#Allocation-Patterns" class="headerlink" title="Allocation Patterns"></a>Allocation Patterns</h4><p>Map-reduce pattern, Multi-tier pattern</p>
+<h5 id="映射-规约模式-Map-Reduce-Pattern"><a href="#映射-规约模式-Map-Reduce-Pattern" class="headerlink" title="映射-规约模式 Map-Reduce Pattern"></a>映射-规约模式 Map-Reduce Pattern</h5><p>Map 负责对数据进行抽取所需的信息，完成信息转换。可以有很多个 Map，每个 Map 处理的数据工作内容不一样，他们互相独立运行。Reduce 负责进行合并，产出最终的答案。</p>
+<p>典型示例（词频统计）：每个 Partition 对应一个 Map，每个 Map 分别完成词汇词频的统计，最后有 Reduce 合并后进行排序。</p>
+<blockquote>
+<p>Context：企业需要快速分析他们产生或访问的大量数据。</p>
+</blockquote>
+<p><strong>缺点</strong>：如果没有足够大的数据集，那么 Map-Reduce 的开销是不能被接受的；如果不能将数据集切分成相似大小，那么并行的好处会消失；多次归纳是难以编排的。 </p>
+<ul>
+<li><strong>Map-Reduce Pattern 的解决方案</strong></li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NjQ1ZDc0YjljYzliZWQ1NWQ4YjM1MDNkODQ0NTAyN2JfZmxadkRRWXREMFhVUVNwREJiQmQycmdNNXlseU84blFfVG9rZW46QThvVWJkdlNzb1BvU0J4Njh4cWNVbDNObkJnXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ul>
+<li><strong>Map-Reduce Pattern 的概述图</strong></li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=Y2IwYjQ1ZTNlYjdmYmE2OTIwNzliZGM1MjMwMThmNTJfZ055dDV5SDdzMTRVQzQ0QkRaQ1lpR2d1bUhvM1JyTHdfVG9rZW46R25UUWJsNVZzb0lmY3B4b2VRcWNORVZYbnJaXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h5 id="多层模式-Multi-Tier-Pattern"><a href="#多层模式-Multi-Tier-Pattern" class="headerlink" title="多层模式 Multi-Tier Pattern"></a>多层模式 Multi-Tier Pattern</h5><p>Layer 是真实存在的，这里的层是逻辑的组合，没有层次模式的强依赖关系，在不同的部署环境中分层不同，但是软件完成内容一致。</p>
+<p>许多系统的执行结构被组织成一组逻辑组件。每个分组被称为一个层。将组件分组到层中可能基于各种标准，例如组件的类型、共享相同的执行环境或具有相同的运行时目的。</p>
+<blockquote>
+<p>Context：分布式部署中，通常需要将系统的基础设施分发到不同的子集中。</p>
+<p>Problem：如何将系统分割成一些计算上独立的结构。</p>
+<p>Solution：许多系统的执行结构被组织成一组逻辑组件，每个分组被称为一个层。层，是一个软件组件的逻辑分组。</p>
+</blockquote>
+<p><strong>上下文</strong>：旅行社。</p>
+<p><strong>缺点</strong>：大量的前期成本和复杂性。</p>
+<ul>
+<li><strong>多层模式的解决方案</strong></li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=MTYxNDM3NmExMmFlNzQ2ZDMzNzBhYTcwNWQwZmY5NTNfVEVJRk43b2RESEZROXpUVXdWb2FZUnd6YUJSTGNpRlJfVG9rZW46S0w4OGJoZVBkb2NSdDJ4SGJOMWNsUGpOblpnXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ul>
+<li><strong>多层模式的概述图</strong></li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NmFiOTNhZjkwZWFlYWFjNzgzNjM2YTgyYWEwMjU1Y2JfMGROaHNFY0FQRmx4MW1WV0JPeVd4YW4ycnFiRWFwcVNfVG9rZW46WVdXZGI1UWdKb1F1bXh4OXRkTmM4cDZGbkFiXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><strong>分层模式和多层模式的区别【2018】</strong></p>
+<ol>
+<li>分层模式是⼀种模块视图；多层模式是⼀种分配视图。</li>
+<li>分层强调的是单向的层与层之间的关系，每层是⼀个整体；多层的层是分组，将组件按照类型、环境等进行分类得到的分组，包含很多组件，允许相互访问</li>
+<li>分层强调的是代码的组织形式；多层强调的是代码的执行位置</li>
+<li>分层的每个层通常在同⼀机器运行；多层的每个层可能在不同的机器上运行</li>
+</ol>
+<h4 id="架构设计与策略具体应用"><a href="#架构设计与策略具体应用" class="headerlink" title="架构设计与策略具体应用"></a>架构设计与策略具体应用</h4><p>以 Layered Pattern 为例，目的是为了提高语义连贯性和限制依赖。系统设计全过程如下。首先目前系统如下所示：</p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=YzRiYjEyOGU4NWRhODA5MzgwNzIxNGZlOTNmYzc2YTNfNGJ4VklwMXFia1AxdTJqc2M5cWN6RjFPQ3FDMEw2T0NfVG9rZW46THljQWJ3a0Yzb1lPcTZ4bXdLV2NHRGV3blVmXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p>椭圆形表示一个 Tactics，添加一个策略可能对某一个质量属性有贡献，但是会产生其他的负面影响（系统复杂度、资源影响、性能等）</p>
+<p>圆矩形表示添加策略后可能会导致的影响&#x2F;后果。</p>
+<p>假设对性能非关注，那么我们进行单独的成本和资源利用率的设计考量如下：</p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NGU0MDFkZjZkZjY4NTA2NzhkZWIxNWUwNzUxYTBiZTRfR0VQWFpJa2R6QU1GdUY1UXRKSllubldHdElUUHRVNFNfVG9rZW46VUI2WGJybkJub2VidjF4MGljZGNGWGxhbnZjXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p>为了提高资源的利用率，引入调度机制，而一切设计的可行性判断是根据 ASR 进行（分解到负面影响系统可以忍受则停止、没有足够人力物力则停止），以上整个过程汇不断迭代知道妥协（每一个 Tactic 的引入都会增加系统复杂度和规模）。</p>
+<p>最终设计如下：</p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=MDgwNjNiZTk5NDFkZWQ0ZGViMDE2MzVjNzNjZDZlNWVfNEZsTlFoc25YbVJjRnFWVmV4MDh2eGlGeWV2RzBrM3pfVG9rZW46UlYxMmJleWN0b2JNZUJ4dFh6RGNoNjM4blNlXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h3 id="Patterns-vs-Tactics（模式-vs-战术）"><a href="#Patterns-vs-Tactics（模式-vs-战术）" class="headerlink" title="Patterns vs. Tactics（模式 vs. 战术）"></a>Patterns vs. Tactics（模式 vs. 战术）</h3><ol>
+<li>战术比模式简单</li>
+<li>战术是一种设计决策，而模式是一组设计决策的集合</li>
+<li>都是架构师的基础工具 </li>
+<li>战术是设计的建筑基石</li>
+<li>大多模式包含几个不同的战术。例如分层模式包含增加内聚，降低依赖的战术 </li>
+<li>大多数模式也会包含其他模式</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44202160/article/details/124076040">https://blog.csdn.net/qq_44202160/article/details/124076040</a></p>
+<p><strong>描述架构模式和战术的联系，列出4个战术名并描述他们的用途【2015】</strong></p>
+<p>架构模式：是在实践中反复发现的一套设计决策，具有允许重复使用的已知属性，并且描述了一类架构 </p>
+<p>战术：影响<strong>质量属性</strong>响应控制的设计决策，例如冗余。</p>
+<p>关系：</p>
+<ol>
+<li>战术是实现架构模式的具体方式，可以帮助开发人员更好地理解和应用架构模式</li>
+<li>大多数模式由几个不同的战术实现</li>
+<li>都是架构师的主要工具</li>
+<li>像模式一样，策略也可以由其他策略组成</li>
+</ol>
+<p>战术名：</p>
+<ol>
+<li>减小模块大小：用拆分模块的方式尽可能地控制包的大小，让每个包拥有的功能尽可能小，降低修改成本。</li>
+<li>延迟绑定：在生命周期中与初始定义阶段不同的阶段绑定某些参数的值，提高可修改性。</li>
+<li>检测攻击：通过检测入侵、检测服务拒绝、哈希校验等策略来检测攻击，提高安全性。</li>
+<li>限制复杂度：通过限制结构的复杂性来避免、减少或解决组件之间的依赖关系，提升可测试性。</li>
+</ol>
+<h2 id="4-Designing-Architecture"><a href="#4-Designing-Architecture" class="headerlink" title="4.Designing Architecture"></a>4.Designing Architecture</h2><p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=Zjg2MDQyYWEzMDgzYTI2NmMzYTBjMzA0ODljYjEzYjBfSzkwbTdzakNRdlJYUHhEc0g3YnVSRExQM29qaXlacUdfVG9rZW46SndJSGJtYmhBb0JoZU94cXN1eGNtbzl1bjJmXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h3 id="General-Design-Strategy-通用设计策略"><a href="#General-Design-Strategy-通用设计策略" class="headerlink" title="General Design Strategy 通用设计策略"></a>General Design Strategy 通用设计策略</h3><p>抽象、分解、分治、生成和测试、迭代、重用</p>
+<p>ADDGIR :D</p>
+<h3 id="Categories-of-design-decisions"><a href="#Categories-of-design-decisions" class="headerlink" title="Categories of design decisions"></a>Categories of design decisions</h3><p>职责、协调、数据、资源、元素映射、绑定时间、技术</p>
+<p><strong>软件设计的通用策略，并为每个战略给出简洁的软件架构示例（如ADD）【2022】【2021】【2017】【2019】TODO</strong></p>
+<ol>
+<li>抽象：使用抽象让设计师关注本身结构而不关心实现，比如将系统抽象为组件和连接件或抽象为模块。</li>
+<li>分解：针对某一个系统关注点分解后处理，比如将整个系统分解或将某个模块分解。</li>
+<li>分治：将每个模块分别处理</li>
+<li>生成与测试：将一个特定的设计看作是一个假设；根据测试路径生成测试用例。</li>
+<li>迭代与细化：使用迭代的方法，ADD方法多次迭代直到满足所有ASR</li>
+<li>复用元素：重用在设计过程中出现了可以复用的元素，重用现有架构</li>
+</ol>
+<h3 id="属性驱动设计（Attribute-Driven-Design，-ADD）"><a href="#属性驱动设计（Attribute-Driven-Design，-ADD）" class="headerlink" title="属性驱动设计（Attribute-Driven Design， ADD）"></a>属性驱动设计（Attribute-Driven Design， ADD）</h3><ol>
+<li><h4 id="ADD-的输入和输出"><a href="#ADD-的输入和输出" class="headerlink" title="ADD 的输入和输出"></a>ADD 的输入和输出</h4></li>
+</ol>
+<p><strong>ADD 的输入</strong>：需求</p>
+<p><strong>ADD 的输出</strong>：</p>
+<ol>
+<li>软件元素：完成各种决策和职责、定义属性并与其他软件元素相关以组成系统架构的计算或开发工件。</li>
+<li>角色：一组相关的职责。</li>
+<li>职责：软件提供的功能、数据或信息。</li>
+<li>属性：有关软件元素的附加信息。</li>
+<li>关系：两个软件元素之间如何相互关联和交互的定义。</li>
+</ol>
+<p>简单记忆：元素和元素之间的联系，职责和属性。</p>
+<ol>
+<li><h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4></li>
+</ol>
+<p><strong>step 1：确定有足够的需求信息</strong></p>
+<ul>
+<li>系统涉众已经根据业务和任务目标确定了需求的优先级，同时您可以确定设计期间需要重点关注的系统元素。</li>
+<li>确认是否有关于系统质量属性要求的足够关系：刺激-反应图（Stimulus-Response）</li>
+</ul>
+<p><strong>step 2：选择要分解的系统要素</strong></p>
+<ul>
+<li>如果是第一次设计未开发的系统时，需要将全部需求分配给系统。</li>
+<li>如果是完善部分设计的系统时（系统已经被划分为多个元素，并分配需求），则从上述元素中选择一个元素作为关注点。</li>
+</ul>
+<p><strong>step 3：确定所选元素的 ASR</strong></p>
+<p>根据每个需求对涉众的重要程度（高、中或低），以及对架构的潜在影响（高、中或低）对所有的需求进行排名，得到（H,H）等二元组。</p>
+<p><strong>step 4：选择符合 ASR 的设计</strong></p>
+<p> <strong>step 4.1：找出设计问题</strong></p>
+<p> 如何解决设计中的 ASR？如何将关注点划分为几个子关注点？</p>
+<p> <strong>step 4.2：列出子关注点替代模式&#x2F;策略</strong></p>
+<p> 对于列表中的每个模式，都应该识别每个区分模式的区分参数（帮助在模式和策略中选择）、估计区分参数的值。 </p>
+<p> <strong>step 4.3：从清单中选择模式&#x2F;策略</strong> </p>
+<p> 使用每种模式时有哪些权衡？模式之间的结合程度如何？是否有任何模式互斥？</p>
+<p> <strong>step 4.4：确定模式&#x2F;策略与 ASR 之间的关系</strong></p>
+<p> 考虑到目前为止确定的模式&#x2F;策略，并确定他们之间的关系（使用表格描述），所选的模式的组合可能会构成新的模式。</p>
+<p> <strong>step 4.5：记录初步的架构视图</strong></p>
+<p> 通过开始记录不同的架构视图来描述模式，但不要求在此阶段创建完整记录的架构视图。 </p>
+<p> <strong>step 4.6：评估并解决不一致问题</strong></p>
+<p> 根据架构驱动来评估设计的合理性</p>
+<p> 确定是否有架构驱动没有被考虑到</p>
+<p> 评估替代模式或者使用其他策略</p>
+<p> 将当前元素设计与体系结构中其他元素的设计进行评估，并解决所有的不一致。</p>
+<p><strong>step 5：实例化架构元素并分配职责</strong></p>
+<ul>
+<li>实例化每一个所选的元素的实例</li>
+<li>根据子元素类型来分配具体的职责</li>
+<li>在子元素之间分配与父元素相关联的职责</li>
+<li>分析并记录所做的设计决策</li>
+</ul>
+<p><strong>step 6：为实例化元素定义接口</strong></p>
+<p>接口描述了提供（Provide）和需要（Requires）两种假设，即软件元素之间的互相联系，可以通过功能要求、观察信息传递消耗等方法。</p>
+<p><strong>step 7：验证和完善需求</strong></p>
+<ul>
+<li>验证分配给父元素的所有需求是否被分配给一个或多个子元素。</li>
+<li>将分配给子元素的所有的职责转换为各个元素的功能需求。</li>
+</ul>
+<p><strong>step 8：重复进行2-7，直到满足所有的 ASR</strong></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=MjI1NGU1MjFhNWQ0YzZiZjRjMDM2NDYzODRjNjg3MThfV1o0WDJOWXVvQ1dPaEYzeW1OM0MwZ3A0ZFY0blFOdWlfVG9rZW46UjJlS2JPb0I2b0ZSaXp4Q2p2VWNsdXVPbjhjXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h2 id="5-Documenting-Architecture"><a href="#5-Documenting-Architecture" class="headerlink" title="5.Documenting Architecture"></a>5.Documenting Architecture</h2><p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NDY1NTBlZjIyNzA3YmFiNzUyYTg2MjBmOTJmNWE2ZWNfWHpnZTFwZzFPR0lrZUJyN1M4WW8wRTVhNUh5M0RmTkpfVG9rZW46V0tIdWJYQmlpb0NoQnN4MWs3MmM2b1FjbkllXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><strong>Why to document software architecture?</strong></p>
+<ol>
+<li>交流和社交化架构设计决策</li>
+<li>帮助理解和评估架构设计决策</li>
+<li>刷新设计师对某些决策的记忆</li>
+<li>培训架构设计人员</li>
+<li>支持地理位置分散的团队</li>
+</ol>
+<ul>
+<li>used for several activities:<ul>
+<li>架构设计分析</li>
+<li>工作分解和分配</li>
+<li>部署后维护</li>
+</ul>
+</li>
+<li>软件架构文档提供了维护和修改决策的框架</li>
+</ul>
+<p><strong>Challenges in documenting architecture</strong></p>
+<ol>
+<li>没有普遍接受的记录软件架构的标准或方法</li>
+<li>记录大型系统的架构可能是一项耗时且重要的任务 </li>
+<li>对用于记录架构的视图的数量和性质没有达成共识，是资源密集型活动</li>
+<li>迫在眉睫的最后期限和不断发展的架构性质不利于架构文档的流通</li>
+<li>缺乏全面的符号和工具</li>
+</ol>
+<p><strong>What to document?</strong></p>
+<ol>
+<li>组件接口和依赖项</li>
+<li>子系统约束</li>
+<li>测试场景</li>
+<li>围绕设计决策的上下文信息</li>
+</ol>
+<p><strong>Factors affect the decision of what to document</strong></p>
+<ol>
+<li>被记录的架构的复杂性</li>
+<li>应用程序的寿命</li>
+<li>基于涉众对文档的预期使用</li>
+</ol>
+<p><strong>7 Rules for Architecture Documentation</strong></p>
+<ol>
+<li>从读者的角度撰写文档</li>
+<li>避免没有意义的重复</li>
+<li>避免模糊性</li>
+<li>使用标准的文档组织方式</li>
+<li>记录理由</li>
+<li>保持文档最新但不要太最新</li>
+<li>审查文件是否适合用途</li>
+</ol>
+<h3 id="Views"><a href="#Views" class="headerlink" title="Views"></a>Views</h3><p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=YWE3OTI0NzI4YWIwYjY3ZmI1NmFiMzQxMDA1Y2FkZWVfZ1R1TWZHbVhaczJhcnVyRENZcW96OU9sd1hBZUFkRXNfVG9rZW46V051RWJtTzZOb0ZpQ2t4STNQemNiYzgwblFjXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h4 id="Styles-vs-Patterns-vs-Views"><a href="#Styles-vs-Patterns-vs-Views" class="headerlink" title="Styles vs Patterns vs Views"></a>Styles vs Patterns vs Views</h4><ol>
+<li>架构风格<ol>
+<li>是元素和关系类型的特殊化，以及如何使用它们的一组约束</li>
+<li>不包含具体的上下文和问题，侧重于架构方法，对特定风格何时有用或无用提供更轻量级的指导</li>
+</ol>
+</li>
+<li>架构模式<ol>
+<li>表达了软件系统的基本结构组织模式</li>
+<li>重要部分是关注问题和上下文，以及如何应用上下文解决问题</li>
+<li>架构模式：{问题，上下文} —&gt; 架构方法</li>
+</ol>
+</li>
+<li>架构视图<ol>
+<li>是系统中特定类型的元素及其关系的表示</li>
+<li>视将系统的实体划分为有趣且易于管理的系统表示</li>
+<li>不同的视图支持不同的目标和用户，突出不同的系统元素和关系，同时在不同程度上暴露了不同的质量属性</li>
+</ol>
+</li>
+</ol>
+<p><strong>连线，为每个风格列出4个视图 【2015】【2017】【2018】【2019】</strong></p>
+<ol>
+<li>它如何被构造成⼀组实现单元？ Module styles<ol>
+<li>分解视图、使用视图、泛化视图、分层视图、领域视图、数据模型视图</li>
+</ol>
+</li>
+<li>它如何被构造成⼀组有运行时行为和交互的元素？Component-connector styles<ol>
+<li>管道-过滤器视图、客户机-服务端视图、点对点视图、面向服务架构视图、发布-订阅视图、共享数据视图、多层视图</li>
+</ol>
+</li>
+<li>它如何与它环境中的非软件结构关联？Allocation styles<ol>
+<li>部署视图、安装视图、工作安排视图、其他分配视图</li>
+</ol>
+</li>
+</ol>
+<p><strong>为什么软件系统架构需要使用不同视图来文档化？给出4种示例视图的名称和目的。【2022】【2018】【2015】****【2022】</strong></p>
+<p>视图是⼀组系统元素及其关系的表示，这些元素不⼀定是全部系统元素，而是<strong>特定类型</strong>的元素。视图让我们将系统实体划分成感兴趣和易于管理的系统表示。</p>
+<ul>
+<li>不同的视图支持不同的目标和用户，突出不同系统元素和关系。</li>
+<li>不同视图在不同程度上展现不同的质量属性</li>
+</ul>
+<ol>
+<li>Module view：一组连续的实现单元</li>
+<li>C&amp;C view：运行时行为和交互</li>
+<li>Allocation view：软件系统到非软件结构部分（开发环境、执行环境等）的映射</li>
+<li>Quality view：描述质量属性</li>
+<li>组合视图：上述的组合。（我记得后面说可以识别边缘视图，然后将边缘视图和它关联的其他视图组合起来）</li>
+</ol>
+<p>view包括哪5个部分：</p>
+<ul>
+<li>主要展示</li>
+<li>元素目录</li>
+<li>上下文图</li>
+<li>可变性指南</li>
+<li>缘由</li>
+</ul>
+<h4 id="Structural-views"><a href="#Structural-views" class="headerlink" title="Structural views"></a>Structural views</h4><h5 id="module-views"><a href="#module-views" class="headerlink" title="module views"></a>module views</h5><ul>
+<li>模块是提供一组连贯职责的实现单元，没有至少一个模块视图，任何软件架构的文档都不可能是完整的</li>
+</ul>
+<ol>
+<li>分解视图 Decomposition view</li>
+<li>使用视图 Uses view</li>
+<li>泛化视图 Generalization view</li>
+<li>分层视图 Layered view</li>
+<li>领域视图 Aspects View</li>
+<li>数据模型视图 Data model view</li>
+</ol>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NmUxZTkzMDQ3YTUxMTYzNzFhMGU5YzQ5MzljZWRiZTJfdmRDc3Zhb1RBWTk1M3NlZndHR0dwc1BRUGFCVkRzUzFfVG9rZW46UnFpaWJiN1Z0b0w0ajR4cDVnSWNyRlVybmNoXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h5 id="component-and-connector-views"><a href="#component-and-connector-views" class="headerlink" title="component-and-connector views"></a>component-and-connector views</h5><ul>
+<li>组件和连接器视图显示具有某些运行时存在的元素，例如进程、对象、客户端、服务器和数据存储（称为”组件”）</li>
+<li>附件指示哪些连接器连接到哪些组件，通过将连接器的端点连接到组件的端口来显示附件</li>
+</ul>
+<ol>
+<li>管道和过滤器视图 Pipe-and-filter view</li>
+<li>客户端-服务器视图 Client-server view</li>
+<li>点对点视图 Peer-to-peer view</li>
+<li>面向服务的架构 (SOA) 视图 Service-oriented architecture (SOA) view</li>
+<li>发布订阅视图 Publish-subscribe view</li>
+<li>共享数据视图 Shared-data view</li>
+<li>多层视图 Multi-tier view</li>
+</ol>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=MzYwZjk0OTM5YTk0MjYyODE5YjUyNmQ0ZjQxY2I3NzdfcWtid3JHNGdUSlVJMHFsQmFTbnNFRWY4bmNwUXhjUzZfVG9rZW46VndxTmJtanFWb3dlV2x4bTBXUWNDV0tZbktmXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h5 id="allocation-views"><a href="#allocation-views" class="headerlink" title="allocation views"></a>allocation views</h5><ul>
+<li>描述了软件单元到软件开发或执行环境元素的映射</li>
+<li>通常目标是将软件元素所需的属性与环境元素提供的属性进行比较，以确定分配是否成功</li>
+<li>可以描绘静态或动态视图</li>
+</ul>
+<ol>
+<li>部署视图 Deployment view</li>
+<li>安装视图 Install view</li>
+<li>工作分配视图 Work assignment view</li>
+<li>其他分配视图 Other allocation views</li>
+</ol>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=OTkxZDZiMDMyOGEwNTZiZDMyYTdhZWQ1ZTdiYzBjZDZfYmFhbjNnSVJ0S0ZDdFBNMHBTb2pzSU12SmluV2NNWHJfVG9rZW46TnpCemJMcTVub0hrUWh4M0FLZWNsSTVUbk1mXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDBlMWEwN2ZhMjE0NmU5YjM0YjUyOTM2ZTdmYjhjZTNfT2FnR20zakxIZEdkQTBzeVlDUnZacVFPeVpBcUE0ZEtfVG9rZW46SGZITGJCMWNqb0hrTDd4bktPMGNKVDA0bkpnXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h4 id="Quality-views"><a href="#Quality-views" class="headerlink" title="Quality views"></a>Quality views</h4><ol>
+<li>安全视图 Security view</li>
+<li>性能视图 Performance view</li>
+<li>可靠性视图 Reliability view</li>
+<li>沟通视图 Communication View</li>
+<li>异常(错误处理)视图 Exception view (error-handling) view</li>
+</ol>
+<h3 id="Documenting-views-3-step-for-choosing-views"><a href="#Documenting-views-3-step-for-choosing-views" class="headerlink" title="Documenting views: 3-step for choosing views"></a>Documenting views: 3-step for choosing views</h3><ol>
+<li>构建涉众&#x2F;视图表</li>
+<li>合并视图<ol>
+<li>识別上表中的边缘视图</li>
+<li>通过关联一个视图中的元素和另一个视图中的元素，将每个边缘视图与另一个具有更强选区的视图相结合<ol>
+<li>例如：不同的C&amp;C视图之间；带有 SOA 或通信进程视图的部署视图之间；分解视图和工作分配、实施、使用或分层视图之间</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>确定优先级和阶段<ol>
+<li>分解视图</li>
+<li>80&#x2F;20原则</li>
+<li>按顺序完成所有视图</li>
+</ol>
+</li>
+</ol>
+<h3 id="Info-beyond-views"><a href="#Info-beyond-views" class="headerlink" title="Info.beyond views"></a>Info.beyond views</h3><p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTMxZTU2ZGVmMmYyNjUzMWRlNDFlMDhiMjFlYjUyMzdfUHBrZmM4eTFyZ0xBdDlpUjFwTXF2dzRGWjMzVHZsMHlfVG9rZW46U24yOGJXZlpqbzIxOTh4VjhkU2MyQjJDbjNmXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ol>
+<li>文档信息<ol>
+<li>Roadmap (文档路线图说明文档中的信息以及在哪里可以找到它)</li>
+<li>版本控制</li>
+</ol>
+</li>
+<li>架构信息(视图之间的映射)<ol>
+<li>系统概述</li>
+<li>视图之间的映射</li>
+<li>基本理论</li>
+<li>索引表、术语表、缩图词列表</li>
+</ol>
+</li>
+</ol>
+<h3 id="Documentation-package-View-Beyond"><a href="#Documentation-package-View-Beyond" class="headerlink" title="Documentation package &#x3D; View + Beyond"></a>Documentation package &#x3D; View + Beyond</h3><p>把所有views和beyond放在一起打包</p>
+<h2 id="6-Evaluating-Architecture"><a href="#6-Evaluating-Architecture" class="headerlink" title="6.Evaluating Architecture"></a>6.Evaluating Architecture</h2><p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=MzhhN2NmMTUzMGZiZDFkNGFkZjliMTEzNWJhYzM4OWNfUEtrWTJGelN1Q1hyUjdRc3R4MlQwM0JTNkh4MkJra1RfVG9rZW46S2w2NmJraEhIb3Q3d2V4RHZ4eGNaeWlMbmZmXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h3 id="Architecture-analysis-evaluation-methods"><a href="#Architecture-analysis-evaluation-methods" class="headerlink" title="Architecture analysis &amp; evaluation methods"></a>Architecture analysis &amp; evaluation methods</h3><p><strong>Why to evaluate architecture?</strong> </p>
+<ol>
+<li>大型项目经常延迟交付(设计失败)和超出预算(商业组件COTS不能按照预期运行)</li>
+<li>项目后期需要大量的返工<ol>
+<li>团队成员没有考虑</li>
+<li>缺少可以尽早发现问题的专家</li>
+<li>有代价</li>
+</ol>
+</li>
+<li>架构评估有助于缓解这些问题<ol>
+<li>彻底评估商业组件的稳定性</li>
+<li>在问题修复成本较高前识別问题<ol>
+<li>设计缺陷</li>
+<li>没有考虑到的商业组件行为</li>
+<li>商业组件对整体系统架构不匹配</li>
+</ol>
+</li>
+<li>通知管理层，以方便他们做出更好的决策</li>
+</ol>
+</li>
+<li>传播架构&#x2F;设计最佳实践</li>
+<li>提供更好的技术和项目信息给管理层</li>
+<li>确定通过培训可以对常见问题领域产生广泛影响的领域 </li>
+<li>改善与商业组件供应商的互动</li>
+</ol>
+<p><strong>When to evaluate an architecture?</strong></p>
+<ol>
+<li>期望选择不合适的商业组件最小风险时、涉及收购方和供应商(有明显的警告)时</li>
+<li>演化&#x2F;升级时：评估变化的影响</li>
+<li>设计时：新架构适合需求的早期”验证”</li>
+<li>构建时：实际架构是否按预期构建、是否被很好的构建 </li>
+<li>总是尽早地进行评估，为什么？：<ol>
+<li>还有时间来修复</li>
+<li>修复错误的决定的成本相对比较小</li>
+<li>是最有效的质量保证和风险缓解技术之一</li>
+<li>这被认为是一种良好的商业惯例</li>
+</ol>
+</li>
+</ol>
+<p><strong>How to evaluate software architecture?</strong></p>
+<ol>
+<li>评估架构的系统方法需要一种有助于提出正确问题的方法：来发现风险、识别错误的架构决定和确保质量问题得到解决</li>
+<li>评估软件架构方法：<ol>
+<li>Software Architecture Analysis Method (SAAM)</li>
+<li>Architecture Level Modifiability Analysis (ALMA)</li>
+<li>Performance Assessment of Software Architecture (PASA)</li>
+<li>Architecture Trade-off Analysis Method (ATAM)</li>
+<li>这些方法都是基于场景的方法，因为质量属性是使用场景定义的</li>
+<li>场景被映射到架构组件上，以评估架构能力，以满足所需的质量属性</li>
+</ol>
+</li>
+</ol>
+<p><strong>How can a method be helpful?</strong></p>
+<ol>
+<li>帮助涉众尽早问正确的问题<ol>
+<li>识别风险：可能对所需质量属性产生负面影响的架构决策</li>
+<li>发现敏感点：特定质量属性对其敏感的架构决策</li>
+<li>发现权衡：影响多个质量属性的架构决策</li>
+</ol>
+</li>
+<li>发现趋势：架构决策与系统属性预测之间的相关性</li>
+<li>可以通过进一步分析、设计或原型制作来减轻风险</li>
+<li>所做的权衡和支持它们的理由可以适当地记录下来以备将来参考</li>
+</ol>
+<p><strong>Analysis Methods for Evaluation</strong></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NzA2OGUwNzI2OTQ4NTA2M2UxYTFhZDZjOGVjMTIxNzZfQVV2N3RRWUFwTTJFQ0l6aE1NSzNxZUVMbmVmdGxRalJfVG9rZW46TVNGc2JRVDhsb09tcll4SjJlWmNjcnFobjVmXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><strong>Evaluate Forms(participants)</strong></p>
+<p>评估者是可以发现最佳实践的专家，且拥有不同项目的广阔视野</p>
+<p>设计过程中：</p>
+<ol>
+<li>设计师评估：使用“生成-测试”方法</li>
+<li>同行评估<ol>
+<li>审查者：确定许多质量属性方案来推动审查</li>
+<li>架构师：介绍要评估的架构部分</li>
+<li>设计人员：对于每个场景，遍历架构并解释如何满足场景</li>
+<li>潜在的问题被捕获</li>
+</ol>
+</li>
+</ol>
+<p>架构设计完成后：外部人员进行评估</p>
+<h3 id="ATAM-Architecture-Tradeoff-Analysis-Method"><a href="#ATAM-Architecture-Tradeoff-Analysis-Method" class="headerlink" title="ATAM: Architecture Tradeoff Analysis Method"></a>ATAM: Architecture Tradeoff Analysis Method</h3><h4 id="Phase-0-Partnership-preparation-准备和建立团队"><a href="#Phase-0-Partnership-preparation-准备和建立团队" class="headerlink" title="Phase 0: Partnership &amp; preparation 准备和建立团队"></a>Phase 0: Partnership &amp; preparation 准备和建立团队</h4><ul>
+<li>参与者：评估团队领导和关键项目决策者</li>
+<li>输入：架构设计文档</li>
+<li>输出：评估计划<ul>
+<li>Who? 涉众的初步名单</li>
+<li>When? Where? and How?</li>
+<li>什么时候评估报告被送给谁？</li>
+<li>评估报告中应该包含什么信息？</li>
+</ul>
+</li>
+</ul>
+<h4 id="Phase-1-Evaluation-1"><a href="#Phase-1-Evaluation-1" class="headerlink" title="Phase 1: Evaluation-1"></a>Phase 1: Evaluation-1</h4><ul>
+<li>参与者：评估团队和项目决策者</li>
+<li>评估步骤：step1-6</li>
+<li>输出：<ul>
+<li>架构的简明介绍</li>
+<li>业务目标（驱动因素）的说明</li>
+<li>作为场景实现的特定质量属性要求的优先列表</li>
+<li>效用树 utility tree</li>
+<li>风险和无风险</li>
+<li>敏感点和权衡点</li>
+</ul>
+</li>
+</ul>
+<h4 id="Phase-2-Evaluation-2"><a href="#Phase-2-Evaluation-2" class="headerlink" title="Phase 2: Evaluation-2"></a>Phase 2: Evaluation-2</h4><ul>
+<li>参与者：评估团队，项目决策者和架构涉众</li>
+<li>评估步骤：step(1), 7-9</li>
+<li>输出：<ul>
+<li>涉众社区的优先场景列表</li>
+<li>风险主题和业务驱动因素各自受到的威胁</li>
+</ul>
+</li>
+</ul>
+<h4 id="Phase-3-Follow-up"><a href="#Phase-3-Follow-up" class="headerlink" title="Phase 3: Follow-up"></a>Phase 3: Follow-up</h4><ul>
+<li>参与者：评估团队和主要涉众(评估客户)</li>
+<li>评估过程：评估团队制作一份书面最终报告，分发给主要涉众以供审核，审查结束后，将报告提交给委托评估的人。</li>
+<li>输出：最终评估报告</li>
+</ul>
+<h4 id="Steps"><a href="#Steps" class="headerlink" title="Steps"></a>Steps</h4><p><strong>Step1 介绍ATAM  - Present the ATAM</strong></p>
+<p>评估负责人向集合的项目代表（”决策者”）简要介绍 ATAM，让他们了解评估的过程和输出</p>
+<p>The evaluation leader presents the ATAM in brief to assembled project representatives (‘decision makers’) for their understanding of the process and outputs of the evaluation</p>
+<p><strong>Step2 介绍业务驱动因素 - Present the Business Driver</strong></p>
+<p>项目经理或系统的客户从业务角度呈现系统概览，描述</p>
+<p>Project manager or system’s customer presents a system overview from a business perspective, describing:</p>
+<ol>
+<li>它最重要的功能需求 its most important functional requirements</li>
+<li>其技术、管理、经济或政治限制 its technical, managerial, economic, or political constraints</li>
+<li>其商业目标和上下文 its business goals and context</li>
+<li>其主要涉众 its major stakeholders</li>
+<li>架构驱动因素（塑造架构的主要质量属性目标）the architectural drivers (major quality attribute goals that shape the architecture)</li>
+</ol>
+<p><strong>Step3 展示架构 - Present the architecture</strong></p>
+<p>首席架构师在适当的细节级别上进行了描述架构的演示： The lead architect makes a presentation describing the architecture at an appropriate level of detail:</p>
+<ol>
+<li>技术限制，例如规定使用的操作系统、硬件或中间件 technical constraints such as an OS, hardware, or middleware prescribed for use</li>
+<li>系统必须与之交互的其他系统 other systems with which the system must interact</li>
+<li>用于满足质量属性要求的架构方法 architectural approaches used to meet quality attribute requirements</li>
+</ol>
+<p><strong>Step4 确定架构方法  - Identify Architectural Approaches</strong></p>
+<ul>
+<li>ATAM 专注于通过理解架构方法来分析架构。ATAM focuses on analyzing an architecture by understanding its architectural approaches.</li>
+<li>在这一步，评估团队：By this step, the evaluation team<ul>
+<li>研究了架构文档 have studied the architecture documentation</li>
+<li>听取了架构师的展示 have heard the architect’s presentation</li>
+<li>向架构师询问了设计系统时使用的模式和策略 have asked the architect about patterns and tactics used in designing the system</li>
+</ul>
+</li>
+<li>评估团队对已确定的架构方法（风格、模式和策略）进行编目。The evaluation team catalogs the architectural approaches (styles, patterns and tactics) that have been identified.</li>
+</ul>
+<p> <strong>Step5 生成质量属性效用树 - Generate Quality Attribute Utility Tree</strong></p>
+<ul>
+<li>这是指导其余分析的关键步骤。 This is a crucial step that guides the remainder of the analysis.</li>
+<li>评估团队与项目决策者合作，确定、确定和优化系统最重要的质量属性目标。The evaluation team works with the project decision makers to identify, prioritize and refine the system’s most important quality attribute goals.</li>
+<li>质量属性目标通过质量属性效用树详细阐述，该树通过精确定义相关质量属性需求使需求具体化。The quality attribute goals are articulated in detail via quality attribute utility tree that makes the requirements concrete by defining precisely the relevant quality attribute requirements.</li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=YjE4OTkwYmEzMWI4NDBkZGM2YzM4YjI2OGM5MjkwMjNfdGF2MktlTWJpdFIxNWhDZFRUOVF1R2t1aGVSVDUwb0RfVG9rZW46Sm84MmIwcGlUb3BoQk54eDUxQ2NTVFlKbm9nXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p> <strong>Step6 分析架构方法 - Analyze Architectural Approaches</strong></p>
+<ul>
+<li>目标是让评估团队确信该方法的实例化适合满足特定于属性的要求。The goal is for the evaluation team to be convinced that the instantiation of the approach is appropriate for meeting the attribute-specific requirements.</li>
+<li>评估团队通过要求架构师解释架构如何相互支持，一次检查排名最高的场景（来自效用树）。The evaluation team examines that the highest-ranked scenarios(from the utility tree) one at a time by asking the architect to explain how the architecture supports each other.</li>
+<li>评估团队记录相关的架构决策，并通过讨论识别和分类其风险、非风险、敏感点和权衡。The evaluation team documents the relevant architectural decisions and identifies and catalogs their risks, nonrisks, sensitivity points, and tradeoffs through a discussion.</li>
+<li>分析是为了引出足够的架构信息，以在已经做出的架构决策和需要满足的质量属性之间建立某种联系。The analysis is to elicit sufficient architectural information to establish some link between the architectural decisions that have been made and quality attributes that need to be satisfied.</li>
+<li>在这一步结束时，评估团队应该清楚地了解整个架构的最重要方面、关键设计决策的基本原理以及风险、非风险、敏感点和权衡点的列表。At the end of this step, the evaluation team should have a clear picture of the most important aspects of the entire architecture, the rationale for key design decisions, and a list of risks, nonrisks, sensitivity points, and tradeoff points.</li>
+</ul>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=YWEyMWRmMzJlNThhYWUwN2Y5Yjg2M2NjYmJkMGZhZTNfSzNvbDkxM2hRRUlxcWh0Z3V0MFcxR3VNZWpMRFpNS1lfVG9rZW46WlBWbmJTaTFTb2U5d0J4aDVTM2NZQklCbllmXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p> <strong>(Step-1) 展示ATAM和之前的结果: Present the ATAM &amp; Previous Results</strong></p>
+<ul>
+<li>重复步骤 1，以便涉众了解方法和他们将扮演的角色。 Step 1 is repeated so that the stakeholders understand the method and the roles they are to play.</li>
+<li>评估负责人总结第 2 步到第 6 步的结果，并分享输出（效用树除外）。The evaluation leader recaps the results of steps 2 through 6, and shares the outputs (except the utility tree).</li>
+</ul>
+<p><strong>Step-7 头脑风暴并确定场景的优先级: Brainstorm &amp; Prioritize Scenarios</strong></p>
+<ul>
+<li>此步骤的目的是把握更大的涉众社区的脉搏，以了解系统成功对他们意味着什么。The purpose of this step is to take the pulse of the larger stakeholder community to understand what system success means to them.</li>
+<li>评估团队要求涉众集思广益，就其个人角色而言，在操作上有意义的场景。The evaluation team asks the stakeholders to brainstorm scenarios that are operationally meaningful with respect to their individual roles.</li>
+<li>一旦收集了场景，就会要求涉众对他们认为代表行为或质量问题的场景进行优先级排序和合并。Once the scenarios have been collected, stakeholders are asked to prioritize and merge scenarios they feel represent the behavior or quality concern.</li>
+<li>将优先场景列表与效用树中的场景进行比较。The list of prioritized scenarios is compared with those from the utility tree.</li>
+<li>如果差异很大，则额外的情景可能被识别为风险。If the discrepancy is significant, the additional scenario may be identified as a risk.</li>
+</ul>
+<p><strong>Step-8 分析架构方法 : Analyze Architectual Approaches</strong></p>
+<ul>
+<li>在此步骤中，评估团队执行与步骤 6 中相同的活动，使用排名最高的（例如前 5 到 10）但新生成的场景。In this step, the evaluation team performs the same activities as in Step 6, using the highest ranked (e.g. top 5 to 10), but newly generated scenarios.</li>
+<li>架构师解释了相关的架构决策如何有助于实现每个决策。The architect explains how relevant architectural decisions contribute to realizing each one.</li>
+</ul>
+<p> <strong>Step-9 展示结果: Present Results</strong></p>
+<ul>
+<li>评估团队根据共同的潜在问题或系统性缺陷将风险分组为风险主题。The evaluation team groups the risks into risk themes, based on common underlying concern or systemic deficiency.</li>
+<li>然后，确定的风险主题与步骤 2 中列出的特定业务驱动因素相关。The identified risk themes are then related to specific business drivers listed in Step 2.</li>
+<li>从评估中收集的信息被总结并呈现给所有涉众：The collected information from evaluation is summarized and presented to all stakeholders:<ul>
+<li>记录的架构方法 The architectural approaches documented</li>
+<li>集思广益的场景集及其优先级 The set of scenarios and their prioritization from brainstorming</li>
+<li>实用树 The utility tree</li>
+<li>发现的风险和记录的非风险 The risks discovered and nonrisks documented</li>
+<li>发现的敏感因素和权衡因素 The sensitivity points and tradeoff points found</li>
+<li>风险主题和受威胁的业务驱动因素 Risk themes and the business drivers threatened by each one</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>ATAM 第 1 天的示例议程 Example Agenda for Day 1 for ATAM</li>
+</ol>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=OGNkZTg3NTdhZjE4NGIxZjJlZDk1ZGY1ZGEyYTdjMjVfelp1YmFJVEMyMHBaUGE3ZFVLdm5OM3pPejFMc3ZJTGNfVG9rZW46SXVtS2JDTFpGb2tDOXZ4bnQ3eWNVUWZlbktlXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><h5 id="Summary-of-ATAM-phases"><a href="#Summary-of-ATAM-phases" class="headerlink" title="Summary of ATAM phases"></a>Summary of ATAM phases</h5><p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=M2JkOGI2YzE4YTE0MzcyZTA4ZTQxNzViZGM3M2U2NWVfbXVRdmpjOE9UaG05WFVTczYybVNOeWtRUGE1VE4zT21fVG9rZW46UjZnTmJpRGRDb0hkV0N4TksybGNKWDcwbmhiXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h5 id="Summary-of-ATAM-Outputs"><a href="#Summary-of-ATAM-Outputs" class="headerlink" title="Summary of ATAM Outputs"></a>Summary of ATAM Outputs</h5><ol>
+<li>阶段-0：准备和建立团队(输入是架构设计文档)<ol>
+<li>评估计划</li>
+</ol>
+</li>
+<li>阶段-1：评估-1<ol>
+<li>架构的简明介绍</li>
+<li>业务目标（驱动因素）的阐释</li>
+<li>作为场景实现的特定质量属性要求的优先级列表</li>
+<li>Utility Tree 效用树</li>
+<li>风险和无风险点</li>
+<li>敏感和权衡点</li>
+</ol>
+</li>
+<li>阶段-2：评估-2<ol>
+<li>涉众们的优先级场景列表</li>
+<li>风险主题和业务驱动因素各自受到的威胁</li>
+</ol>
+</li>
+<li>阶段-3：后续<ol>
+<li>最终的评估报告</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<ol>
+<li>架构的简明展示</li>
+<li>业务目标的阐述</li>
+<li>表示为质量属性场景的优先质量属性要求</li>
+<li>质量属性效用树</li>
+<li>风险和非风险组</li>
+<li>风险主题组</li>
+<li>将架构决策映射到质量要求</li>
+<li>敏感度和权衡点组</li>
+<li>最终的评估报告</li>
+</ol>
+</blockquote>
+<h5 id="Lightweight-Architecture-Evaluation"><a href="#Lightweight-Architecture-Evaluation" class="headerlink" title="Lightweight Architecture Evaluation"></a>Lightweight Architecture Evaluation</h5><p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=ZGM4ODMzNjMyMGFmNDBkOWRkOTg2YTE1YmUxYWY3ODhfVXluTndvQ3BHd24yRVZjSlZ3WVlIakxVWWlMUUtQVDdfVG9rZW46SjJOeWJCYUxqb1V0ZHF4bm5WeWNORDU1bjFlXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h1 id="详细设计"><a href="#详细设计" class="headerlink" title="详细设计"></a>详细设计</h1><p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NTMwYTFjMjRkNjE2ZTUyMzk1NzU0NDNjZDcxNDFhOTVfb2R4TXFaSkVFMDNDa252czE5eUZGZFF3bllZV3BJaGJfVG9rZW46TGNXMGJOSGJxb0F2SHZ4clZCRWNScko2bnNnXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><p>依赖、关联、聚合、组合、泛化</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/K346K346/article/details/59582926">认识 UML 类关系——依赖、关联、聚合、组合、泛化_依赖关系-CSDN博客</a></p>
+<p>7大设计原则：单一职责原则、开闭原则、里氏替换原则、依赖倒转原则、接口隔离原则、合成复用原则、迪米特法则</p>
+<p><a target="_blank" rel="noopener" href="https://eaglebear2002.github.io/2023Spring-%E8%BD%AF%E4%BB%B6%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/%E8%BD%AF%E4%BB%B6%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1-01-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">软件详细设计-01-面向对象设计原则</a></p>
+<p>目标：开闭原则</p>
+<p>指导：最小知识原则</p>
+<p>基础：单一职责原则</p>
+<p>实现：依赖倒转、合成服用、里氏替换、接口隔离</p>
+<p>思考题：在 JDK 中，java.util.Stack 是 java.util.Vector 类的子类，该设计合理吗？若不合理，请分析解释该设计存在的问题。</p>
+<p>答：违反 LSP（里式代换原则）和合成复用</p>
+<p>【2021】依赖倒转原则是什么？如何反映在设计模式中？</p>
+<p>依赖倒转原则：高层模块不应该依赖于低层模块，而都应该依赖于抽象。抽象不应该依赖于具体，具体应该依赖于抽象。</p>
+<p>反映：</p>
+<ol>
+<li>策略</li>
+<li>工厂方法、抽象工厂</li>
+<li>模板方法</li>
+</ol>
+<p>【2022】Please explain the Liskov Substitution Principle and how it contributes to the Open closed Principle.</p>
+<p>所有引用父类的地方必须能透明引用子类的对象</p>
+<p>里式替换是是实现开闭原则的重要方式之一，因为开闭原则的关键步骤就是实现抽象化，而基类与子类的继承关系就是抽象化的具体实现。所以里氏代换原则是对实现抽象化的具体步骤的规范。</p>
+<h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><p>需要知道定义、使用环境、优缺点、符合的设计原则、uml、代码</p>
+<ol>
+<li><h3 id="策略模式-策略模式-菜鸟教程"><a href="#策略模式-策略模式-菜鸟教程" class="headerlink" title="策略模式 策略模式 | 菜鸟教程"></a>策略模式 <a target="_blank" rel="noopener" href="https://www.runoob.com/design-pattern/strategy-pattern.html">策略模式 | 菜鸟教程</a></h3><ol>
+<li>许多相关的类仅在行为上有所不同，策略提供了一种使用多种行为之一配置类的方法</li>
+<li>您需要算法的不同变体。例如，您可能定义了反映不同空间&#x2F;时间权衡的算法。将这些变体实现为算法的类层次结构时，可以使用策略。</li>
+<li>一种算法使用客户端不应该知道的数据。使用策略模式可避免暴露复杂的、特定于算法的数据结构</li>
+<li>一个类定义了许多行为，这些行为在其操作中显示为多个条件语句。代替许多条件，将相关的条件分支移到他们自己的策略类中。</li>
+</ol>
+<p> 很多问题都出现于数据结构被暴露：比如迭代器模式。</p>
+<p> 开闭、依赖倒转</p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=YWZmMTA5YjBiZDJjN2ZlNWMxY2JmMzYzMTA0MTk4NjFfQ1NvNU9nbmVSbzNxRU9FUjE2WWtLZHl2ZGJkVlpBajJfVG9rZW46SkhMemJzOGQxb1ZzbVV4WFZidmNjTElJbmtmXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+</li>
+<li><h3 id="状态模式-状态模式-State-CSDN博客"><a href="#状态模式-状态模式-State-CSDN博客" class="headerlink" title="状态模式 状态模式(State)-CSDN博客"></a>状态模式 <a target="_blank" rel="noopener" href="https://blog.csdn.net/wmj20001225/article/details/118324422">状态模式(State)-CSDN博客</a></h3></li>
+</ol>
+<p>在很多情况下，一个对象的行为取决于一个或多个动态变化的属性，这样的属性叫做状态，这样的对象叫做有状态的（stateful）对象，这样的对象状态是从事先定义好的一系列值中取出的。当一个这样的对象与外部事件产生互动时，其内部状态就会改变，从而使得系统的行为也随之发生变化。</p>
+<p>状态模式（State Pattern）：允许一个对象在其内部状态改变时改变它的行为，对象看起来似乎修改了它的类。其别名为状态对象（Objects for States），状态模式是一种对象行为型模式。</p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NTZlNDcwODAwMTBiZjZlMzNmOGE5ZjMyNWYxOGExNGRfWjBZM2lmOEJBc1pXM3BpbjdMQlFwQmgwdmlReG1KcFRfVG9rZW46SHcycmJnWjJrbzF5NTB4dkI2a2NzMURPbk9mXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p> 在状态模式结构中需要理解环境类与抽象状态类的作用：</p>
+<ol>
+<li>环境类实际上就是拥有状态的对象，环境类有时候可以充当状态管理器（State Manager）的角色，可以在环境类中对状态进行切换操作。</li>
+<li>抽象状态类可以是抽象类，也可以是接口，不同状态类就是继承这个父类的不同子类，状态类的产生是由于环境类存在多个状态，同时还满足两个条件：这些状态经常需要切换，在不同的状态下对象的行为不同。因此可以将不同对象下的行为单独提取出来封装在具体的状态类中，使得环境类对象在其内部状态改变时可以改变它的行为，对象看起来似乎修改了它的类，而实际上是由于切换到不同的具体状态类实现的。由于环境类可以设置为任一具体状态类，因此它针对抽象状态类进行编程，在程序运行时可以将任一具体状态类的对象设置到环境类中，从而使得环境类可以改变内部状态，并且改变行为。</li>
+</ol>
+<p> 状态模式对“开闭原则”的支持并不太好，对于可以切换状态的状态模式，增加新的状态类需要修改那些负责状态转换的源代码，否则无法切换到新增状态；而且修改某个状态类的行为也需修改对应类的源代码。</p>
+<p> 简单状态模式VS可切换状态模式</p>
+<ol>
+<li><h3 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h3></li>
+</ol>
+<p>观察者模式（Observer Pattern）：定义对象间的一种一对多依赖关系，使得每当一个对象状态发生改变时，其相关依赖对象皆得到通知并被自动更新。</p>
+<p>观察者模式又叫做发布-订阅（Publish&#x2F;Subscribe）模式、模型-视图（Model&#x2F;View）模式、源-监听器（Source&#x2F;Listener）模式或从属者（Dependents）模式。观察者模式是一种对象行为型模式。</p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=YjVmZmNhZTQ0YWY4NDBjZmQ3OTc1ZTY1YWJjYTI3ODZfZmhDSGg4TWdVTGs3QkllQ1lhNktzanNycHlvOG1NdE1fVG9rZW46QmxkeGJxWFRkb3dKeGt4NHpmTmMwRG12blJlXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=MTRlNGViZjYyZjU4OGYzY2E4MDQ2ZTMyZWIzZDAxYmVfbTRZN2JpVUhJRVJIMjhRUEowOXhqaXJhYVdYNmJoVlZfVG9rZW46RzJwaWJteE9Nb3VySXF4TnhFZGNJb0pxbjNiXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p>在以下情况下可以使用观察者模式：</p>
+<ol>
+<li>一个抽象模型有两个方面，其中一个方面依赖于另一个方面。将这些方面封装在独立的对象中使它们可以各自独立地改变和复用。</li>
+<li>一个对象的改变将导致其他一个或多个对象也发生改变，而不知道具体有多少对象将发生改变，可以降低对象之间的耦合度。</li>
+<li>一个对象必须通知其他对象，而并不知道这些对象是谁。</li>
+<li>需要在系统中创建一个触发链，A 对象的行为将影响 B 对象，B 对象的行为将影响 C 对象……，可以使用观察者模式创建一种链式触发机制。</li>
+</ol>
+<p><strong>例子：天气预报系统</strong></p>
+<p><strong>背景：</strong> 一个天气预报系统中，天气数据（温度、湿度、气压等）变化时，需要通知多个显示设备（如手机应用、网页应用、LED显示屏等）更新显示。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">class WeatherData implements Subject &#123;</span><br><span class="line">    private List<span class="operator">&lt;</span>Observer<span class="operator">&gt;</span> observers;</span><br><span class="line">    private <span class="type">float</span> temperature;</span><br><span class="line">    private <span class="type">float</span> humidity;</span><br><span class="line">    private <span class="type">float</span> pressure;</span><br><span class="line"></span><br><span class="line">    public WeatherData() &#123;</span><br><span class="line">        observers <span class="operator">=</span> <span class="keyword">new</span> ArrayList<span class="operator">&lt;&gt;</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void registerObserver(Observer o) &#123;</span><br><span class="line">        observers.add(o);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void removeObserver(Observer o) &#123;</span><br><span class="line">        observers.remove(o);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void notifyObservers() &#123;</span><br><span class="line">        <span class="keyword">for</span> (Observer observer : observers) &#123;</span><br><span class="line">            observer.update(temperature, humidity, pressure);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void measurementsChanged() &#123;</span><br><span class="line">        notifyObservers();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setMeasurements(<span class="type">float</span> temperature, <span class="type">float</span> humidity, <span class="type">float</span> pressure) &#123;</span><br><span class="line">        this.temperature <span class="operator">=</span> temperature;</span><br><span class="line">        this.humidity <span class="operator">=</span> humidity;</span><br><span class="line">        this.pressure <span class="operator">=</span> pressure;</span><br><span class="line">        measurementsChanged();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class CurrentConditionsDisplay implements Observer &#123;</span><br><span class="line">    private <span class="type">float</span> temperature;</span><br><span class="line">    private <span class="type">float</span> humidity;</span><br><span class="line"></span><br><span class="line">    public CurrentConditionsDisplay(Subject weatherData) &#123;</span><br><span class="line">        weatherData.registerObserver(this);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void <span class="keyword">update</span>(<span class="type">float</span> temperature, <span class="type">float</span> humidity, <span class="type">float</span> pressure) &#123;</span><br><span class="line">        this.temperature <span class="operator">=</span> temperature;</span><br><span class="line">        this.humidity <span class="operator">=</span> humidity;</span><br><span class="line">        display();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void display() &#123;</span><br><span class="line">        System.out.println(&quot;Current conditions: &quot; <span class="operator">+</span> temperature <span class="operator">+</span> &quot;F degrees and &quot; <span class="operator">+</span> humidity <span class="operator">+</span> &quot;% humidity&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><h3 id="中介者模式"><a href="#中介者模式" class="headerlink" title="中介者模式"></a>中介者模式</h3></li>
+</ol>
+<p>中介者模式（Mediator Pattern）定义：用一个中介对象来封装一系列的对象交互，中介者使各对象不需要显式地相互引用，从而使其耦合松散，而且可以独立地改变它们之间的交互。中介者模式又称为调停者模式，它是一种对象行为型模式。</p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=ODQyN2E2MGY2OWYzYmY5NDU1YTBhMmQ1ZmQxN2U1YzZfZkJnVW5WVkpnQkxmS3VsTUI1aXBhMkhJR1pCdDlwaExfVG9rZW46UzlYZWJrT3ZKb2ZGZ0R4ZHJjWWNQdnFKbkhkXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=OWU2YzkyNGIzMmQxMTg1MGFiOTNhN2NmYjA0YmUzMTRfZXNEclQ2bXNJbW5vVWtjZnVVMllBRXRIc295Q2FUWXlfVG9rZW46T0E2RGJieG85b015aVJ4dUFTSGM4WUs4bnpnXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p>系统中对象之间存在复杂的引用关系，产生的相互依赖关系结构混乱且难以理解。</p>
+<p>一个对象由于引用了其他很多对象并且直接和这些对象通信，导致难以复用该对象。</p>
+<p>想通过一个中间类来封装多个类中的行为，而又不想生成太多的子类。可以通过引入中介者类来实现，在中介者中定义对象交互的公共行为，如果需要改变行为则可以增加新的中介者类。</p>
+<p>设计原则：迪米特法则！！！</p>
+<ol>
+<li><h3 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h3></li>
+</ol>
+<p>命令模式（Command Pattern）：将一个请求封装为一个对象，从而使我们可用不同的请求对客户进行参数化；对请求排队或者记录请求日志，以及支持可撤销的操作。命令模式是一种对象行为型模式，其别名为动作（Action）模式或事务（Transaction）模式。</p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjRmYzM5OWY5MDE3MzUzNWRkY2Q3OTc1MzhhMjE2MGJfUjQ2cldBWmZ6VzlFeVQwdDFxVm9URUNraFFMNG9zU2VfVG9rZW46QjZJd2JRMkJUbzg4MWt4Q0ZPUmNqNFphbnRjXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=YjkzYWNmOTNjNWU0NmUyOTdlODA0YmY4ODg2MThjZjNfRndGSDQ2QlEwdzVWMU5hUlA5S2hIN0tNMlRWNHF1Q0lfVG9rZW46RUIxZ2JoTENNb1J2eWp4MWlSUWNERnBjbnJNXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=Yzc1ODEwMDc3ZTg1OTRiYTk2N2Y0ODMzZWY3YWU2N2Jfb0RFeWNIMlVyd3c5Nkk2dnU2WW1FYkFxT3JyMjkzdUFfVG9rZW46T1hzSmJkVG1Ob2dNTzF4cEdaMGNkZWprbjFwXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=MzhlNzM3YjdkZWMyNGMwOWY2Yjk3NDQ5NzUwODEwZTdfdkh1STVGSzgyaUZGUk12dFJZNGxYQTBTdWUxd3NqN0JfVG9rZW46VVlnUGJJUmJBb1hIc1R4SHdjb2NBUHV0bnZiXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><strong>抽象方法</strong>：如果抽象类中包含抽象方法（没有具体实现的方法），那么继承这个抽象类的子类必须实现这些抽象方法。抽象方法以 <code>abstract</code> 关键字声明，并且没有方法体。</p>
+<p><strong>非抽象方法</strong>：对于非抽象方法（即有具体实现的方法），子类可以选择重写（Override）这些方法，也可以选择不重写，直接使用父类中的方法实现。</p>
+<p>符合哪些设计原则？不会</p>
+<p>【2021】组合命令（宏命令）</p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=ZWFkY2U0YWI1MDViM2Q4YWU3ZDAyNzkyM2E2ZTA0NWRfUWVrQ2NHaHFSbElwUkhoZDNsOTJxOHYyVG0ybWo1WnBfVG9rZW46Wk5HaWJuUnpybzAyeHh4VFBPMWNUbVRBbldiXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ol>
+<li><h3 id="模板方法模式"><a href="#模板方法模式" class="headerlink" title="模板方法模式"></a>模板方法模式</h3></li>
+</ol>
+<p>模板方法模式（Template Method Pattern）：定义一个操作中算法的骨架，而将一些步骤延迟到子类中，模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。模板方法是一种类行为型模式。</p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=YjlmMTE0M2QzNDdiOTg0ZjcyODk0MTc0ODZjY2QzNDRfamtEZE0wSUQ4anZSREl4TGt3NWowUTVzb0VwZVUxM21fVG9rZW46UmRtUGJrdVRzb2dhdlR4UjR2eGMwMFNBbjRjXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=MzQ1YmU4OTljZjZlM2UyOGI1ODc3ZmU0MzJhYmViYTFfWTFVV2pOWkEwYXhDNGc3Y25UemN1VDFEV2FKUDNlS2hfVG9rZW46SXJiQ2JRY2dJbzFrRHZ4U083eWNtaEt6bnliXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NTc3YmVhM2NiOWE5ZWQ4ZGI3ZWIwNDA3ZWE2YTBlYmRfSjdxNDE4bVJTeXc1emVTTUxmOE02bVl3ZG5xUkw3QXRfVG9rZW46UHNXZGJRb0tWb2ZFZmF4ZDJHSmN0TzJHbmRnXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p>相关内容：</p>
+<p>模板方法模式鼓励我们恰当使用继承，此模式可以用来改写一些拥有相同功能的相关类，将可复用的一般性的行为代码移到父类里面，而将特殊化的行为代码移到子类里面。这也进一步说明，虽然继承复用存在一些问题，但是在某些情况下还是可以给开发人员带来方便，模板方法模式就是体现继承优势的模式之一。</p>
+<p>在模板方法模式中，子类不显式调用父类的方法，而是通过覆盖父类的方法来实现某些具体的业务逻辑，父类控制对子类的调用，这种机制被称为好莱坞原则（Hollywood Principle），好莱坞原则的定义为：“不要给我们打电话，我们会给你打电话（Don‘t call us, we’ll call you）”。</p>
+<p>钩子方法：最简单的钩子方法就是空方法，也可以在钩子方法中定义一个默认的实现，如果子类不覆盖钩子方法，则执行父类的默认实现代码。</p>
+<p>在抽象类中定义一系列基本操作，这些基本操作可以是具体的，也可以是抽象的，同时，在抽象类中实现了一个模板方法，用于定义一个算法的骨架</p>
+<ol>
+<li><h3 id="外观模式"><a href="#外观模式" class="headerlink" title="外观模式"></a>外观模式</h3></li>
+</ol>
+<p>外观模式（Facade Pattern）：外部与一个子系统的通信必须通过一个统一的外观对象进行，为子系统中的一组接口提供一个一致的界面，外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。外观模式又称为门面模式，它是一种对象结构型模式。</p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NGE4MDQ0NGI5NTI0MGU2NzBjZmI0NzJkMWRhNjc5NWFfSlRnOTNTWmVORTZIbFpwN1d2eHY5eDFKRjhXMXJ5VXBfVG9rZW46T093ZmJPWDlXb3dXVzV4RUFpemMzaG55bmZiXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTYyMDQwOWFjMzNjM2ZiNjE4NTQ5ODljZTNkMDJjMDJfRUNycEhQRml5RGtadENVOHc5MGlXRDZyaFJPVDdOZHpfVG9rZW46UXA3aWJvRzI4b2R6d1l4TU9QY2NmWFM0blpmXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p>符合：单一职责原则&#x2F;迪米特法则</p>
+<p>违背：开闭原则</p>
+<p>模式适用环境：</p>
+<ol>
+<li><p>在以下情况下可以使用外观模式：</p>
+</li>
+<li><p>当要为一个复杂子系统提供一个简单接口时可以使用外观模式。该接口可以满足大多数用户的需求，而且用户也可以越过外观类直接访问子系统。</p>
+</li>
+<li><p>客户程序与多个子系统之间存在很大的依赖性。引入外观类将子系统与客户以及其他子系统解耦，可以提高子系统的独立性和可移植性。</p>
+</li>
+<li><p>在层次化结构中，可以使用外观模式定义系统中每一层的入口，层与层之间不直接产生联系，而通过外观类建立联系，降低层之间的耦合度。</p>
+</li>
+<li><h3 id="装饰模式"><a href="#装饰模式" class="headerlink" title="装饰模式"></a>装饰模式</h3></li>
+</ol>
+<p>装饰模式（Decorator Pattern）：动态地给一个对象增加一些额外的职责（Responsibility），就增加对象功能来说，装饰模式比生成子类实现更为灵活。其别名也可以称为包装器（Wrapper），与适配器模式的别名相同，但它们适用于不同的场合。根据翻译的不同，装饰模式也有人称之为“油漆工模式”，它是一种对象结构型模式。</p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=MzFjOTM0MmExY2ZlZmY3ZWQ3MzA4MGVlMDYyYTQwYWNfNnlnS3RHWFZpVTRJcDZzSm1hV0dTRlpRclpydlM4MnhfVG9rZW46WjF0bWJKSlpvb25XUFZ4OGJrSGNYQTJibkFmXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ol>
+<li><h3 id="组合模式"><a href="#组合模式" class="headerlink" title="组合模式"></a>组合模式</h3></li>
+</ol>
+<p>请看spricoder，太多了，重点理解递归</p>
+<p><a target="_blank" rel="noopener" href="https://eaglebear2002.github.io/2023Spring-%E8%BD%AF%E4%BB%B6%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/%E8%BD%AF%E4%BB%B6%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1-07-%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F%E5%92%8C%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/">软件详细设计-07-适配器模式和组合模式</a></p>
+<p>组合多个对象形成树形结构以表示“整体-部分”的结构层次。组合模式对单个对象（即叶子对象）和组合对象（即容器对象）的使用具有一致性</p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=MGIxOTVjM2I0NTM1OWYxYmY0MmE3M2VmZDk0NTIxNzhfWkhVelVzMWZSa0ZkYU93RThnUHVndk43Y1QybnJHSzlfVG9rZW46UnQ1ZGJnSWI0b29mS1V4SGRGSmNBNEpCblhoXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ol>
+<li><h3 id="适配器模式-类适配器-对象适配器"><a href="#适配器模式-类适配器-对象适配器" class="headerlink" title="适配器模式 类适配器&#x2F;对象适配器"></a>适配器模式 类适配器&#x2F;对象适配器</h3></li>
+</ol>
+<p>适配器模式（Adapter Pattern）：将一个接口转换成客户希望的另一个接口，适配器模式使接口不兼容的那些类可以一起工作，其别名为包装器（Wrapper）。适配器模式既可以作为类结构型模式，也可以作为对象结构型模式。</p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NGJhYWUwMWJjNjg5MzUxYjg2YmJlNDhiMWY2NWEwMTFfODAzMlVEZHNTVDFyYk5ieHlBOGFDbFllS1M0M2F1cHZfVG9rZW46RW5IUGJ4ZGcybzl5dDd4Nkg3VGNKTkp0bm1iXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=YzdiZDliMGFlMzkyNDBlMzQ3ZjVlNTUyNjY1NjBiZTNfY0xsR1pPM2ZLZ1JjYjhDTFM0NXNaRUNObkk1RGh3R1lfVG9rZW46QzFNUmI1SHhsb1hpbXR4UGR5VGNSOE9Wbk9iXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/design-pattern/adapter-pattern.html">适配器模式 | 菜鸟教程</a></p>
+<p>对象适配器模式中，依赖适配者；类适配器中，继承适配者类</p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=MGNkNDI1YjAwMWQ1Mzg3NjUzMzE4NGU1NzhhYTQyNjlfMUUwSHBTNWlCVzZwcUxXaGFucmNWdW1YRVExMmI2d2hfVG9rZW46UFVjM2I5TUhOb0ZnOVZ4cGxTRWNCeXdmblVDXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=MGY1ZjQ1YzMzYmNiZjFkZGNmOTJkNzgyZWE5MGQzYWFfN0hyZ2FIZ2dTTkhVa0tEcHRmMkF0ZFhGQ2tMYzRLdDlfVG9rZW46VkNmQmJKRkxQb3F4bzZ4ZTFoa2NHYU9MbjZmXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p>在以下情况下可以使用适配器模式：</p>
+<ol>
+<li>系统需要使用现有的类，而这些类的接口不符合系统的需要。</li>
+<li>想要建立一个可以重复使用的类，用于与一些彼此之间没有太大关联的一些类，包括一些可能在将来引进的类一起工作。</li>
+</ol>
+<p>注意和装饰者模式的区别</p>
+<ol>
+<li><h3 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h3></li>
+</ol>
+<p>原型模式是一种对象创建型模式，用原型实例指定创建对象的种类，并且通过复制这些原型创建新的对象。原型模式允许一个对象再创建另外一个可定制的对象，无须知道任何创建的细节。</p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NjVhZjJhMmNiNjI2NzU3YzBiMTEzZTIxMDhkYjg5Yjhfb1YxM0N0dGxjaXBkT3NSVEhxM1FhNDFjODFVaXQ0V1ZfVG9rZW46RlRHYmJHRURIb1Yybnl4ekdhT2NOVU5abkI1XzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=Mjg5ZGY0NzZkNjI1NmIyN2YwOWM1MGQ1MmY1Yjg1ZWVfdEpFeXU3a0NkeWo5OVdBQTlJZDB1MnRUTjVPcFcyVW1fVG9rZW46RVhCdmJYQzhzb0NFWHV4UTZBTWNiaG5Wbk1lXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ol>
+<li><h3 id="抽象工厂"><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h3></li>
+</ol>
+<p>抽象工厂模式（Abstract Factory Pattern）：提供一个创建一系列相关或相互依赖对象的接口，而无须指定它们具体的类。抽象工厂模式又称为 Kit 模式，属于对象创建型模式。</p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=MDZhMjVmOWI5ZjViZDAyOTBlM2ZmMzUzMWFkYjQwYjZfamU3ME1vT2RFc1hWYW51ZFdUSGZ0NVl4MW5Va2ZDRlpfVG9rZW46RkVDamJjejhHbzd4OEl4RHg4cmM4QkpRbm9nXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=YjUwZjY5Mzk3MDA3YjlkYWU2ZGRkYjFlNTdkNGUyODlfcDlLbVhOaDdBbzJ1Q0dRVE5NV0tJMDNWNVprR1Z2Ym1fVG9rZW46WTRYS2JoVEpBb1padHN4NUxKY2M0MGVSbnJmXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<ol>
+<li><h3 id="工厂方法"><a href="#工厂方法" class="headerlink" title="工厂方法"></a>工厂方法</h3></li>
+<li><p>工厂方法模式（Factory Method Pattern）又称为工厂模式，也叫虚拟构造器（Virtual Constructor）模式或者多态工厂（Polymorphic Factory）模式，它属于类创建型模式。</p>
+</li>
+<li><p>在工厂方法模式中，工厂父类负责定义创建产品对象的公共接口，而工厂子类则负责生成具体的产品对象，这样做的目的是将产品类的实例化操作延迟到工厂子类中完成，即通过工厂子类来确定究竟应该实例化哪一个具体产品类。</p>
+</li>
+</ol>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NzQ2MTQ2MTcxZDAzMmFlOGE2NjY4Y2Y5NTNiMWVkNGRfQTMyODNnbHExcDM1NlRYUDI4OWF1cG85TjltWHIySFVfVG9rZW46S3ZmMmJ3bWt2b2g1b3l4R0Y2MmNPWWhMbjBjXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=YTFjYmZiZjhhN2VkMjQzMTRlODNjNzUxNzJlMGIxYmNfNW1WN3IzTkVKakdlUWhNNUh3MW5WY1hWOFE5RTJXQWZfVG9rZW46VnZDY2Jwd1Ryb2xlc1Z4dkNFTmNuaUIybnViXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h2 id="应用场景专题-应该每年必考一道"><a href="#应用场景专题-应该每年必考一道" class="headerlink" title="应用场景专题 应该每年必考一道"></a>应用场景专题 应该每年必考一道</h2><h3 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h3><ol>
+<li>许多相关的类仅在行为上有所不同，策略提供了一种使用多种行为之一配置类的方法</li>
+<li>您需要算法的不同变体。例如，您可能定义了反映不同空间&#x2F;时间权衡的算法。将这些变体实现为算法的类层次结构时，可以使用策略。</li>
+<li>一种算法使用客户端不应该知道的数据。使用策略模式可避免暴露复杂的、特定于算法的数据结构</li>
+<li>一个类定义了许多行为，这些行为在其操作中显示为多个条件语句。代替许多条件，将相关的条件分支移到他们自己的策略类中。</li>
+</ol>
+<p>很多问题都出现于数据结构被暴露：比如迭代器模式。</p>
+<h3 id="状态模式"><a href="#状态模式" class="headerlink" title="状态模式"></a>状态模式</h3><ol>
+<li>对象的行为依赖于它的状态（属性）并且可以根据它的状态改变而改变它的相关行为。</li>
+<li>代码中包含大量与对象状态有关的条件语句，这些条件语句的出现，会导致代码的可维护性和灵活性变差，不能方便地增加和删除状态，使客户类与类库之间的耦合增强。在这些条件语句中包含了对象的行为，而且这些条件对应于对象的各种状态。</li>
+</ol>
+<h3 id="观察者模式-1"><a href="#观察者模式-1" class="headerlink" title="观察者模式"></a>观察者模式</h3><ol>
+<li>一个抽象模型有两个方面，其中一个方面依赖于另一个方面。将这些方面封装在独立的对象中使它们可以各自独立地改变和复用。</li>
+<li>一个对象的改变将导致其他一个或多个对象也发生改变，而不知道具体有多少对象将发生改变，可以降低对象之间的耦合度。</li>
+<li>一个对象必须通知其他对象，而并不知道这些对象是谁。</li>
+<li>需要在系统中创建一个触发链，A 对象的行为将影响 B 对象，B 对象的行为将影响 C 对象……，可以使用观察者模式创建一种链式触发机制。</li>
+</ol>
+<h3 id="中介者模式-1"><a href="#中介者模式-1" class="headerlink" title="中介者模式"></a>中介者模式</h3><ol>
+<li>系统中对象之间存在复杂的引用关系，产生的相互依赖关系结构混乱且难以理解。</li>
+<li>一个对象由于引用了其他很多对象并且直接和这些对象通信，导致难以复用该对象。</li>
+<li>想通过一个中间类来封装多个类中的行为，而又不想生成太多的子类。可以通过引入中介者类来实现，在中介者中定义对象交互的公共行为，如果需要改变行为则可以增加新的中介者类。</li>
+</ol>
+<h3 id="命令模式-1"><a href="#命令模式-1" class="headerlink" title="命令模式"></a>命令模式</h3><ol>
+<li>系统需要将请求调用者和请求接收者解耦，使得调用者和接收者不直接交互。</li>
+<li>系统需要在不同的时间指定请求、将请求排队和执行请求。</li>
+<li>系统需要支持命令的撤销（Undo）操作和恢复（Redo）操作。</li>
+<li>系统需要将一组操作组合在一起，即支持宏命令。</li>
+</ol>
+<h3 id="模板方法"><a href="#模板方法" class="headerlink" title="模板方法"></a>模板方法</h3><ol>
+<li>一次性实现一个算法的不变的部分，并将可变的行为留给子类来实现。</li>
+<li>各子类中公共的行为应被提取出来并集中到一个公共父类中以避免代码重复。</li>
+<li>对一些复杂的算法进行分割，将其算法中固定不变的部分设计为模板方法和父类具体方法，而一些可以改变的细节由其子类来实现。</li>
+<li>控制子类的扩展。</li>
+</ol>
+<h3 id="外观模式-1"><a href="#外观模式-1" class="headerlink" title="外观模式"></a>外观模式</h3><ol>
+<li>当要为一个复杂子系统提供一个简单接口时可以使用外观模式。该接口可以满足大多数用户的需求，而且用户也可以越过外观类直接访问子系统。</li>
+<li>客户程序与多个子系统之间存在很大的依赖性。引入外观类将子系统与客户以及其他子系统解耦，可以提高子系统的独立性和可移植性。</li>
+<li>在层次化结构中，可以使用外观模式定义系统中每一层的入口，层与层之间不直接产生联系，而通过外观类建立联系，降低层之间的耦合度。</li>
+</ol>
+<h3 id="装饰模式-1"><a href="#装饰模式-1" class="headerlink" title="装饰模式"></a>装饰模式</h3><ol>
+<li>在不影响其他对象的情况下，以动态、透明的方式给单个对象添加职责。</li>
+<li>需要动态地给一个对象增加功能，这些功能也可以动态地被撤销。</li>
+<li>当不能采用继承的方式对系统进行扩充或者采用继承不利于系统扩展和维护时。不能采用继承的情况主要有两类：第一类是系统中存在大量独立的扩展，为支持每一种组合将产生大量的子类，使得子类数目呈爆炸性增长；第二类是因为类定义不能继承（如 final 类）。</li>
+</ol>
+<h3 id="组合模式-1"><a href="#组合模式-1" class="headerlink" title="组合模式"></a>组合模式</h3><ol>
+<li>需要表示一个对象整体或部分层次，在具有整体和部分的层次结构中，希望通过一种方式忽略整体与部分的差异，可以一致地对待它们。</li>
+<li>让客户能够忽略不同对象层次的变化，客户端可以针对抽象构件编程，无须关心对象层次结构的细节。</li>
+<li>对象的结构是动态的并且复杂程度不一样，但客户需要一致地处理它们。</li>
+</ol>
+<h3 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h3><ol>
+<li>系统需要使用现有的类，而这些类的接口不符合系统的需要。</li>
+<li>想要建立一个可以重复使用的类，用于与一些彼此之间没有太大关联的一些类，包括一些可能在将来引进的类一起工作。</li>
+</ol>
+<h3 id="原型模式-1"><a href="#原型模式-1" class="headerlink" title="原型模式"></a>原型模式</h3><ol>
+<li>创建新对象成本较大，新的对象可以通过原型模式对已有对象进行复制来获得，如果是相似对象，则可以对其属性稍作修改。</li>
+<li>如果系统要保存对象的状态，而对象的状态变化很小，或者对象本身占内存不大的时候，也可以使用原型模式配合备忘录模式来应用。相反，如果对象的状态变化很大，或者对象占用的内存很大，那么采用状态模式会比原型模式更好。</li>
+<li>需要避免使用分层次的工厂类来创建分层次的对象，并且类的实例对象只有一个或很少的几个组合状态，通过复制原型对象得到新实例可能比使用构造函数创建一个新实例更加方便。</li>
+</ol>
+<h3 id="抽象工厂-1"><a href="#抽象工厂-1" class="headerlink" title="抽象工厂"></a>抽象工厂</h3><ol>
+<li>一个系统不应当依赖于产品类实例如何被创建、组合和表达的细节，这对于所有类型的工厂模式都是重要的。</li>
+<li>系统中有多于一个的产品族，而每次只使用其中某一产品族。</li>
+<li>属于同一个产品族的产品将在一起使用，这一约束必须在系统的设计中体现出来。</li>
+<li>系统提供一个产品类的库，所有的产品以同样的接口出现，从而使客户端不依赖于具体实现。</li>
+</ol>
+<h3 id="工厂方法-1"><a href="#工厂方法-1" class="headerlink" title="工厂方法"></a>工厂方法</h3><ol>
+<li>一个类不知道它所需要的对象的类：在工厂方法模式中，客户端不需要知道具体产品类的类名，只需要知道所对应的工厂即可，具体的产品对象由具体工厂类创建；客户端需要知道创建具体产品的工厂类。</li>
+<li>一个类通过其子类来指定创建哪个对象：在工厂方法模式中，对于抽象工厂类只需要提供一个创建产品的接口，而由其子类来确定具体要创建的对象，利用面向对象的多态性和里氏代换原则，在程序运行时，子类对象将覆盖父类对象，从而使得系统更容易扩展。</li>
+<li>将创建对象的任务委托给多个工厂子类中的某一个，客户端在使用时可以无须关心是哪一个工厂子类创建产品子类，需要时再动态指定，可将具体工厂类的类名存储在配置文件或数据库中。</li>
+<li>希望能够推迟创建的时候</li>
+</ol>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NmE5OTIxYWNkOGM2MTU3MzMzYjBkZGNlZTlmZWZhMWFfYzdIRk9zODNSZGNaNEIzTzNCazhKanRtTEw0R3RZRFVfVG9rZW46SDAzN2JrZnNkb1lNS1N4c0FTWGN1V3ZGbjRkXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=YTA2ODI0MWIyZmRjOTQ2Yjk2ZWJiNjhmOTkyYjJiMjZfOTBpa1M5b01NMEdOYk5XVm4xMjQ3R0l4WWxpV2wzcjFfVG9rZW46Q3hIOGJOYnI3b25UUU14RUluVWNaVDNjblhkXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=YmRhODhiMjkwYTE1YjZlM2U3MGUyMmJiYWMzYmViMzNfR0FLeUxaUjVMdG5HOWpjNlRNdDhwd1FIYUo2dUZ6SjBfVG9rZW46WWdUSGJtS29Ib2Zhc1N4Q3E5TmNQeXREblBlXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<h1 id="微服务架构"><a href="#微服务架构" class="headerlink" title="微服务架构"></a>微服务架构</h1><h2 id="1-基础知识"><a href="#1-基础知识" class="headerlink" title="1. 基础知识"></a>1. 基础知识</h2><p>定义：微服务架构是把应用程序<strong>功能性分解</strong>为一组服务的架构风格，每一个服务都是由一组<strong>专注、内聚</strong>的功能职责组成。</p>
+<p><strong>六大主要特性：</strong></p>
+<ol>
+<li>通过服务组件化</li>
+<li>内聚和解耦</li>
+<li>围绕业务能力组织</li>
+<li>去中心化</li>
+<li>基础设施自动化</li>
+<li>服务设计与演进</li>
+</ol>
+<p><strong>主要特性</strong></p>
+<ol>
+<li><strong>通过服务组件化</strong>：</li>
+</ol>
+<p>组件: 可以独立替换和升级的软件单元 </p>
+<p><strong>进程内组件</strong> </p>
+<ul>
+<li>类、对象或库的形式 </li>
+<li>一般直接调用、以内存方式进行功能调用(共享内存)</li>
+</ul>
+<p><strong>进程外组件</strong> </p>
+<ul>
+<li>微服务架构中的独立服务 </li>
+<li>实现组件化的方式是分解成服务 </li>
+<li>通过Web服务请求或 RPC机制通信 </li>
+<li>轻量级消息传递机制(如RabbitMQ) </li>
+<li>产生明确的组件发布接口，封装(区别于文档) </li>
+<li>耦合度低，隔离性好、独立开发、部署 </li>
+<li>远程调用性能损耗、合适的API粒度</li>
+</ul>
+<ol>
+<li><strong>围绕业务能力组织</strong>：</li>
+</ol>
+<p><strong>传统软件系统开发管理通常聚焦在技术层面</strong> </p>
+<ul>
+<li>UI团队、服务逻辑团队、数据库团队… </li>
+<li>跨团队的沟通、交接和预算审批等</li>
+</ul>
+<p><strong>采用围绕业务能力的划分方法</strong> </p>
+<ul>
+<li>服务业务领域内的宽栈实现</li>
+<li>团队跨职能、全方位开发技能</li>
+<li>如用户体验、数据库、项目管理……</li>
+</ul>
+<p><strong>采用产品开发模式</strong></p>
+<ul>
+<li>传统:项目模式,开发-维护，开发完解散</li>
+<li>开发团队负责软件的整个产品周期</li>
+<li>持续关注软件如何帮助用户提升业务能力，实现价值交付</li>
+</ul>
+<ol>
+<li><strong>内聚和解耦</strong>：</li>
+</ol>
+<p>内聚: 单一职责，有各自的领域逻辑</p>
+<p>解耦: 微服务间尽量减少直接依赖，独立自治。确定服务边界，使每个微服务负责独立的业务能力。业务功能分解；领域驱动设计</p>
+<ol>
+<li><strong>去中心化</strong>：</li>
+</ol>
+<p><strong>去中心化治理</strong></p>
+<ul>
+<li>构建微服务时可以有服务自己的技术栈选择 </li>
+<li>服务之间只需约定接口，无需关注内部实现 </li>
+<li>运维只需了解服务部署规范</li>
+</ul>
+<p><strong>去中心化数据存储</strong></p>
+<ul>
+<li>让每个微服务管理自己的数据库 </li>
+<li>或同一数据库技术的不同实例</li>
+<li>或完全不同的数据库系统</li>
+</ul>
+<p><strong>去中心化数据管理</strong></p>
+<ul>
+<li>传统架构采用事务保证数据一致性，分布式微服务架构中数据管理困难 </li>
+<li>强调服务间的无事务协作，最终一致性和补偿策略</li>
+<li>需权衡更大一致性的业务损失与修复错误的代价</li>
+</ul>
+<ol>
+<li><strong>基础设施自动化</strong>：</li>
+</ol>
+<p>依赖自动化的基础设施、降低了开发和运维微服务的操作复杂度。</p>
+<p>持续部署和交付: 编码、管理代码库、集成(构建、测试、打包)、部署、监控和运维 </p>
+<p>测试: 单元测试、集成测试、组件化测试、契约测试和端到端测试等 </p>
+<ol>
+<li><strong>服务设计与演进</strong>：</li>
+</ol>
+<p><strong>高可用设计</strong></p>
+<ul>
+<li>容忍服务失败，客户端须尽可能有效地做出响应</li>
+<li>完善的监控和日志记录，架构元素或业务指标、链路追踪 </li>
+<li>快速发现不良突发行为并尽早修复</li>
+</ul>
+<p><strong>演进式设计</strong></p>
+<ul>
+<li>传统架构软件变更难以预测且改造成本高昂 </li>
+<li>合理设计实现频繁、快速且控制良好的增量变更和演化 </li>
+<li>合适的服务解耦，只需重新部署修改的服务 </li>
+<li>变更频率不同，拆分(相同，合并) </li>
+<li>架构适应度函数(Architectural fitness function)</li>
+</ul>
+<h2 id="2-核心设计模式"><a href="#2-核心设计模式" class="headerlink" title="2.核心设计模式"></a>2.核心设计模式</h2><h3 id="2-1-微服务的拆分和定义"><a href="#2-1-微服务的拆分和定义" class="headerlink" title="2.1 微服务的拆分和定义"></a>2.1 微服务的拆分和定义</h3><p>关键步骤：</p>
+<ol>
+<li>定义系统操作</li>
+<li>定义微服务<ol>
+<li>根据<strong>业务能力</strong>进行服务拆分 </li>
+<li>根据<strong>子域</strong>进行服务拆分（通过领域驱动设计，类似于划分边界）</li>
+<li>根据<strong>动静态调用关系</strong>进行服务拆分</li>
+</ol>
+</li>
+<li>定义API和协作方式：将系统操作映射到服务，确定在处理每一个系统操作时，服务之间如何交互</li>
+</ol>
+<p>需求：</p>
+<ol>
+<li>基本原则：高内聚低耦合</li>
+<li>单一职责</li>
+<li>共同封闭：变更频率相同的，放在同一个服务里面</li>
+<li>双披萨团队开发：微服务数量不要太多，否则资源不够</li>
+<li>团队自治：独立和自我治理</li>
+</ol>
+<h3 id="2-2-进程间通信机制复杂性"><a href="#2-2-进程间通信机制复杂性" class="headerlink" title="2.2 进程间通信机制复杂性"></a>2.2 进程间通信机制复杂性</h3><p>进程间通信机制复杂性高于方法调用、局部故障</p>
+<p><strong>问题1：同步通信中避免故障蔓延到其他服务？</strong></p>
+<p>上下文：</p>
+<ul>
+<li>微服务，分布式，进程间调用</li>
+<li>服务请求可能面临局部故障（故障&#x2F;停机&#x2F;过载）</li>
+<li>同步通信客户端等待响应被阻塞，蔓延</li>
+</ul>
+<p>需求：</p>
+<ul>
+<li>处理网络超时&#x2F;无响应服务的能力</li>
+<li>限制客户端向服务器发出请求的数量</li>
+<li>决定如何从失败的远程服务中恢复</li>
+</ul>
+<p>模式：断路器。有闭合、断开、半断开状态，可以防止不断地尝试执行可能会失败的操作。</p>
+<p>相关模式：API网关模式、服务器端服务发现模式</p>
+<p><strong>问题2：客户端如何在网络上发现服务实例的位置？</strong></p>
+<p>上下文：</p>
+<ul>
+<li>不同微服务之间通常需要进程间调用</li>
+<li>在传统的分布式系统部署下，服务在固定且已知的位置（主机与端口）运行，从而确保各服务可利用REST或RPC机制进行相互调用</li>
+<li>微服务通常在虚拟化或者容器化环境中运行，服务实例数量和位置动态变化</li>
+</ul>
+<p>需求：</p>
+<ul>
+<li>每一服务实例的特定位置（主机与端口）信息</li>
+<li>服务端实例的具体数量及位置动态变化信息</li>
+<li>虚拟机与容器分配的动态IP地址信息</li>
+<li>服务实例的数量信息的（EC自动伸缩组会根据负载情况随时调整实例数量）</li>
+</ul>
+<p>模式：应用层服务发现模式</p>
+<p>相关模式：替代模式：平台层服务发现模式</p>
+<p><strong>问题3：如何处理外部客户端与服务之间的通讯？</strong></p>
+<p>上下文：</p>
+<ul>
+<li>多个版本客户端需要开发多个适配的用户界面</li>
+<li>产品信息通过API访问</li>
+<li>数据分布在多项服务之间</li>
+</ul>
+<p>需求：</p>
+<ul>
+<li>微服务通常提供的是细粒度API，客户端需要同多项服务进行交互</li>
+<li>不同客户端需要不同的数据（桌面浏览器版本通常较复杂</li>
+<li>不同客户端的网络性能亦有所区别（移动网络速度更慢）。服务器端Web应用能够向后端服务发送多条请求，不会影响用户体验，但移动客户端则只能发送少量请求</li>
+<li>服务实例数量与其位置（主机与端口）会发生动态变化</li>
+<li>服务的划分方式会随时间的推移而改变，且不应被客户端所感知</li>
+</ul>
+<p>模式：API Gateway模式&#x2F;后端前置模式</p>
+<p>相关模式：后续模式：断路器模式、服务发现模式&#x2F;API Gateway模式</p>
+<h3 id="2-3-部署复杂性"><a href="#2-3-部署复杂性" class="headerlink" title="2.3 部署复杂性"></a>2.3 部署复杂性</h3><p>技术异构、相互隔离、经济高效</p>
+<p><strong>上下文</strong></p>
+<ul>
+<li>微服务架构包含一组服务</li>
+<li>每个服务都部署为一组服务实例，以实现吞吐量和可用性</li>
+</ul>
+<p><strong>问题</strong>:如何部署以解决以下需求?</p>
+<ul>
+<li>服务使用各种语言、框架和框架版本编写 </li>
+<li>需要快速构建、独立部署和扩展服务</li>
+<li>服务实例需相互隔离</li>
+<li>需限制服务消耗的资源(CPU 和内存) </li>
+<li>尽可能经济高效地部署应用程序</li>
+</ul>
+<h4 id="模式列表"><a href="#模式列表" class="headerlink" title="模式列表:"></a><strong>模式列表</strong>:</h4><ol>
+<li><h4 id="单主机部署多个服务实例"><a href="#单主机部署多个服务实例" class="headerlink" title="单主机部署多个服务实例"></a>单主机部署多个服务实例</h4></li>
+</ol>
+<p>• 资源需求冲突的风险</p>
+<p>• 在主机(物理机或虚拟机)上运行不同服务的多个实例。</p>
+<p>• 有多种方法可以在共享主机上部署服务实例，包括: </p>
+<p>• 将每个服务实例部署为一个 JVM 进程。例如，每 个服务实例一个 Tomcat 或 Jetty 实例。 </p>
+<p>• 在同一个 JVM 中部署多个服务实例。例如，作为 Web 应用程序或 OSGI 包。 </p>
+<p>优点：</p>
+<ul>
+<li>资源利用率相对较高</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>资源需求冲突的风险 </li>
+<li>依赖版本冲突的风险 </li>
+<li>难以限制服务实例消耗的资源 </li>
+<li>在同一个进程中部署多个服务实例，很难监控每个服务实例的资源消耗，也不可能隔离每个实例</li>
+</ul>
+<p><strong>相关模式:</strong></p>
+<p>替代模式:单主机部署单个服务实例 </p>
+<ol>
+<li><h4 id="单主机部署单个服务实例"><a href="#单主机部署单个服务实例" class="headerlink" title="单主机部署单个服务实例"></a>单主机部署单个服务实例</h4></li>
+</ol>
+<p>在自己的主机上部署单个服务实例</p>
+<p><strong>优点:</strong> </p>
+<ul>
+<li>服务实例彼此隔离</li>
+<li>不存在资源需求或依赖版本冲突的可能性</li>
+<li>一个服务实例最多只能消耗单个主机的资源</li>
+<li>监控、管理和重新部署每个服务实例非常简单</li>
+</ul>
+<p><strong>缺点:</strong></p>
+<ul>
+<li>与单主机部署多个服务实例模式相比，资源利用效率可能较低，因为主机更多</li>
+</ul>
+<p><strong>相关模式:</strong></p>
+<p>替代模式:单主机部署多个服务实例、无服务器部署 </p>
+<p>特化模式:将服务部署到虚拟机、将服务部署到容器 </p>
+<ol>
+<li><h4 id="将服务部署到虚拟机"><a href="#将服务部署到虚拟机" class="headerlink" title="将服务部署到虚拟机"></a>将服务部署到虚拟机</h4></li>
+</ol>
+<p>将服务打包为虚拟机镜像，并将每个服务实例部署为单独的VM </p>
+<p><strong>优点:</strong> </p>
+<ul>
+<li>通过增加实例数量来扩展服务很简单。Amazon Autoscaling </li>
+<li>Groups 可以根据负载自动执行此操作 </li>
+<li>VM 封装了用于构建服务的技术细节，例如所有服务都以完全相同的方式启动和停止 </li>
+<li>每个服务实例都是隔离的 </li>
+<li>VM 对服务实例消耗的 CPU 和内存施加限制 </li>
+<li>AWS 等 IaaS 解决方案为部署和管理虚拟机提供了成熟且功能丰富的基础设施，如弹性负载均衡器、自动缩放组</li>
+</ul>
+<p><strong>缺点:</strong> </p>
+<ul>
+<li>资源利用效率较低(整台虚拟机)</li>
+<li>部署速度相对较慢(分钟级)</li>
+<li>系统管理的额外开销(操作系统、运行补丁)</li>
+</ul>
+<p><strong>相关模式:</strong> • 替代模式:将服务部署到容器 </p>
+<p>• 泛化模式:单主机部署单个服务实例 </p>
+<ol>
+<li><h4 id="将服务部署到容器"><a href="#将服务部署到容器" class="headerlink" title="将服务部署到容器"></a>将服务部署到容器</h4></li>
+</ol>
+<p>将服务打包为 (Docker) 容器镜像并将每个服务实例部署到容器，容器是一种更现代、更轻量级的部署机制，操作系统级的虚拟化机制 </p>
+<p>部署过程: 构建Docker镜像、运行Docker镜像、构建容器镜像、推送到镜像仓库、运行Docker镜像 </p>
+<p><strong>优点:</strong> </p>
+<ul>
+<li>通过更改容器实例的数量可以直接扩展和缩减服务 </li>
+<li>容器封装了用于构建服务的技术细节，所有服务都以完全相同的方式启动和停止 </li>
+<li>每个服务实例都是隔离的 </li>
+<li>容器对服务实例消耗的 CPU 和内存施加限制 </li>
+<li>容器的构建和启动速度非常快 </li>
+<li>将应用程序打包为 Docker 容器比将其打包为 AMI 快 100 倍 Docker 容器启动速度明显快于 VM (仅启动应用程序进程而非整个操作系统)</li>
+</ul>
+<p><strong>缺点:</strong></p>
+<ul>
+<li>大量的容器镜像管理工作(操作系统补丁、基础设施) </li>
+<li>部署容器的基础设施不如部署虚拟机的基础设施丰富</li>
+</ul>
+<p><strong>相关模式:</strong> </p>
+<p>替代模式:将服务部署到虚拟机</p>
+<p>泛化模式:单主机部署单个服务实例 </p>
+<ol>
+<li><h4 id="无服务器部署"><a href="#无服务器部署" class="headerlink" title="无服务器部署"></a>无服务器部署</h4></li>
+</ol>
+<p>使用公有云提供的serverless部署机制部署服务</p>
+<p>部署细节对用户隐藏，用户和其组织不负责管理低级基础设施(无服务器概念)</p>
+<p>（lss：了解一下就好）</p>
+<ol>
+<li><h4 id="服务部署平台"><a href="#服务部署平台" class="headerlink" title="服务部署平台"></a>服务部署平台</h4></li>
+</ol>
+<p>第三方平台</p>
+<p><img src="https://jxc6l74ykqc.feishu.cn/space/api/box/stream/download/asynccode/?code=NzFmOTg3Mjc4ZDllMmFkMzg5MDU0OGEwYTk4YTRkOGFfNEZSQjU3dmpMSEswRUc1aWZNdlpTQUlFdjUzazAzNXVfVG9rZW46QUdzb2I4TDQ3b2JOa054N1JKa2NTeUNLbkJNXzE3MjEwMDQ5Mjc6MTcyMTAwODUyN19WNA" alt="img"></p>
+<p>lss：作业我们已经布置这些了，所以这部分内容几乎应该是可以确定是放到简答题里面，但是具体出哪几个考题这块到时候大家根据重点然后去看一下，推一下。</p>
+<p>然后大概回顾一下吧。其实这两次课我们讲的内容很简单，就是你无非一个基础加一个模式，对吧？当然现在的模式大家听起来可能会比较枯燥一些，如果你有了开发实践经验，你会发现这块内容的讲解其实会有一些结合工程化的一些解决方案的。因为这里面会体现了大量的技术的解决方案、工具的解决方案，对吧？其实它也不是纯粹的我们的架构的这个层面的一个纯软件架构的这个层面的一个这个视角，对吧？其实我们有一点也竞价过这样的一个方案，那么定义我们不会去考，因为这个就太小儿科了。 但是你要理解它的一个定义加特性，包括我们为什么后边会有这么多的这个模式出来，包括你的这个拆分的定义的这个复杂，对吧？你外化的这些通信的复杂性、部署的复杂性和运维的复杂性，大家主要还是帮助大家有这个初步的了解之后，如果你感兴趣，需要去做深入的实践，才会有更深入的这个理解，好吧？嗯，具体的内容你去考，可能会出几个简答题，因为拆分定义我们已经做过作业了，所以不会让大家去设计。 那后续可能就是比如说通信的这个复杂性，我们讲的一些模式，大家部署的复杂性讲的这样的一些模式，包括关系大家会可以深入地去了解，运维因为我们没讲大家就了解一下就好了。</p>
+<h2 id="XX设计模式符合-不符合XX设计原则"><a href="#XX设计模式符合-不符合XX设计原则" class="headerlink" title="XX设计模式符合&#x2F;不符合XX设计原则"></a>XX设计模式符合&#x2F;不符合XX设计原则</h2><p>模板方法 符合 单一指责、开闭原则</p>
+<p>命令 符合 </p>
+<p>中介者 </p>
+<p>观察者</p>
+<p>状态 不符合 开闭原则</p>
+<p>策略</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://wangchunchia.github.io">Chunchia Wang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://wangchunchia.github.io/2024/07/15/2024%E8%BD%AF%E4%BB%B6%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/">https://wangchunchia.github.io/2024/07/15/2024%E8%BD%AF%E4%BB%B6%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://wangchunchia.github.io" target="_blank">祇树给孤独园</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/image/%E7%AB%A0%E9%B1%BC%E5%93%A5.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/07/06/2024%E8%BD%AF%E4%BB%B6%E8%B4%A8%E9%87%8F%E7%AE%A1%E7%90%86%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/" title="2024软件质量管理期末复习"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">2024软件质量管理期末复习</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/image/%E7%AB%A0%E9%B1%BC%E5%93%A5.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Chunchia Wang</div><div class="author-info__description">自由而无用</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/wangchunchia"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#2024%E8%BD%AF%E4%BB%B6%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0"><span class="toc-number">1.</span> <span class="toc-text">2024软件系统设计期末复习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Software-Architecture-in-General"><span class="toc-number">1.1.</span> <span class="toc-text">1.Software Architecture in General</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-software-architecture"><span class="toc-number">1.1.1.</span> <span class="toc-text">What is software architecture</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#What-does-a-software-architect-do"><span class="toc-number">1.1.2.</span> <span class="toc-text">What does a software architect do</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Where-do-architectures-come-from%E3%80%902015%E3%80%91"><span class="toc-number">1.1.3.</span> <span class="toc-text">Where do architectures come from【2015】</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Architecture%EF%BC%884-1%EF%BC%89views%EF%BC%88K-Kruchen-4-1-views%EF%BC%89"><span class="toc-number">1.1.4.</span> <span class="toc-text">Architecture（4+1）views（K.Kruchen 4+1 views）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Architectural-Activities"><span class="toc-number">1.1.5.</span> <span class="toc-text">Architectural Activities</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Architectural-process"><span class="toc-number">1.1.6.</span> <span class="toc-text">Architectural process</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Software-architecture-knowledge-areas"><span class="toc-number">1.1.7.</span> <span class="toc-text">Software architecture knowledge areas</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Quality-Attributes"><span class="toc-number">1.2.</span> <span class="toc-text">2.Quality Attributes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-are-Software-Requirements"><span class="toc-number">1.2.1.</span> <span class="toc-text">What are Software Requirements</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Quality-Attributes"><span class="toc-number">1.2.2.</span> <span class="toc-text">Quality Attributes</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Internal-vs-external-attributes%EF%BC%88from-gpt%EF%BC%89"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">Internal vs external attributes（from gpt）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Modeling-quality-attribute-scenaris"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">Modeling quality attribute scenaris</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%94%E9%A2%98%E6%80%BB%E7%BB%93"><span class="toc-number">1.2.3.</span> <span class="toc-text">答题总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Checklist-for-architecture-design-decisions"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">Checklist for architecture design decisions</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#How-to-gather-and-identify-ASRs"><span class="toc-number">1.2.4.</span> <span class="toc-text">How to gather and identify ASRs</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Architecture-Patterns"><span class="toc-number">1.3.</span> <span class="toc-text">3.Architecture Patterns</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Architecture-Patterns-%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">Architecture Patterns 架构模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Module-Patterns-%E6%A8%A1%E5%9D%97%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">Module Patterns 模块模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%86%E5%B1%82%E6%A8%A1%E5%BC%8F-Layered-Pattern-micro-kernel-pattern"><span class="toc-number">1.3.1.1.1.</span> <span class="toc-text">分层模式 Layered Pattern&#x2F;micro-kernel pattern</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Component-Connector-Patterns-%E7%BB%84%E4%BB%B6-%E8%BF%9E%E6%8E%A5%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">Component-Connector Patterns 组件-连接器模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F-Broker-Pattern"><span class="toc-number">1.3.1.2.1.</span> <span class="toc-text">代理模式 Broker Pattern</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B-%E8%A7%86%E5%9B%BE-%E6%8E%A7%E5%88%B6%E5%99%A8%E6%A8%A1%E5%BC%8F-MVC-Pattern"><span class="toc-number">1.3.1.2.2.</span> <span class="toc-text">模型-视图-控制器模式 MVC Pattern</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AE%A1%E9%81%93%E5%92%8C%E8%BF%87%E6%BB%A4%E6%A8%A1%E5%BC%8F-Pipe-and-Filter-Pattern"><span class="toc-number">1.3.1.2.3.</span> <span class="toc-text">管道和过滤模式 Pipe-and-Filter Pattern</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%A8%A1%E5%BC%8F-Client-Server-Pattern"><span class="toc-number">1.3.1.2.4.</span> <span class="toc-text">客户端服务器模式 Client-Server Pattern</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%82%B9%E5%AF%B9%E7%82%B9%E6%A8%A1%E5%BC%8F-Peer-to-Peer-Pattern"><span class="toc-number">1.3.1.2.5.</span> <span class="toc-text">点对点模式 Peer-to-Peer Pattern</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%A8%A1%E5%BC%8F-Service-Oriented-Pattern"><span class="toc-number">1.3.1.2.6.</span> <span class="toc-text">面向服务的模式 Service-Oriented Pattern</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%91%E5%B8%83-%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F-Publish-Subscribe-Pattern"><span class="toc-number">1.3.1.2.7.</span> <span class="toc-text">发布-订阅模式 Publish-Subscribe Pattern</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%BC%8F-Shared-Data-Pattern"><span class="toc-number">1.3.1.2.8.</span> <span class="toc-text">共享数据模式 Shared-Data Pattern</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Allocation-Patterns"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">Allocation Patterns</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%98%A0%E5%B0%84-%E8%A7%84%E7%BA%A6%E6%A8%A1%E5%BC%8F-Map-Reduce-Pattern"><span class="toc-number">1.3.1.3.1.</span> <span class="toc-text">映射-规约模式 Map-Reduce Pattern</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%9A%E5%B1%82%E6%A8%A1%E5%BC%8F-Multi-Tier-Pattern"><span class="toc-number">1.3.1.3.2.</span> <span class="toc-text">多层模式 Multi-Tier Pattern</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E7%AD%96%E7%95%A5%E5%85%B7%E4%BD%93%E5%BA%94%E7%94%A8"><span class="toc-number">1.3.1.4.</span> <span class="toc-text">架构设计与策略具体应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Patterns-vs-Tactics%EF%BC%88%E6%A8%A1%E5%BC%8F-vs-%E6%88%98%E6%9C%AF%EF%BC%89"><span class="toc-number">1.3.2.</span> <span class="toc-text">Patterns vs. Tactics（模式 vs. 战术）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Designing-Architecture"><span class="toc-number">1.4.</span> <span class="toc-text">4.Designing Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#General-Design-Strategy-%E9%80%9A%E7%94%A8%E8%AE%BE%E8%AE%A1%E7%AD%96%E7%95%A5"><span class="toc-number">1.4.1.</span> <span class="toc-text">General Design Strategy 通用设计策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Categories-of-design-decisions"><span class="toc-number">1.4.2.</span> <span class="toc-text">Categories of design decisions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1%EF%BC%88Attribute-Driven-Design%EF%BC%8C-ADD%EF%BC%89"><span class="toc-number">1.4.3.</span> <span class="toc-text">属性驱动设计（Attribute-Driven Design， ADD）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ADD-%E7%9A%84%E8%BE%93%E5%85%A5%E5%92%8C%E8%BE%93%E5%87%BA"><span class="toc-number">1.4.3.1.</span> <span class="toc-text">ADD 的输入和输出</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.4.3.2.</span> <span class="toc-text">步骤</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Documenting-Architecture"><span class="toc-number">1.5.</span> <span class="toc-text">5.Documenting Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Views"><span class="toc-number">1.5.1.</span> <span class="toc-text">Views</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Styles-vs-Patterns-vs-Views"><span class="toc-number">1.5.1.1.</span> <span class="toc-text">Styles vs Patterns vs Views</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Structural-views"><span class="toc-number">1.5.1.2.</span> <span class="toc-text">Structural views</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#module-views"><span class="toc-number">1.5.1.2.1.</span> <span class="toc-text">module views</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#component-and-connector-views"><span class="toc-number">1.5.1.2.2.</span> <span class="toc-text">component-and-connector views</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#allocation-views"><span class="toc-number">1.5.1.2.3.</span> <span class="toc-text">allocation views</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Quality-views"><span class="toc-number">1.5.1.3.</span> <span class="toc-text">Quality views</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Documenting-views-3-step-for-choosing-views"><span class="toc-number">1.5.2.</span> <span class="toc-text">Documenting views: 3-step for choosing views</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Info-beyond-views"><span class="toc-number">1.5.3.</span> <span class="toc-text">Info.beyond views</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Documentation-package-View-Beyond"><span class="toc-number">1.5.4.</span> <span class="toc-text">Documentation package &#x3D; View + Beyond</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Evaluating-Architecture"><span class="toc-number">1.6.</span> <span class="toc-text">6.Evaluating Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Architecture-analysis-evaluation-methods"><span class="toc-number">1.6.1.</span> <span class="toc-text">Architecture analysis &amp; evaluation methods</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ATAM-Architecture-Tradeoff-Analysis-Method"><span class="toc-number">1.6.2.</span> <span class="toc-text">ATAM: Architecture Tradeoff Analysis Method</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Phase-0-Partnership-preparation-%E5%87%86%E5%A4%87%E5%92%8C%E5%BB%BA%E7%AB%8B%E5%9B%A2%E9%98%9F"><span class="toc-number">1.6.2.1.</span> <span class="toc-text">Phase 0: Partnership &amp; preparation 准备和建立团队</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Phase-1-Evaluation-1"><span class="toc-number">1.6.2.2.</span> <span class="toc-text">Phase 1: Evaluation-1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Phase-2-Evaluation-2"><span class="toc-number">1.6.2.3.</span> <span class="toc-text">Phase 2: Evaluation-2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Phase-3-Follow-up"><span class="toc-number">1.6.2.4.</span> <span class="toc-text">Phase 3: Follow-up</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Steps"><span class="toc-number">1.6.2.5.</span> <span class="toc-text">Steps</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.6.2.6.</span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Summary-of-ATAM-phases"><span class="toc-number">1.6.2.6.1.</span> <span class="toc-text">Summary of ATAM phases</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Summary-of-ATAM-Outputs"><span class="toc-number">1.6.2.6.2.</span> <span class="toc-text">Summary of ATAM Outputs</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Lightweight-Architecture-Evaluation"><span class="toc-number">1.6.2.6.3.</span> <span class="toc-text">Lightweight Architecture Evaluation</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1"><span class="toc-number">2.</span> <span class="toc-text">详细设计</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">2.1.</span> <span class="toc-text">基础知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.2.</span> <span class="toc-text">设计模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F-%E8%8F%9C%E9%B8%9F%E6%95%99%E7%A8%8B"><span class="toc-number">2.2.1.</span> <span class="toc-text">策略模式 策略模式 | 菜鸟教程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F-%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F-State-CSDN%E5%8D%9A%E5%AE%A2"><span class="toc-number">2.2.2.</span> <span class="toc-text">状态模式 状态模式(State)-CSDN博客</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.2.3.</span> <span class="toc-text">观察者模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.2.4.</span> <span class="toc-text">中介者模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.2.5.</span> <span class="toc-text">命令模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.2.6.</span> <span class="toc-text">模板方法模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.2.7.</span> <span class="toc-text">外观模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.2.8.</span> <span class="toc-text">装饰模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.2.9.</span> <span class="toc-text">组合模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F-%E7%B1%BB%E9%80%82%E9%85%8D%E5%99%A8-%E5%AF%B9%E8%B1%A1%E9%80%82%E9%85%8D%E5%99%A8"><span class="toc-number">2.2.10.</span> <span class="toc-text">适配器模式 类适配器&#x2F;对象适配器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.2.11.</span> <span class="toc-text">原型模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82"><span class="toc-number">2.2.12.</span> <span class="toc-text">抽象工厂</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95"><span class="toc-number">2.2.13.</span> <span class="toc-text">工厂方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%93%E9%A2%98-%E5%BA%94%E8%AF%A5%E6%AF%8F%E5%B9%B4%E5%BF%85%E8%80%83%E4%B8%80%E9%81%93"><span class="toc-number">2.3.</span> <span class="toc-text">应用场景专题 应该每年必考一道</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.3.1.</span> <span class="toc-text">策略模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.3.2.</span> <span class="toc-text">状态模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F-1"><span class="toc-number">2.3.3.</span> <span class="toc-text">观察者模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F-1"><span class="toc-number">2.3.4.</span> <span class="toc-text">中介者模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F-1"><span class="toc-number">2.3.5.</span> <span class="toc-text">命令模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95"><span class="toc-number">2.3.6.</span> <span class="toc-text">模板方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F-1"><span class="toc-number">2.3.7.</span> <span class="toc-text">外观模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F-1"><span class="toc-number">2.3.8.</span> <span class="toc-text">装饰模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F-1"><span class="toc-number">2.3.9.</span> <span class="toc-text">组合模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.3.10.</span> <span class="toc-text">适配器模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F-1"><span class="toc-number">2.3.11.</span> <span class="toc-text">原型模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82-1"><span class="toc-number">2.3.12.</span> <span class="toc-text">抽象工厂</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95-1"><span class="toc-number">2.3.13.</span> <span class="toc-text">工厂方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">微服务架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">3.1.</span> <span class="toc-text">1. 基础知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.2.</span> <span class="toc-text">2.核心设计模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%8B%86%E5%88%86%E5%92%8C%E5%AE%9A%E4%B9%89"><span class="toc-number">3.2.1.</span> <span class="toc-text">2.1 微服务的拆分和定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E6%9C%BA%E5%88%B6%E5%A4%8D%E6%9D%82%E6%80%A7"><span class="toc-number">3.2.2.</span> <span class="toc-text">2.2 进程间通信机制复杂性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E9%83%A8%E7%BD%B2%E5%A4%8D%E6%9D%82%E6%80%A7"><span class="toc-number">3.2.3.</span> <span class="toc-text">2.3 部署复杂性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E5%BC%8F%E5%88%97%E8%A1%A8"><span class="toc-number">3.2.3.1.</span> <span class="toc-text">模式列表:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E4%B8%BB%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%A4%9A%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%AE%9E%E4%BE%8B"><span class="toc-number">3.2.3.2.</span> <span class="toc-text">单主机部署多个服务实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%95%E4%B8%BB%E6%9C%BA%E9%83%A8%E7%BD%B2%E5%8D%95%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%AE%9E%E4%BE%8B"><span class="toc-number">3.2.3.3.</span> <span class="toc-text">单主机部署单个服务实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%86%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E5%88%B0%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-number">3.2.3.4.</span> <span class="toc-text">将服务部署到虚拟机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%86%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E5%88%B0%E5%AE%B9%E5%99%A8"><span class="toc-number">3.2.3.5.</span> <span class="toc-text">将服务部署到容器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A0%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2"><span class="toc-number">3.2.3.6.</span> <span class="toc-text">无服务器部署</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2%E5%B9%B3%E5%8F%B0"><span class="toc-number">3.2.3.7.</span> <span class="toc-text">服务部署平台</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XX%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%A6%E5%90%88-%E4%B8%8D%E7%AC%A6%E5%90%88XX%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="toc-number">3.3.</span> <span class="toc-text">XX设计模式符合&#x2F;不符合XX设计原则</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/07/15/2024%E8%BD%AF%E4%BB%B6%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/" title="2024软件系统设计期末复习">2024软件系统设计期末复习</a><time datetime="2024-07-14T16:00:00.000Z" title="发表于 2024-07-15 00:00:00">2024-07-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/07/06/2024%E8%BD%AF%E4%BB%B6%E8%B4%A8%E9%87%8F%E7%AE%A1%E7%90%86%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/" title="2024软件质量管理期末复习">2024软件质量管理期末复习</a><time datetime="2024-07-05T16:00:00.000Z" title="发表于 2024-07-06 00:00:00">2024-07-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/29/%E5%90%8A%E6%88%91%E7%9A%84%E8%A3%A4%E5%AD%90/" title="吊我的裤子">吊我的裤子</a><time datetime="2024-06-28T16:00:00.000Z" title="发表于 2024-06-29 00:00:00">2024-06-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/09/hello-world/" title="Hello, World">Hello, World</a><time datetime="2024-06-08T16:00:00.000Z" title="发表于 2024-06-09 00:00:00">2024-06-09</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By Chunchia Wang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'Ov23lipGb2DQkRK6VkDe',
+      clientSecret: '16fd173d7022be11562011dc97f4f654941f7f77',
+      repo: 'wangchunchia.github.io',
+      owner: 'wangchunchia',
+      admin: ['wangchunchia'],
+      id: 'fcb54388c12d4f4be62e1dfb476c0d98',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
