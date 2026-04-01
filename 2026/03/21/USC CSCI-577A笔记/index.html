@@ -1,0 +1,2303 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>USC CSCI-577A notes | 祇树给孤独园</title><meta name="author" content="Chunchia Wang"><meta name="copyright" content="Chunchia Wang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="CSCI-577A 复习  Lec1 What is Software Engineering? Software Engineering or Multi-Person Construction of Multi-Version Programs” [Parnas 1975]  Scope  Study of software process Development principles, te">
+<meta property="og:type" content="article">
+<meta property="og:title" content="USC CSCI-577A notes">
+<meta property="og:url" content="https://wangchunchia.github.io/2026/03/21/USC%20CSCI-577A%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="祇树给孤独园">
+<meta property="og:description" content="CSCI-577A 复习  Lec1 What is Software Engineering? Software Engineering or Multi-Person Construction of Multi-Version Programs” [Parnas 1975]  Scope  Study of software process Development principles, te">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wangchunchia.github.io/image/%E7%AB%A0%E9%B1%BC%E5%93%A5.jpg">
+<meta property="article:published_time" content="2026-03-21T07:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-01T00:07:54.961Z">
+<meta property="article:author" content="Chunchia Wang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wangchunchia.github.io/image/%E7%AB%A0%E9%B1%BC%E5%93%A5.jpg"><link rel="shortcut icon" href="/image/W%E7%8E%8B.svg"><link rel="canonical" href="https://wangchunchia.github.io/2026/03/21/USC%20CSCI-577A%E7%AC%94%E8%AE%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'USC CSCI-577A notes',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-03-31 17:07:54'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/image/%E7%AB%A0%E9%B1%BC%E5%93%A5.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/image/Almond_blossom.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="祇树给孤独园"><span class="site-name">祇树给孤独园</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">USC CSCI-577A notes</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-03-21T07:00:00.000Z" title="发表于 2026-03-21 00:00:00">2026-03-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-04-01T00:07:54.961Z" title="更新于 2026-03-31 17:07:54">2026-03-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/USC/">USC</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="USC CSCI-577A notes"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="csci-577a-复习">CSCI-577A 复习</h1>
+<ul>
+<li><h2 id="lec1">Lec1</h2>
+<h3 id="what-is-software-engineering">What is Software Engineering?</h3>
+<p>Software Engineering or Multi-Person Construction of Multi-Version
+Programs” [Parnas 1975]</p>
+<ul>
+<li>Scope
+<ul>
+<li>Study of software process</li>
+<li>Development principles, techniques, and notations</li>
+</ul></li>
+<li>Goal
+<ul>
+<li>Production of quality software, delivered on time, within budget,
+satisfying customers’ requirements and users’ needs</li>
+</ul></li>
+</ul>
+<p><strong>Ever-Present Difficulties</strong></p>
+<ul>
+<li>Few guiding scientific principles</li>
+<li>Few universally applicable methods</li>
+<li>As much <strong>managerial / psychological / sociological</strong>
+as technological</li>
+</ul>
+<p><strong>Why These Difficulties?</strong></p>
+<p>• SE is a unique brand of engineering</p>
+<ul>
+<li>Software is malleable</li>
+<li>Software construction is human-intensive (at least “has been”)</li>
+<li>Software is intangible</li>
+<li>Software problems are unprecedentedly complex</li>
+<li>Software directly depends upon the hardware</li>
+</ul>
+<p><strong>Software Engineering ≠ Programming</strong></p>
+<p>• Programming</p>
+<ul>
+<li>Single developer</li>
+<li>Simple apps</li>
+<li>Short lifespan</li>
+<li>Single or few stakeholders
+<ul>
+<li>Architect = Developer = Manager = Tester = Customer = User</li>
+</ul></li>
+<li>One-of-a-kind systems</li>
+<li>Built from scratch</li>
+<li>Minimal maintenance</li>
+</ul>
+<p>• Software engineering</p>
+<ul>
+<li>Teams of engineers with multiple roles</li>
+<li>Complex systems</li>
+<li>Indefinite lifespan</li>
+<li>Numerous stakeholders
+<ul>
+<li>Architect ≠ Developer ≠ Manager ≠ Tester ≠ Customer ≠ User</li>
+</ul></li>
+<li>System families</li>
+<li>Reuse to amortize costs</li>
+<li>Maintenance accounts for over 60% of overall development costs</li>
+</ul>
+<p><strong>Economic and Management Aspects of SE</strong></p>
+<ul>
+<li>Software production = development + maintenance (evolution)</li>
+<li>Quicker development is not always preferable
+<ul>
+<li>Higher up-front costs may defray downstream costs</li>
+<li>Poorly designed/implemented software is a critical cost factor</li>
+</ul></li>
+</ul>
+<p><strong>Mythical Man-Month by Fred Brooks</strong></p>
+<ul>
+<li>Published in 1975, republished in 1995</li>
+<li>Experience managing development of IBM OS/360 in 1964-65</li>
+<li>Central argument
+<ul>
+<li>Large projects suffer <strong>management problems</strong> different
+in kind than small</li>
+<li>ones, due to <strong>division in labor</strong></li>
+<li>Critical need is the preservation of the conceptual integrity of the
+product itself</li>
+</ul></li>
+<li>Central conclusions
+<ul>
+<li>Conceptual integrity achieved through <strong>chief
+architect</strong></li>
+<li>Implementation achieved through well-managed effort</li>
+</ul></li>
+<li>Brooks’s Law
+<ul>
+<li>Adding personnel to a late project makes it later</li>
+</ul></li>
+</ul>
+<h3 id="software-development-lifecycle-model">Software Development
+Lifecycle Model</h3>
+<p><strong>Software Development Lifecycle Waterfall Model</strong></p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=ODJhMGI3NTM2OTczY2RkZjZmYzMwZWFmYWJmY2Q4NWJfQ3Z0YzhaOWdVOVNEOFFROEUyTHpwME5LU3VWVHBjcldfVG9rZW46T2lKVmJhMXhlb0R5bjl4dTJJMmNOMFpmbk1vXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>Software Development Lifecycle Spiral Model</strong></p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=MjMwMWJmOTUxNGQ2ZGFhYWNkODZlNjgzYzVmZjVjYzZfUXlHTGp3SVRTcmxpY1B2VW1wM1lETGhTR1JsbHlQeDhfVG9rZW46STRWRWJGS2NobzV3clR4aUJjMGM5dkFJbjFlXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>Software Development Lifecycle Incremental Commitment Spiral
+Model</strong></p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=NTlkYTk0OTQ5MzdjYmU5MzQ3N2M5NGU0Y2RmNDc1OWRfWlJGNk1mdlJ5OTdpWFZONElUVnlJV2Q0V1BkN0tjMFpfVG9rZW46VzFWMGJkbVAwb3Zxajh4QkhlSGN6MXptbjlhXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>Other Development Lifecycle Models</strong></p>
+<ul>
+<li>Agile: Iterative and increment development</li>
+<li>V-Shaped: Waterfall-like but emphasis on testing</li>
+<li>And many more (Every organization has their own)</li>
+</ul>
+<h3 id="software-qualities">Software Qualities</h3>
+<p>Qualities (aka “-ilities”) are goals in the practice of software
+engineering</p>
+<p><strong>External vs. Internal Qualities</strong></p>
+<p>• <strong>External</strong> qualities are visible to the user
+(Reliability, efficiency, usability)</p>
+<p>• <strong>Internal</strong> qualities are the concern of developers.
+They help developers achieve external qualities. (Verifiability,
+maintainability, extensibility, evolvability, adaptability)</p>
+<p><strong>Product vs. Process Qualities</strong></p>
+<p>• <strong>Product</strong> qualities concern the developed artifacts
+(Maintainability, understandability, performance)</p>
+<p>• <strong>Process</strong> qualities deal with the development
+activity. Products are developed through process (Maintainability,
+productivity, timeliness)</p>
+<p><strong>Some Software Qualities</strong></p>
+<p>Correctness</p>
+<ul>
+<li>Ideal quality</li>
+<li>Established regarding the requirements specification</li>
+</ul>
+<p>Reliability</p>
+<ul>
+<li>Statistical property</li>
+<li>Probability that software will operate as expected over a given
+period of time</li>
+</ul>
+<p>Robustness</p>
+<ul>
+<li>“Reasonable” behavior in unforeseen circumstances</li>
+<li>Subjective</li>
+<li>A <strong>specified</strong> requirement is an issue of correctness;
+An <strong>unspecified</strong> requirement is an issue of
+robustness</li>
+</ul>
+<p>Usability</p>
+<ul>
+<li>Ability of end-users to easily use software</li>
+<li>Extremely subjective</li>
+</ul>
+<p>Understandability</p>
+<ul>
+<li>Ability of developers to easily understand produced artifacts</li>
+<li>Internal product quality</li>
+<li>Subjective</li>
+</ul>
+<p>Verifiability</p>
+<ul>
+<li>Ease of establishing desired properties</li>
+<li>Performed by formal analysis or testing</li>
+<li>Internal quality</li>
+</ul>
+<p>Performance</p>
+<ul>
+<li>Equated w/ efficiency–given resources, how well it performs</li>
+<li>Assessable by measurement, analysis, and simulation</li>
+</ul>
+<p>Evolvability</p>
+<ul>
+<li>Ability to add or modify functionality</li>
+<li>Problem: evolution of implementation is too easy</li>
+<li>Evolution should start at requirements or design</li>
+</ul>
+<p>Reusability</p>
+<ul>
+<li>Ability to construct new software from existing pieces</li>
+<li>Occurs at all levels: from people to process, from requirements to
+code</li>
+</ul>
+<p>Interoperability</p>
+<ul>
+<li>Ability of software (sub)systems to cooperate with others</li>
+<li>High interoperability means easy integration into larger
+systems</li>
+<li>Common techniques: APIs, plug-in protocols, etc.</li>
+</ul>
+<p>Scalability</p>
+<ul>
+<li>Ability of a software system to grow in size while maintaining its
+properties and qualities</li>
+<li>Assumes maintainability and evolvability</li>
+<li>Goal of component-based development (<em>e.g.</em>,
+microservices)</li>
+</ul>
+<p>Heterogeneity</p>
+<ul>
+<li>Ability to compose a system from pieces developed in multiple
+programming languages, on multiple platforms, by multiple developers,
+etc.</li>
+<li>Necessitated by reuse</li>
+<li>Goal of component-based development</li>
+</ul>
+<p>Portability</p>
+<ul>
+<li>Ability to execute in new environments with “reasonable” effort</li>
+<li>May be planned for by isolating environment-dependent
+components</li>
+<li>Necessitated by the emergence of highly-distributed systems
+(<em>e.g.</em>, the Internet)</li>
+<li>An aspect of heterogeneity</li>
+</ul>
+<h2 id="lec2">Lec2</h2>
+<h3 id="software-engineering-philosophy">Software Engineering
+Philosophy</h3>
+<h4 id="software-process-models"><strong>Software Process
+Models</strong></h4>
+<p>Before Software Process Models: “Code-and-Fix”</p>
+<p>• Free-formworkingenvironments</p>
+<p>• Usuallyforhobbyprojectsorschoolassignments</p>
+<p>• Lackofstructure</p>
+<p>• Uncertaindesignrequirements</p>
+<p>• Incompletenessinitsnature</p>
+<p>• Simpleprogramming–simple,repetitivecode</p>
+<p>• Indiedevelopment–videogames,solodeveloperapps,etc. • Hackathon</p>
+<p><strong>Software process</strong>: A set of related
+<strong>activities, methods, practices, and rules</strong> used to
+develop, operate, maintain, and improve software and its associated
+artifacts. Suggests how to handle the following activities:</p>
+<ul>
+<li>Project planning and oversight</li>
+<li>Operational concepts and business workflow</li>
+<li>System &amp; software requirements analysis</li>
+<li>System &amp; software design</li>
+<li>Software implementation and unit testing</li>
+<li>System integration and other testings</li>
+</ul>
+<p>Not just “core development” process. Supporting, cross-cutting
+processes</p>
+<ul>
+<li>Software configuration management</li>
+<li>Peer reviews and product evaluation</li>
+<li>Quality assurance</li>
+<li>Corrective action</li>
+<li>Technical and management reviews</li>
+<li>Risk management</li>
+<li>Metrics</li>
+<li>Subcontractor management</li>
+<li>Independent Verification &amp; Validation</li>
+<li>Team coordination</li>
+<li>Process improvement</li>
+</ul>
+<p><strong>Software development process</strong>: The subset of the
+software process that focuses on <strong>building, delivering, and
+maintaining</strong> a software product, including concrete activities,
+roles, artifacts, and tools used by a specific org or project. (The
+actual set of software development activities performed within an
+organization; How a team actually develops software in practice)</p>
+<p><strong>Software dev life cycle (SDLC)</strong>: A conceptual
+representation of the <strong>stages</strong> a software system passes
+through from inception to retirement. “SDLC is a conceptual framework or
+process that considers the structure of the stages involved in the
+development of an application from its initial feasibility study through
+to its deployment in the field and maintenance.”</p>
+<p><strong>Software Development Life Cycle Model</strong>: A
+<strong>framework</strong> that defines how the SDLC stages are
+organized, ordered, overlapped, and iterated, incl. feedback &amp;
+decision points. Generally used to <strong>describe the steps</strong>
+that are followed within a software development life cycle. Popular
+models: Waterfall models, Spiral models, Iterative and incremental
+models, Rapid app development models, Agile, XP, Lean Dev, ... There is
+no one perfect model for all software development; These models are like
+ready-made clothing; You don’t wear a dressy suit at a baseball game;
+You don’t wear a swimsuit at a steakhouse.</p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=Y2U4ODdlMzZjMmYxOTM4ZjFmZjllMzY4OGQxMjMxY2VfM3hBMWZZcDBtOW5pTGV1TnNPMnhsS3dMRk9yMFFrUnpfVG9rZW46V0RUN2JERlJHbzFzWjh4Y1Vod2MzNFB1bjRnXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>Spiral Model (1988)</strong></p>
+<p>• Waterfall model: Focus on front load elaboration</p>
+<p>• Spiral model</p>
+<ul>
+<li>Risk-driven</li>
+<li>Complete a round by review</li>
+<li>Round 0 – Feasibility study</li>
+<li>Round 1 – Concepts of operations</li>
+<li>Round 2 – T op level requirements and specification</li>
+</ul>
+<p><strong>WinWin Spiral Model(1994)</strong></p>
+<p>Use the <strong>Theory W (win-win)</strong> approach to converge on a
+system’s next level objectives, constraints, and alternatives.</p>
+<p><strong>Anchor Point Milestones (1996)</strong></p>
+<p>Lack of intermediate milestones</p>
+<p>• <strong>Anchor Points</strong>:</p>
+<ul>
+<li>LCO: Life Cycle Objectives</li>
+<li>LCA: Life Cycle Architecture</li>
+<li>IOC: Initial Operational Capability</li>
+<li>• Concurrent-engineering spirals between anchor points</li>
+</ul>
+<p><strong>Model-Based Architecting and Software Engineering
+(MBASE)</strong></p>
+<ul>
+<li><strong>MBASE</strong> integrates <strong>product models</strong>
+(software architecture), <strong>process models</strong> (development
+lifecycle), and <strong>property models</strong> (performance, security,
+...) together to maintain consistency between them</li>
+</ul>
+<p><strong>The Incremental Commitment Model (ICM) (2007)</strong></p>
+<ul>
+<li><strong>Incremental commitment-based</strong> decision making to
+ensure projects remain viable throughout their lifecycle</li>
+</ul>
+<p><strong>The Incremental Commitment Spiral Model (ICSM)
+(2010)</strong></p>
+<ul>
+<li>Risk assessment determines the scope and direction of each
+cycle</li>
+<li><strong>Continuous risk evaluation</strong> that leads to more
+granular control over project evolution</li>
+<li>More suitable than vanilla ICM for <strong>rapidly changing
+environments and domains</strong></li>
+</ul>
+<p><strong>V-Model</strong></p>
+<ul>
+<li><strong>Extension of the Waterfall model</strong> that pairs each
+development phase with a corresponding test phase</li>
+<li>Commonly used in systems and safety-critical engineering</li>
+<li><strong>Emphasizes early test planning</strong> but does not
+explicitly model concurrent engineering</li>
+<li>Poor fit for evolutionary or highly iterative development</li>
+<li>Verification and validation are defined early but executed
+later</li>
+</ul>
+<p><strong>Double-V Model</strong></p>
+<ul>
+<li>Show concurrent development</li>
+<li>Supports system of systems</li>
+</ul>
+<p><strong>V with Multiple Deliveries</strong></p>
+<ul>
+<li>The “V” is divided into smaller chunks</li>
+<li>You see multiple Vs</li>
+<li>A subset of the Vs may “go back” concurrently</li>
+</ul>
+<p><strong>Rational Unified Process (RUP)</strong></p>
+<ul>
+<li>Iterative software development process framework by Rational (an IBM
+division)</li>
+<li><strong>Six Best Practices</strong>
+<ul>
+<li>Develop iteratively</li>
+<li>Manage requirements</li>
+<li>Use components</li>
+<li>Model visually</li>
+<li>Verify quality</li>
+<li>Control changes</li>
+</ul></li>
+</ul>
+<p><strong>OpenUP</strong></p>
+<ul>
+<li>A streamlined, open-source derivative of RUP</li>
+<li>A lean Unified Process that applies iterative and incremental
+approaches within a structured lifecycle</li>
+</ul>
+<p>• Keeps RUP’s core philosophy but removes much of its weight,
+prescriptiveness, and tooling dependency</p>
+<p><strong>Agile Methodologies</strong></p>
+<ul>
+<li>Scrum</li>
+<li>eXtreme Programming (XP)</li>
+<li>Dynamic System Development Method (DSDM)</li>
+<li>Lean Development</li>
+<li>Feature-Driven Development (FDD)</li>
+<li>Crystal</li>
+<li>Adaptive Software Development (ASD)</li>
+</ul>
+<p><strong>Lean Principles</strong></p>
+<ul>
+<li>From Toyota Production System – translated into software
+development</li>
+<li>Seven lean principles
+<ul>
+<li>Eliminate waste – anything that does not add value</li>
+<li>Amplify learning – continuous update about the project</li>
+<li>Decide as late as possible – delay decisions, gather more
+information</li>
+<li>Deliver as fast as possible – daily deliveries, daily standup
+meeting</li>
+<li>Empower the team – get good people, listen, communicate</li>
+<li>Build integrity in – build good products</li>
+<li>Optimize the whole - “Think big, act small, fail fast; learn
+rapidly”</li>
+</ul></li>
+</ul>
+<p><strong>Scrum Process</strong></p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=NDEzODE3YmYyYzNiZDEwMGIxMTM5MjliYTFmZTg3ZWZfYkE5ZFFtQ0hlWTZnQWFZZFBDcUY1ck5FdEpmcEppQmhfVG9rZW46VkRJNGJqSmN4b1N0TzR4TTVJd2NPelA4bjhmXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>Scaling Agile</strong></p>
+<ul>
+<li>“Vanilla Agile,” e.g., a single Scrum team, does not scale by
+itself</li>
+<li>Agile with structures for scaling: SAFe; LeSS; DA; Nexus</li>
+</ul>
+<p><strong>Large Scale Scrum (LeSS)</strong></p>
+<p><strong>Disciplined Agile (DA) Framework</strong></p>
+<p><strong>Nexus: Agile for Large-Scale Projects</strong></p>
+<p><strong>Scrum vs. ICSM</strong></p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=MzVhNTRkMGYwZmJmYmJmZDBhMGU3MDMzZDAwNjNhOTJfWWFUMFU0ZlBCWmNuajNtQ1MyV3o1cEpFSWZBQjhmMTFfVG9rZW46UGV3S2JpSXNjb1JSWEF4TlNPMWNPUmk3bnl4XzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>XP – eXtreme Programming</strong></p>
+<ul>
+<li>Agile methodology that pushes core engineering practices to their
+extreme</li>
+<li>Frequent release</li>
+<li>Shorter timebox</li>
+<li>Frequent communication</li>
+<li>Expecting requirements changes</li>
+<li>Drawbacks
+<ul>
+<li>Unstable requirements</li>
+<li>Requires strong engineering discipline</li>
+<li>High customer availability</li>
+</ul></li>
+</ul>
+<p><strong>XP Principles</strong></p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=ZWFiZDU1M2Y0YTk2MjJiMDU3YzY1Y2ZhZWExZGMyYThfRDhmM3JhZDZVTHczNng0NFZXQlFWM0tQS0M0RUd1SU5fVG9rZW46RWhycWJzSzNibzAwV1F4cVEzTWNqc3VqbkNjXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>Scrum vs. XP</strong></p>
+<ul>
+<li>Scrum defines how a team organizes and manages work, while XP
+defines how the team engineers the software with disciplined technical
+practices</li>
+<li>The Scrum concept only has
+<ul>
+<li>Four ceremonies (or “meetings”)
+<ul>
+<li>Daily scrum</li>
+<li>Sprint Planning</li>
+<li>Sprint Review</li>
+<li>Sprint Retrospective</li>
+</ul></li>
+<li>Three artifacts
+<ul>
+<li>Product Backlog</li>
+<li>Sprint Backlog</li>
+<li>Increment (aka “potentially shippable product”)</li>
+</ul></li>
+<li>Three roles
+<ul>
+<li>Product owner</li>
+<li>Scrum master</li>
+<li>Development team members</li>
+</ul></li>
+</ul></li>
+<li>XP has more technical practices</li>
+</ul>
+<p><strong>Reducing Waste in Software Development</strong></p>
+<p>• Three types of waste from Toyota production system</p>
+<ul>
+<li>Muda (無駄) – non-value added tasks
+<ul>
+<li><em>E.g.</em>, unnecessary gold plating</li>
+<li>Avoid Muda by using high planning and coordination</li>
+</ul></li>
+<li>Mura (斑) – unevenness or irregularity in workflows
+<ul>
+<li><em>E.g.</em>, one component being produced more than needed</li>
+<li>Avoid Mura by using pull-based scheduling (such as Kanban)</li>
+</ul></li>
+<li>Muri (無理) – overburdening or failure load on people, equipment, or
+systems
+<ul>
+<li>Avoid Muri by balancing workloads and standardizing work</li>
+</ul></li>
+<li>Lean concepts influenced XP practices and later software Kanban
+adoption
+<ul>
+<li>Elimination of excessive planning</li>
+<li>Reducing “Red” (baseline tests in TDD)</li>
+</ul></li>
+<li>This introduces Kanban (meaning “signboard”) to achieve further
+elimination of waste</li>
+</ul>
+<p><strong>Kanban</strong></p>
+<ul>
+<li>Software development <strong>framework</strong></li>
+<li>Provides transparency in workflow</li>
+<li>Focuses on “managing flow”</li>
+<li>Limits Work-In-Progress, Complete a feature before starting a new
+one</li>
+<li>Iteration and estimate are optional</li>
+<li>Could be used on top of other processes</li>
+</ul>
+<p><strong>Kanban Concepts</strong></p>
+<ul>
+<li>Visualize workflow
+<ul>
+<li>More than work, but interaction and coordination</li>
+</ul></li>
+<li>Limit work-in-progress</li>
+<li>Measure and manage flow
+<ul>
+<li>Use metrics such as throughput, lead/cycle time, work in
+progress</li>
+</ul></li>
+<li>Make process policies explicit
+<ul>
+<li>Clear on who is doing what and when</li>
+</ul></li>
+</ul>
+<p><strong>Kanban: Visualize Workflow &amp; Limit WIP</strong></p>
+<ul>
+<li>Observe workflow
+<ul>
+<li>What is happening?</li>
+<li>Where is the bottleneck?</li>
+</ul></li>
+<li>Check performance
+<ul>
+<li>Lead/cycle times, throughput, WIP trends</li>
+</ul></li>
+<li>Identify improvement opportunities</li>
+<li>What can be improved here ? • Bottleneck, Variability, Waste</li>
+<li>Craftsmanship &amp; Leadership • to improve the process and use
+performance as evidence to support</li>
+</ul>
+<h4 id="value-based-software-engineering"><strong>Value-based software
+engineering</strong></h4>
+<p>What is Value-Based Software <strong>Engineering</strong>?</p>
+<p>• The science, skill, and profession of acquiring and applying
+scientific, economic, social, and practical knowledge, in order to
+design and also build structures, machines, devices, systems, materials
+and processes</p>
+<p>What is Value-Based <strong>Software Engineering</strong>?</p>
+<p>• The application of a systematic, disciplined, quantifiable approach
+to the design, development, operation, and maintenance of software, and
+the study of these approaches; that is, the application of engineering
+to software</p>
+<p>What is <strong>Value</strong>-Based Software Engineering?</p>
+<ul>
+<li>The regard that something is held to deserve; the importance or
+preciousness</li>
+<li>of something</li>
+<li>Material/monetary-worth of something</li>
+<li>The worth of something compared to the price paid or asked for
+it</li>
+<li>The usefulness of something considered in respect of a particular
+purpose</li>
+<li>Etc.</li>
+</ul>
+<p>What is <strong>Value-Based Software Engineering</strong>?</p>
+<ul>
+<li>Goal of software engineering is to create products, services, and
+processes that</li>
+<li><strong>add value</strong></li>
+<li>VBSE brings <strong>value considerations</strong> to the foreground
+so that software engineering decisions at all levels can be optimized to
+meet or reconcile explicit objectives of the involved stakeholders</li>
+</ul>
+<p>Why Should You Care About VBSE?</p>
+<ul>
+<li>Software has unique internal and external characteristics:
+<ul>
+<li>Highly <strong>flexible</strong> and <strong>volatile</strong></li>
+<li>Heavy dependence on <strong>collaboration</strong> amongst creative
+and skilled <strong>people</strong></li>
+<li>Necessitates construction and management approach radically
+different from traditional</li>
+<li>engineering</li>
+<li>Basic engineering principles of discipline, economy, rigor, quality,
+utility, repeatability and predictability (to some extent) still
+apply</li>
+</ul></li>
+<li>Value considerations affect <strong>trade-offs</strong> with much
+more subtlety, severity, and variety as opposed to engineering of
+tangible products</li>
+<li>Trade-offs ultimately govern the outcome of the project!</li>
+<li>VBSE draws attention to these trade-offs
+<ul>
+<li>Impossible to reason about in value neutral setting</li>
+</ul></li>
+</ul>
+<p>Who Should Practice VBSE?</p>
+<ul>
+<li>Just about everyone
+<ul>
+<li>CTO/CIOs, Product and Project Managers making high-level
+(value-adding) decisions</li>
+<li>Process &amp; measurement experts, requirements engineers, business
+analysts, QA/usability experts, technical leads, etc.</li>
+<li>Software engineering researchers, educators, and graduate students
+teaching or studying software processes, evaluating existing and new
+practices, technologies, methods, or products</li>
+</ul></li>
+<li>Basically all academics, managers, practitioners, and students of
+software engineering who realize that software isn’t created in a void
+and involves numerous participants</li>
+</ul>
+<p><strong>Theory W: Enterprise Success Theorem</strong></p>
+<ul>
+<li>It is a management approach in software engineering
+<ul>
+<li>“Your enterprise will succeed if and only if it makes winners of
+your success-critical stakeholders”</li>
+</ul></li>
+<li>Arguments about “if”:
+<ul>
+<li>Everyone that counts is a winner</li>
+<li>Nobody significant is left to complain</li>
+</ul></li>
+<li>Arguments about “only if”:
+<ul>
+<li>Nobody wants to lose</li>
+<li>Prospective losers will refuse to participate, or will
+counterattack</li>
+<li>The usual result is lose-lose</li>
+</ul></li>
+</ul>
+<p><strong>Theory W: WinWin Achievement Theorem</strong></p>
+<p>• Making winners of your success-critical stakeholders (SCSs)
+requires:</p>
+<ul>
+<li>Identifying all of the SCSs</li>
+<li>Understanding how the SCSs want to win</li>
+<li>Having the SCSs negotiate a win-win set of product and process
+plans</li>
+<li>Controlling progress toward SCS win-win realization, including
+adaptation to change</li>
+</ul>
+<p><strong>VBSE Theory: 4+1 (Steps)</strong></p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTRjNTY5MzUwMzU4MjU2YWQ5N2I3MGMxM2YwZDFiYjhfZFhwU0o4ZUxaQURUQW1raVBidFZyZmM2ZXlGVWNoeEtfVG9rZW46RU9Lb2JjaU1XbzNxTUx4TzV2MWNmbUR2bjljXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>VBSE Agenda</strong></p>
+<p>• Objective</p>
+<ul>
+<li>Integrating value considerations into the full range of existing
+&amp; emerging software engineering principles in a manner so that they
+“compatibly” reinforce one another</li>
+</ul>
+<p>• VBSE seven elements (refer to the VBSE book* for details)</p>
+<ul>
+<li>Benefits Realization Analysis</li>
+<li>Stakeholder Value Proposition Elicitation &amp; Reconciliation</li>
+<li>Business Case Analysis</li>
+<li>Continuous Risk and Opportunity Management</li>
+<li>Concurrent System &amp; Software Engineering</li>
+<li>Value-Based Monitoring &amp; Control</li>
+<li>Change as Opportunity</li>
+</ul>
+<p><strong>Documenting What You Know</strong></p>
+<ul>
+<li>High concurrency/backtracking when practicing the VBSE 4+1
+Model</li>
+<li>“Tacit Knowledge” generated amongst team members</li>
+<li>How do the other SCSs know what it is you know and whether you
+really know what you claim to know?</li>
+<li><strong>In terms of the CSCI-577a team project:</strong>
+<ul>
+<li>How do the teaching staff know what you know?</li>
+<li>By documenting the findings/solutions in the appropriate artifacts
+and validate the same during the periodic grading</li>
+</ul></li>
+</ul>
+<h3 id="incremental-commitment-spiral-model">Incremental Commitment
+Spiral Model</h3>
+<p><strong>Original Spiral and Misinterpretations</strong></p>
+<p>• Common misconceptions</p>
+<ul>
+<li>Hack some prototypes</li>
+<li>Fit spiral into waterfall</li>
+<li>Incremental waterfalls</li>
+<li>Suppress risk analysis</li>
+<li>No concurrency, feedback</li>
+<li>One-size-fits-all model</li>
+</ul>
+<p><strong>The Four ICSM Principles</strong></p>
+<ul>
+<li>Stakeholder value-based guidance</li>
+<li>Incremental commitment and accountability</li>
+<li>Concurrent multidiscipline engineering</li>
+<li>Evidence- and risk-based decisions</li>
+</ul>
+<p><strong>Principle 1: Stakeholder Value-Based Guidance
+(“W”)</strong></p>
+<ul>
+<li>It is a management approach in software engineering
+<ul>
+<li>“Your enterprise will succeed if and only if it makes winners of
+your success- critical stakeholders”</li>
+</ul></li>
+<li>Arguments about “if”:
+<ul>
+<li>Everyone that counts is a winner</li>
+<li>Nobody significant is left to complain</li>
+</ul></li>
+<li>Arguments about “only if”:
+<ul>
+<li>Nobody wants to lose</li>
+<li>Prospective losers will refuse to participate, or will
+counterattack</li>
+<li>The usual result is lose-lose</li>
+</ul></li>
+</ul>
+<p>Win-lose Generally Becomes Lose-lose</p>
+<p><strong>Principle 2: Incremental Commitment and
+Accountability</strong></p>
+<ul>
+<li>Total Commitment: Roulette
+<ul>
+<li>Put your chips on a number • <em>E.g.</em>, a value of a key
+performance parameter</li>
+<li>Wait and see if you win or lose</li>
+</ul></li>
+<li>Incremental Commitment: Poker, Blackjack
+<ul>
+<li>Put some chips in</li>
+<li>See your cards, some of others’ cards</li>
+<li>Decide whether, how much to commit to proceed</li>
+<li>You can fold if you don’t think you will win</li>
+</ul></li>
+</ul>
+<p><strong>Principle 3: Concurrent Multidiscipline
+Engineering</strong></p>
+<p><strong>Principle 4: Evidence- and Risk-Based Decisions</strong></p>
+<ul>
+<li>The decision criteria for a “go/no-go” commitment</li>
+<li>Evidence provided by developer and validated by independent experts
+that:
+<ul>
+<li>If the system is built to the specified architecture, it will</li>
+<li>Satisfy the requirements: capability, interfaces, level of service,
+and evolution</li>
+<li>Support the operational concept</li>
+<li>Be buildable within the budgets and schedules in the plan</li>
+<li>Generate a viable return on investment</li>
+<li>Generate satisfactory outcomes for all of the success-critical
+stakeholders</li>
+</ul></li>
+<li>All major risks resolved or covered by risk management plans</li>
+<li>Serves as basis for stakeholders’ commitment to proceed
+<ul>
+<li>“Are we ready to commit to go to the next phase?”</li>
+</ul></li>
+</ul>
+<p><strong>ICSM Meta-Principle: Risk Balancing</strong></p>
+<ul>
+<li>How much is enough?</li>
+</ul>
+<p>• System scoping, planning, prototyping, COTS evaluation,
+requirements detail, spare capacity, fault tolerance, safety, security,
+environmental protection, documenting, configuration management, quality
+assurance, peer reviewing, testing, use of formal methods, and
+feasibility evidence</p>
+<ul>
+<li>Answer</li>
+</ul>
+<p>• Balancing the risk of doing too little and the risk of doing too
+much will generally find a middle-course sweet spot that is about the
+best you can do</p>
+<p><strong>Why the Incremental Commitment Spiral Model
+(ICSM)?</strong></p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDRmZDY3YjZmZDk5Y2E3ZjY5OTM4NWRmMGIyZWE5NWZfVG1vM2JlbnBybDdHTjdZWXFhbTQ1ZnJNMGdzd0p5dVhfVG9rZW46UEcxT2JFanJxb2xWUzF4Rkt0dmNnc0Y1bmdnXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="agile-introduction">Agile: Introduction</h3>
+<h4 id="agile-concepts">Agile Concepts</h4>
+<p><strong>What is “Agile?”</strong></p>
+<ul>
+<li>It is a software development umbrella term and guiding philosophy
+that comes with a set of principles</li>
+<li>Agile development promotes: Adaptive planning; Evolutionary
+development and delivery; Time-boxed iterative approach; Rapid and
+flexible response to change</li>
+</ul>
+<p><strong>Manifesto for Agile Software Development</strong></p>
+<p>We are uncovering better ways of developing software by doing it and
+helping others do it. Through this work we have come to value:</p>
+<ul>
+<li>Individuals and interactions over processes and tools</li>
+<li>Working software over comprehensive documentation</li>
+<li>Customer collaboration over contract negotiation</li>
+<li>Responding to change over following a plan</li>
+</ul>
+<p>That is, while there is value in the items on the right, we value the
+items on the left more.</p>
+<p><strong>The 12 Principles of Agile Software Development</strong></p>
+<ul>
+<li>Our highest priority is to <strong>satisfy the customer</strong>
+through early and continuous delivery of valuable software.</li>
+<li><strong>Welcome changing requirements</strong>, even late in
+development. Agile processes harness change for the customer's
+competitive advantage.</li>
+<li><strong>Deliver working software frequently</strong>, from a couple
+of weeks to a couple of months, with a preference to the shorter
+timescale.</li>
+<li>Business people and developers must <strong>work together
+daily</strong> throughout the project.</li>
+<li>Build projects around <strong>motivated individuals</strong>. Give
+them the environment and support they need, and trust</li>
+<li>The most efficient and effective method of conveying information to
+and within a development team is <strong>face-to-face
+conversation</strong>.</li>
+<li><strong>Working software</strong> is the primary measure of
+progress.</li>
+<li>Agile processes promote <strong>sustainable development</strong>.
+The sponsors, developers, and users should be able to maintain a
+constant pace indefinitely.</li>
+<li>Continuous attention to <strong>technical excellence</strong> and
+good design enhances agility.</li>
+<li><strong>Simplicity</strong>—the art of maximizing the amount of work
+not done--is essential</li>
+<li>The best architectures, requirements, and designs emerge from
+<strong>self-organizing teams</strong>.</li>
+<li>At regular intervals, the team <strong>reflects</strong> on how to
+become more effective, then tunes and adjusts its behavior
+accordingly.</li>
+</ul>
+<p><strong>Agile Methodologies</strong></p>
+<ul>
+<li>Scrum</li>
+<li>eXtreme Programming (XP)</li>
+<li>Dynamic System Development Method (DSDM)</li>
+<li>Lean Development</li>
+<li>Feature-Driven Development (FDD)</li>
+<li>Crystal</li>
+<li>Adaptive Software Development (ASD)</li>
+</ul>
+<p><strong>Scrum Team</strong></p>
+<ul>
+<li>Product owner
+<ul>
+<li>The champions for their product</li>
+<li>Understanding of business, customer, market requirements</li>
+</ul></li>
+<li>Scrum master
+<ul>
+<li>The champions of scrum within their teams</li>
+<li>Coaching teams, product owners, and the business on the scrum
+process</li>
+</ul></li>
+<li>Dev team
+<ul>
+<li>The champions for sustainable development practices</li>
+<li>The ones who make things work</li>
+<li>Usually five to seven members</li>
+</ul></li>
+</ul>
+<p><strong>Sprint Planning</strong></p>
+<ul>
+<li>The Scrum team holds Sprint Planning</li>
+</ul>
+<p>• Agree upon sprint goal. What the upcoming sprint is supposed to
+achieve</p>
+<ul>
+<li>The development team reviews product backlog and determines the high
+priority items that the team can accomplish in a sprint</li>
+<li>With <strong>sustainable pace</strong></li>
+</ul>
+<p>• A pace at which the team can comfortably work for an extended
+period of time</p>
+<p><strong>Product Backlog</strong></p>
+<ul>
+<li>List of requirements (user stories)</li>
+<li>Priority level</li>
+<li>May include estimation (story points)</li>
+</ul>
+<p><strong>Sprint Review</strong></p>
+<ul>
+<li>Inspect the product that is being built</li>
+<li>Participants: Scrum team, stakeholders, sponsors, customers</li>
+<li>Focus on reviewing the just- completed features or underlying
+architecture</li>
+<li>Bi-directional info flow</li>
+</ul>
+<p><strong>Sprint Retrospective</strong></p>
+<ul>
+<li>Frequently occurs after the sprint review and before the next sprint
+planning</li>
+<li>Focus on inspect adapt the <strong>process</strong></li>
+<li>Team, Scrum Master, and Product Owner discuss what is not
+working</li>
+<li>Focus on <strong>continuous improvement</strong></li>
+<li>Identify process improvement actions</li>
+<li>15 - 30 minutes, up to three hours</li>
+</ul>
+<p><strong>Increment (“Potentially Shippable Product”) vs.
+Done</strong></p>
+<ul>
+<li>Sprint results = Increment (aka “potentially shippable
+product”)</li>
+<li>Use “definition of done” (DoD) Check whether the increment is “done”
+using DoD</li>
+</ul>
+<p><strong>Scrum vs. ICSM</strong></p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=MjU4MDkwZDdiNzViZTA1ZTVjODRiY2M3NjY2ZmFhNmJfak5PanE4UWg3YXNWS2g3eVhISjVFT1B2c01EcURycFFfVG9rZW46RzhCbmJCaEZSb05aZkR4TEdFQmNQWHg0bkljXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>XP – eXtreme Programming</strong></p>
+<ul>
+<li>Agile methodology that pushes core engineering practices to their
+extreme</li>
+<li>Frequent release</li>
+<li>Shorter timebox</li>
+<li>Frequent communication</li>
+<li>Expecting requirements changes</li>
+<li>Drawbacks
+<ul>
+<li>Unstable requirements</li>
+<li>Requires strong engineering discipline</li>
+<li>High customer availability</li>
+</ul></li>
+</ul>
+<p><strong>Risks for Agile Software Development: Development and
+Deployment risks</strong></p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=MzlhZDIwNWFjYjllOGY5YTAxMjBkNTc4ODY5MmY3ZjRfYm9YVXVVNVd2VFZOS0tDdGNxc0J5Qmd4SjQ3VWVPZWFfVG9rZW46R0xrOWJMSHN1b0UzbU54WXhSQmNXeThHblplXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>Risks for Agile Software Development: Project management
+risks</strong></p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=MzdlZTIxMGUwYzMyZTg5NDE4Y2FlNjRmNjY2ZDQzNGVfWFJpenZDMHVmWVRsd1E1dlBRQVdROVdCNVRYc1NteGpfVG9rZW46RmdDa2JMYkh3b0VVU0t4Wm54QWNxdjE4bnZiXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h4 id="agile-antipatterns">Agile Antipatterns</h4>
+<p>What is antipattern?</p>
+<ul>
+<li>“[A] common response to a recurring problem that is usually
+ineffective and risks being highly counterproductive.”</li>
+</ul>
+<p><strong>Common Software Engineering Anti-Patterns</strong></p>
+<ul>
+<li>Brooks’s law</li>
+</ul>
+<p>Adding more resources to a project to increase velocity, when the
+project is already slowed down by coordination overhead</p>
+<ul>
+<li>Feature creep</li>
+</ul>
+<p>Uncontrolled changes or continuous growth in a project's scope, or
+adding new features to the project after the original requirements have
+been drafted and accepted</p>
+<ul>
+<li>Gold plating</li>
+</ul>
+<p>Continuing to work on a task or project well past the point at which
+extra effort is not adding value</p>
+<ul>
+<li>God object Concentrating too many functions in a single part of the
+design (class)</li>
+<li>Dead code Code that is there but no one is sure why</li>
+<li>Pemature optimization Code early, optimize early and assume that it
+efficient</li>
+<li>Dependency hell Conflicts among dependency version requirements</li>
+<li>Soft code
+<ul>
+<li>Strong business logic or value from external resources in
+configuration files rather than a source code, e.g., macros, command
+line arguments. Abstracting too many values and features lead to
+complexity and maintenance issues</li>
+</ul></li>
+</ul>
+<p><strong>Anti-Patterns on New Agile Projects</strong></p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=OTYxZmNlMjlmMzFlY2E0NmE5OWQ3MDQ4YzhmMDE3NjJfR0lJZGNrUllpRE1BdEhVSHRTSzRjUW5YVEpWUENkaERfVG9rZW46V1BRNmJ2ZjAyb2NYYnp4b2l3Y2NjenpwbmZnXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=YzM5N2NiYWViZjJjNmMzNGM5ZDhkZDhlMDkwNDY4ZTdfY3FaYnhGdFVHa09kS1cyVldGNjFzUWh0eXdZd2k5SjhfVG9rZW46VndVYWIxMHBBb2VraW54cDkyZGMzOFNLbkloXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=OWQ4MjZkZGVlZGFiYzQxYmNjOThjODhmNjkyZGQwNzVfZ2tJZXVLNGhWckNrTmRKSzFmQTBWM3IzZG1oM2I3MVFfVG9rZW46TFBNbGJ1enZZbzJMc254a0x0SWNmejhXbnllXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h2 id="lec3">Lec3</h2>
+<h3 id="software-analysis-and-planning">Software Analysis and
+Planning</h3>
+<h4 id="risk-analysis">Risk analysis</h4>
+<p>Definition:</p>
+<ul>
+<li>“possibility of loss or injury” [Marriam-Webster]</li>
+<li>Risk is <strong>not</strong> a problem – it may or may not be
+realized into a problem</li>
+<li>Risks involve uncertainties
+<ul>
+<li>And can be dealt with proactively</li>
+<li>If the risk is realized, then it is a problem. It is no longer a
+risk at that point</li>
+</ul></li>
+<li>Earlier, this problem was a risk.</li>
+<li><strong>Risk Exposure = Probability of loss P(L) * Size of loss
+S(L)</strong> (RE = P(L) * S(L) )</li>
+</ul>
+<p><strong>Risk Management</strong></p>
+<ul>
+<li>Buying information 购买信息（减少不确定性）</li>
+<li>Risk avoidance 风险规避（避开风险路径）</li>
+<li>Risk transfer 风险转移（如保险或分包）</li>
+<li>Risk reduction 风险降低（采取行动降低概率或影响）</li>
+<li>Risk acceptance 风险接受</li>
+</ul>
+<p><strong>Is Risk Management Fundamentally Negative?</strong></p>
+<ul>
+<li>It usually is, but it shouldn’t be</li>
+<li>As illustrated in the Risk Acceptance strategy, it is equivalent to
+Opportunity Management. Opportunity Exposure OE = P(Gain) * S(Gain) =
+Expected Value</li>
+<li>Buying information and the other risk management strategies have
+their opportunity counterparts
+<ul>
+<li>P(Gain): Are we likely to get there before the competition?</li>
+<li>S(Gain): How big is the market for the solution?</li>
+</ul></li>
+</ul>
+<h4 id="cost-estimation">Cost estimation</h4>
+<p><strong>What is cost estimation?</strong> • Prediction of both the
+person-effort and elapsed time of a project</p>
+<p><strong>Known methods:</strong></p>
+<ul>
+<li>Algorithmic</li>
+<li>Expert judgement</li>
+<li>Estimation by analogy</li>
+<li>Top-down</li>
+<li>Bottom-up</li>
+<li>And <em>many others</em></li>
+</ul>
+<p>Best approach is a combination of methods</p>
+<p>• Compare and iterate estimates, reconcile differences,
+<em>continually</em></p>
+<p>• COCOMO (original from 1981) • The “COnstructive COst MOdel” •
+Derived from empirical data</p>
+<p>• COCOMO II (released in 2000) is the update to COCOMO 1981</p>
+<p>• COCOMO III in the works</p>
+<p>• COCOMO is the most known, thoroughly documented and calibrated cost
+model</p>
+<p><strong>Software Estimation Accuracy</strong></p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDdkYTU2NjNmMDMxOTdjZTgxZmYxOWRmMGI0NzMxMTZfZDBlb3M5VmhSenBhMnNRbThOYmVpMmJxV0swcWVubWpfVG9rZW46REtGTmJaaDNjb3ZWVFZ4Q0NPaGNIOWFPblJmXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>Top-Down and Bottom-Up Approaches</strong></p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=YzVmZDYwMzg0Y2UwMmNiMTlkMTM5YTBiZGIyNDNlZmNfSm5OSXVFb3YxdmMwSzBBdlVwd2FMNkJ1TFNWN21nOWZfVG9rZW46QTFLU2JBMlNXbzQyTm94aXV3UGN1RXdMblJjXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>COCOMO II</strong></p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=MGYwNTExYjhkMDhlNWVhMjFkZmI2YmE5ZDMyZDc2YzJfbzlpQTNZU1RnUElnTUVCOVJRd213bVM5dFZadlNKTXhfVG9rZW46RHBCZWJmR0dtb29Ba0N4aFJvMWNpYnpsbm9lXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>COCOMO Effort Formulation</strong></p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=NjhiMDhjYjM1MjVlMDc5NjEyMzZjMGJkMDZlN2FjZTVfdFdodzJyUXJNa0RWZlNpYWJScXVpbGtHR3JIbDJSTmpfVG9rZW46VDFtVmI4Vmk5b2hrVnp4T0R4a2NRc0t5bk5iXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>COCOMO Schedule Formulation</strong></p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=YWM2MDE3ODY5OGYzMTE3MmNkOTU4YTVjODJlNDU5ODJfMk5EOWdLMEk5V3JqSlZSUnBnUXhxR2hOWVhXS2VGZUlfVG9rZW46T0RCeWJ5ZFhPbzhPTld4WHVnaWNCOGxtblNmXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>Cost Factors</strong></p>
+<p>Significant factors of development cost:</p>
+<ul>
+<li><strong>Scale drivers</strong> are sources of exponential effort
+variation</li>
+<li><strong>Cost drivers</strong> are sources of linear effort
+variation. Product, platform, personnel and project attributes</li>
+<li>Effort multipliers associated with cost driver ratings</li>
+</ul>
+<p>Defined to be as objective as possible</p>
+<p>Each factor is rated between very low and very high per rating
+guidelines</p>
+<p>Relevant effort multipliers adjust the cost up or down</p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=MTA4OGM5NDNjNDhhZGNiNWRjNTA4N2UzMDc0NGY4MGVfYU90VktrYzE1TVJwWEpsZ2o1cnVuNzZnc2tmNzREZ3FfVG9rZW46UmdOSmJ3MnZZb3Z4WFR4ZDBMYWM3ejlwbkJnXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=ODU3Nzk5MGM5MDQyOTNjODE0Yzc1MjhhN2JmMDc1NjdfMzVMcGttNjNlQlhkNmlmVzlCUUp0a0xQY2YzMXVoM0tfVG9rZW46VEp0N2J5ZzA0b1ZPU2R4enluc2NsZVBGblplXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h4 id="technical-debt">Technical debt</h4>
+<p><strong>What Are the Cost of Software?</strong></p>
+<p>A financial estimate whose purpose is to help consumers and
+enterprise managers determine direct and indirect costs of a product or
+system • Including the costs to research, develop, acquire, own,
+operate, maintain, and dispose of a system</p>
+<p><strong>What is Technical Debt?</strong></p>
+<p>为了追求短期交付速度而采取“走捷径”的方案，导致未来维护成本增加的现象。</p>
+<p>Shipping first time code is like going into debt. A little debt
+speeds development so long as it is paid back promptly with a rewrite
+... The danger occurs when the debt is not repaid. Every minute spent on
+not-quite-right code counts as interest on that debt. Entire engineering
+organizations can be brought to a stand-still under the debt load of an
+unconsolidated implementation, object-oriented, or otherwise.</p>
+<p><strong>Major Causes of Technical Debt</strong></p>
+<ul>
+<li>Conspiracy of Optimism</li>
+<li>Business pressures</li>
+<li>Easiest-first; neglecting rainy day use cases</li>
+<li>Delayed Refactoring</li>
+<li>Neglect of ICSM Principles
+<ul>
+<li>Stakeholder value-based guidance</li>
+<li>Incremental commitment and accountability</li>
+<li>Concurrent system engineering</li>
+<li>Evidence and risk-driven decisions</li>
+</ul></li>
+</ul>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=MTE2MWEyYWJmNzEzOTIzMTc5ZGI4ZWJmNmEzYWNhN2ZfTEp5dHdFcjJQcTJ2SmtwMGpLdGZOZUxTYU1abWVWYktfVG9rZW46QW5JNWJ6TmJhb1QycGF4SXppM2NjU0F3bk9iXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=NmM1NTUyZDY0N2M1N2NmNGVhZGJmODIwNTFmOGMzYmVfbE43Zk1Vd1g0ZDZmMGZhWUtHT2pjRUk4ZTRqT3R1eWJfVG9rZW46SjVINWJEaG05b1hJRjF4VmRtNGNZZ3B1bmhnXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>Fixing Technical Debt</strong></p>
+<ul>
+<li>Big Bang
+<ul>
+<li>No new features for a month/year?</li>
+<li>Spend some time cleaning up the mess</li>
+</ul></li>
+<li>Dedicated Team
+<ul>
+<li>Have another team dedicated</li>
+</ul></li>
+<li>Boy Scout
+<ul>
+<li>Remove technical debt little and often</li>
+<li>If no tests, add some. If poor test, improve them. If bad code,
+refactor it</li>
+<li>The boy scout rule – leave the camp cleaner than you find it</li>
+</ul></li>
+<li>Use technical debt tools: SONAR, CAST, SQALE</li>
+</ul>
+<p><strong>The Bottom Line</strong></p>
+<ul>
+<li>Creating technical debt may be a good practice
+<ul>
+<li>Meeting market windows</li>
+<li>Prototyping to determine user needs, satisfaction</li>
+<li>Short-term fixes, targets of opportunity</li>
+</ul></li>
+<li>But needs pay-down later
+<ul>
+<li>To avoid mounting debt and interest</li>
+</ul></li>
+<li>Need balanced investment in fixes, new features</li>
+</ul>
+<h3 id="architecture-based-software-engineering">Architecture-Based
+Software Engineering</h3>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=YTI4OGM2ZWY5NTQ4ZWFjMWZhZTU5ZGYzOTk4M2IwMjJfVTNNR2M1YVRaZ1ZMV2Nsd09xcTJCTVRQT1d4Mm8yV3FfVG9rZW46VlZSUWJzRTdXb2ZIbXN4SzYxTGNNMlFnbkpnXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>What is Software Architecture?</strong></p>
+<p>Definition: A <em>software system's architecture</em> is the set of
+principal design decisions about the system</p>
+<ul>
+<li>Software architecture is the <strong>blueprint</strong> for a
+software system’s construction and evolution</li>
+<li>A conceptual essence of a software system</li>
+<li>A living thing that evolves over the lifecycle of a software
+system</li>
+<li>Three fundamental understandings
+<ul>
+<li>Every application has architecture</li>
+<li>Every application has at least one architect</li>
+<li>Architecture is <strong>not</strong> a phase of development</li>
+</ul></li>
+</ul>
+<p><strong>典型架构风格与模式</strong>：</p>
+<ul>
+<li><strong>管道与过滤器
+(Pipe-and-Filter)</strong>：适用于数据流处理系统。</li>
+<li><strong>分层架构 (Layered)</strong>：如 OSI
+网络模型，层间通过接口通信。</li>
+<li><strong>客户端-服务器
+(Client-Server)</strong>：计算任务分布在提供者和请求者之间。</li>
+<li><strong>模型-视图-控制器
+(MVC)</strong>：将业务逻辑、数据和界面显示分离。</li>
+<li><strong>微服务
+(Microservices)</strong>：通过一组小型、独立部署的服务构建系统。</li>
+</ul>
+<p><strong>What is “Principal?”</strong></p>
+<p>“Principal” implies a degree of importance that grants a design
+decision “architectural status”</p>
+<ul>
+<li>Not all design decisions are architectural</li>
+<li>Not all design decisions necessarily impact a system’s
+architecture</li>
+<li>Example of a non-principal design decision: “Do I use an array or
+linked list for a data?”</li>
+</ul>
+<p>How one defines “principal” will depend on what the stakeholders
+define as the system goals</p>
+<p><strong>Software Model and Modeling</strong></p>
+<p>• Definition:</p>
+<p>• An <em>architectural model</em> is an artifact that captures some
+or all of the design decisions that comprise a system’s
+architecture.</p>
+<p>• Definition:</p>
+<p>• <em>Architectural modeling</em> is the reification and
+documentation of those design decisions.</p>
+<p><strong>Software Architecture’s Elements</strong></p>
+<ul>
+<li>A software system’s architecture typically is not (and should not
+be) a uniform monolith</li>
+<li>A software system’s architecture should be a
+<strong>composition</strong> and <strong>interplay</strong> of different
+elements</li>
+<li>• Processing • Data, aka information or state • Interaction</li>
+<li>The above is encapsulated into following elements:</li>
+</ul>
+<p>• <strong>Components</strong> • <strong>Connectors</strong> •
+<strong>Configurations</strong></p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=YTg4OWRiOTBiZjE5NmQ3NTIwMDVmMGU5YWMwZGMzZDBfQ09FRnR1V09yU3JWSjQ3d1JTVEVHNERFNnF2OXhmM0FfVG9rZW46VGs3aGJsc3Vpb3c1cWN4Q0F3VWNDVXhSbnJiXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=OWI4NmI5MTRiZjMwZGM2YzA5ZjAxZDRjMWUyZDI3MjdfZ3FWWHdVcnNNVEtDQzc0OHVwWWpFZFN1Y2xONkR2cE9fVG9rZW46QldtbGJ1OXVNb2RPNlR4R1hjSmN4bVBZbjVlXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=NmQ5ZGY1NTFiYjVhZGIxM2NhODQ0NWY4MzcyMmVkN2VfRms1QUlRRFE0V1hBZkZSOFRLVVd4d2dqUmN3RWl1TEJfVG9rZW46QUNNOGJPdmdZbzJvUmp4T0dpOGN4eEJVbjBmXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>Architectural Style</strong></p>
+<ul>
+<li>Definition: An <em>architectural style</em> is a named collection of
+architectural design decisions that
+<ul>
+<li>are applicable in a given development context,</li>
+<li>constrain architectural design decisions that are specific to a
+particular system within that context, and</li>
+<li>elicit beneficial qualities in each resulting system.</li>
+</ul></li>
+<li>Reflect less domain specificity than architectural patterns</li>
+<li>Example architectural styles • Object-Oriented, Layered,
+Client-Server, Data-Flow, Batch-Sequential, Pipe and Filter, Blackboard,
+Microservices, Peer-to-Peer, ...</li>
+</ul>
+<p><strong>Architectural Pattern</strong></p>
+<ul>
+<li>Definition: An <em>architectural pattern</em> is a named collection
+of architectural design decisions that are applicable to a recurring
+design problem, parameterized to account for different software
+development contexts in which that problem appears.</li>
+<li>Applied at a low level and within a narrow scope</li>
+<li>Example architectural patterns: • State-Logic-Display (aka
+Three-Tier), Model-View-Controller (for GUI), Sense- Compute-Control
+(aka Sensor-Controller-Actuator), ...</li>
+</ul>
+<p><strong>What Is Architectural Analysis?</strong></p>
+<ul>
+<li><strong><em>Architectural analysis</em></strong> is the activity of
+discovering important system properties using the system’s architectural
+models
+<ul>
+<li><strong>Early, useful answers</strong> about relevant architectural
+aspects</li>
+<li>Available prior to system’s construction</li>
+</ul></li>
+<li>Important to know: which questions to ask, why to ask them, how to
+ask them, and how to ensure that they can be answered</li>
+<li><strong>Note</strong>: Not all models will be equally effective in
+helping to determine whether a given architecture satisfies a certain
+requirement • Informal and formal models</li>
+</ul>
+<p><strong>Architectural Analysis Goals</strong></p>
+<p>• The four “C”s</p>
+<ul>
+<li>Completeness • “Is the architecture complete?”</li>
+<li>Consistency • Ensures that different model elements do not
+contradict one another</li>
+<li>Compatibility</li>
+</ul>
+<p>• Ensures that the architectural model adheres to guidelines and
+constraints of (1) a style, (2) a reference architecture, and/or (3) an
+architectural standard</p>
+<ul>
+<li>Correctness</li>
+</ul>
+<p>• Ensures that (1) the architectural model fully realizes a system
+specification and (2) the system’s implementation fully realizes the
+architecture</p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=NWJhMWJhOTg4Y2M5MWNjMGIxYmMwYmNkYWQwN2U4YWVfZVk4SkZyME43aWMwMkxkdVQ5OUZtd2tZTGJ3bmtqU2VfVG9rZW46TE9TOGJlWVM1b3d3RWJ4dk9kTmNQcmtVbk1oXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=NWM3MTQ5MzQxODJjZTBhZjcyNzM1MTc1YmRkMWJjNmNfNWlJdDlPYzBkNE4wejZJVWZLU0F2Q0pPU1p6a0NRMGZfVG9rZW46VHJ0c2JDWUJnb2NzZzR4dlg4TmN4dWx1bklnXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="prototyping-and-testing">Prototyping and Testing</h3>
+<p><strong>Prototyping and Testing</strong></p>
+<ul>
+<li>Why do we do <strong>prototyping</strong> and
+<strong>testing</strong>?</li>
+<li>To reduce risk • Help minimize risk by uncovering potential problems
+before the final product is released</li>
+<li>To seek feedback
+<ul>
+<li>Prototyping seeks user or stakeholder feedback on design ideas and
+features</li>
+<li>Testing obtains feedback about the correctness, performance, and
+reliability</li>
+</ul></li>
+<li>To inform development decisions
+<ul>
+<li>Prototyping informs decisions on product scope and usability</li>
+<li>Testing informs decisions on whether the development is ready to
+advance</li>
+</ul></li>
+</ul>
+<p><strong>What is a Prototype?</strong></p>
+<p>• In software engineering, it means “an early sample, model, or
+release of a product”</p>
+<p><strong>Why Prototype?</strong></p>
+<ul>
+<li>“Buying information”–risk management • Inexpensive so it’s okay to
+fail early</li>
+<li>To gather more accurate requirements</li>
+<li>To better understand the underlying technicalities (<em>e.g.</em>,
+the algorithm)</li>
+<li>To explore feasibility for estimation and planning</li>
+<li>To increase user’s (and other stakeholders’) involvement</li>
+<li>To resolve conflicts among stakeholders</li>
+<li>...</li>
+</ul>
+<p><strong>Types of Prototype</strong></p>
+<ul>
+<li>Throwaway prototyping
+<ul>
+<li>Also known as closed-ended prototyping or rapid prototyping</li>
+<li>Informal, paper prototyping, storyboard, or UI (click dummy)</li>
+</ul></li>
+<li>Evolutionary prototyping
+<ul>
+<li>Build a robust prototype and constantly refine it</li>
+<li>“First draft,” “second draft,” “third draft,” ....</li>
+</ul></li>
+<li>Incremental prototyping
+<ul>
+<li>“Building block”</li>
+<li>Add/integrate new component, when all is in place, the solution is
+complete</li>
+</ul></li>
+</ul>
+<p><strong>Dimension of Prototypes</strong></p>
+<ul>
+<li>Horizontal</li>
+</ul>
+<p>• Broad view of the entire system, focusing on user interaction, but
+no underlying functionality</p>
+<ul>
+<li>Vertical</li>
+</ul>
+<p>• Complete elaboration of a single subsystem or function (in-depth
+functionality, but only for selected few features)</p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=ZGE5MTA0MTFhOTllZDM3MWRmMWE1YTY1ZDI1ZjQxZjFfUjljcWVKU2l5Vm1WS0pJc0V0aVNTRGQwY1VCNWdsOHJfVG9rZW46TERSMmJMTGlEbzkyWGV4RkVSRGN0OUZabjhiXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=NTRlNGMxMjg0YmRmOTdmZDRjNjE5ODM5MTRiZTY2YjJfbEliUUhZVWV1ZnRCOGU4V0duck5MRWd3NGNsTkdWUnBfVG9rZW46VnE2d2JTMGtRb2FDT3N4NkNtRmNCc2hlbkJmXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>What Is “Testing?”</strong></p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=MDc2NDlkZmEwN2Y2YTFkM2IyMjgxYTIyNDZlOTZjNWRfME1GT3Vha1VWeXpMdnd6cW56SFpXWEdUb0pVaThTS3RfVG9rZW46RGRzUmJyWjZTb2cwWEV4U3ZRRWNJbG1EbjJkXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=MTQ4ZTI3NGFlYzc4NzI3ZWE4MDE4NjQ1OWY4M2E5MzhfTUc5YTFIN2ZWb0hwdnhhZHZFR1FxNHR5R0hDOTAyaGRfVG9rZW46RGdXYWJhOUlYb3dROTd4RW52NmM0U3dWbjVnXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>Terminology: Verification vs Validation</strong></p>
+<ul>
+<li>Verification: “Are we building the product right?”
+<ul>
+<li>Demonstrating correctness, completeness, and consistency of the
+software artifacts</li>
+<li>To what degree the implementation is consistent with its (formal or
+semi-formal) specification</li>
+</ul></li>
+<li>Validation: “Are we building the right product?”
+<ul>
+<li>To what degree the software fulfills its (informal)
+requirements</li>
+<li>The software should do what the user really requires</li>
+</ul></li>
+</ul>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=MzYyMjY0MmUyNzkzZjI3NTI3Nzg3Mjk4ZjEzYjQ2ZDJfWmxTSGVJU3I1WmRMNFhtcUUwdERZVG4xSU41OTVCSmlfVG9rZW46RGFENGJvQnR3b2ZPZXd4RmNDTWNVYXFHblZoXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=NDRlYTMyMDRiYmVjMTU0OGRjNWQ3NDBiZjMxNTkxMjlfaDd6aVRTWTExUTJtaTZRNVltdm03TEthUEplQ1BRMTlfVG9rZW46UUJjcGI2bTJtbzg2VkN4NFVLNmNaNm4ybm9lXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=N2Y4N2RkOTk0NzBkZTg4Y2QyNjkyMjZmYmRjM2QzMDVfNko1ZjBWYXJOOERkWjQ5dUVGQkRlcnlnNFZ2b1Vua3BfVG9rZW46Q3l5aGJ5b1lqb1hGYlV4NGk1WmN2NTVSbmpiXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>Black Box Testing</strong></p>
+<ul>
+<li>Generate a test case <strong>based on a specification</strong> of
+the software</li>
+<li>Code is ignored: only use specification documents to develop test
+cases</li>
+<li>In the presence of formal specifications, it can be automated</li>
+<li>Techniques:
+<ul>
+<li>Equivalence partitioning</li>
+<li>Boundary conditions</li>
+</ul></li>
+</ul>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=OGRkNDFkNTExOWZhYzM2YmYzYTMxOWI0ZTBiNTQwZDRfNUFmd3JVb29PeXZIQzdpUEpPWEFVUG9DTnZpS3lvQUtfVG9rZW46Tmh4V2JXNHFSb0RDOGV4WjdSd2NPak8wbnVlXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=YzU2MDRhYzg3NDNmMGZjMjVhNzc2ZGQ0YWU1ZjI3M2VfUWh5Y2QxM3lCbE81eFBmRnY4aW9tZldjTlVhd3hTU0NfVG9rZW46UUhYN2JVZnhyb2ljMTN4N2ZQamNDVWNQblVlXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>White Box Testing</strong></p>
+<ul>
+<li>Selection of test suite is based on some elements in the code</li>
+<li>Testing based on control-flow and data-flow criteria</li>
+<li>Helps to identify design weakness in the code</li>
+<li>Example of white-box testing criteria:
+<ul>
+<li>Control flow (statement, branch, loop)</li>
+<li>Condition (basic, multiple)</li>
+</ul></li>
+</ul>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=NTNhMmI4NjcxYWI0YjdjMGVhNDk1OTBjZTcxNTNjZjBfMHdjcm9sZzFtTnZGSE02UVVHOVpmQzd4enJGc25XS21fVG9rZW46VUxkTWJyMjRPb0ZNRTV4OHlCc2NnMkNQbmtiXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=NmYzZTI0OTM0OTc1N2MwMmQ1NjFlYmI0OTNjYTk0ZWZfZXZZa25QMEtPS1d6Z3ltbkRnMGs3dmQ4WUFCUE9ieVpfVG9rZW46TnpwaGJhb2kybzFudWJ4Y056U2M4MzhqbkdoXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>Wrapping Up: Testing</strong></p>
+<p>Q: When do we stop testing?</p>
+<p>A: Until some aspects of the program is covered according to the
+considered criterion</p>
+<p>Q: What about test selection criteria?</p>
+<p>A: We certainly want a criterion that gives test suites that improve
+confidence</p>
+<p>Use both types of the criteria as they are complementary</p>
+<ul>
+<li>Black-box testing → based on specification</li>
+<li>White-box testing → based on the code</li>
+</ul>
+<p>Q: How to generate test cases?</p>
+<p>A: Look at the test requirement of the selected criterion and derive
+your test cases based on it</p>
+<p>Q: How to check the output of a test?</p>
+<p>A: Compare it with the expected output or the correct result given by
+the oracle, so we can indicate that the test is passed or failed</p>
+<p>Q: Thoroughness of testing?</p>
+<p>A: Can be measured in terms of the percentage of “coverable” items
+(as defined by the criteria) that are covered by the test suite</p>
+<p>• Examples</p>
+<ul>
+<li>Execution of statements</li>
+<li>Execution of paths</li>
+<li>All customer requirements</li>
+</ul>
+<p><strong>Testing Levels</strong></p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDIzOTFiNWM3MDE1ZjEwY2UyMDUyM2Q5OGI1ZDFhZTlfdmd4V1dieW1ZODlNblFoWVVySldWenFlQmxVSVUyUkxfVG9rZW46WDBocmI2SXM2bzR1MGt4aHBDdGM0bjRDbnBlXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=MTYyM2Q3OTg5ZDRlZDk0MTE1MzcxMDZhMWVjYTMzN2FfTkd4RHUzUnlHMThBM3NFU21COVFGQTFQaUQ4VlNEaEJfVG9rZW46RDRUM2J1TFVxb28yajN4dFFES2M0N1ZabnNnXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=NWE1NDBiNzUyNzEzNWFhOGEwZDFlN2M3MTgzODMyN2NfdEVMVFJjdHdlYmIwWWZ1VGcwaUdteDQxNzF3aUw3VWFfVG9rZW46SmtyUmI2VlFFb25SNFp4czlmaGN2bm9FbjhmXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=ZWQ3ZDAzZDJlZGViOTkzMTgwMTIxY2QxNTI3YWExMDdfSk9DamFXcVBkWkVsMTJWUjBTMkh1S2FSUElyVFh1TUVfVG9rZW46VEJ2WGJ4TkFCb2hpSGx4QXVOemMwcmdNbm9iXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>Quality of Service</strong></p>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=NWY2MjFlNmEwMmRjNjZlMGIxNTQ4MjkwOGFjMzg0MGZfMWFnTUlLQ2UxS2ZibWdJcGdQZlliNjhUTUk0MUVYR2ZfVG9rZW46R2llR2JvYXhSb2U0a1N4aUQyRWM1VWQwblZmXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTAzYzQ5ODM0NWQwZDJjOTJmNjE0NjJhNWU1MmQ5ODhfdDB2b2E4V0MzM2tEM3Z1cGdLY0lFdEpmVmZSVXhvM3hfVG9rZW46UGhVbWI2WmJvb1N5MzV4YUg0a2NMb3VMbjZiXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=NzU2MTQ3MThiMDI4ZTUzMTY0NWY2YmZiYWI5NDc4ZWJfb25MR3NXY1M4c09zSThObGdvZHpIMEV4UkU0cmUxUDRfVG9rZW46RDd1aWJoN3djb0VHODd4UldoYWNiUU91bmlkXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=MDFlYzIxZTVhMTUzZmVmNzkxMjUzOWU5MGM2NWU2N2FfS1JyRTc5YlZBSW83WndUSVREa2thVTBJTDc1ZkdDWjFfVG9rZW46VDVoemI0cUU4b0o1ekR4Z095dmNwamtHbkFlXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=MTNhMTMzYjljYjI2YjkwZDMwOTVjNWZkYTM4MDA3Y2RfTEdsOW5QSG1rU0RYMmZyV0Z2RE1PSkh4SVJleTdvMUNfVG9rZW46SFdRUmJyVGZFb2hmWmp4dTdGWGNkSG83bjdnXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h3 id="devops">DevOps</h3>
+<ul>
+<li>Definition: “DevOps is a set of practices intended to reduce the
+time between committing a change to a system and the change being placed
+into normal production, while ensuring high quality.” *</li>
+<li>DevOps combines development (Dev) and operations (Ops) To increase •
+Efficiency, Speed, and Security of software development and
+delivery</li>
+<li>While DevOps aligns well with the Agile principles, any software
+development processes can adopt DevOps practices</li>
+</ul>
+<p><strong>Why DevOps?</strong></p>
+<ul>
+<li>Align stakeholders’ goals and directions</li>
+<li>Business, operations, development, security, architecture,
+compliance, ...</li>
+<li>Benefits
+<ul>
+<li>Faster lead time</li>
+<li>Fewer defects</li>
+<li>Faster recovery</li>
+<li>More frequent deployments</li>
+</ul></li>
+</ul>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=ZmQ5ODEyNjMyMzM0ZGQxMjE5NmU1MmU2YTZmMjI0NDBfaGNGc2FmVUl0VllnSHpMOXl0RFd2TDExOGN5ZGh5aDNfVG9rZW46WFM1WGJ4T1Fob1IwRTZ4c3JrMmNlenlrblpnXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjEwYzRhMGQ3ODFlNDRlOGEzYWU5MWZjZWYwOTQyM2RfaUJ1aGQ1Y3BGTzkxNnNsZG5YeThWQ1FxNWJJQ1dKRnFfVG9rZW46TWlXamJDa09hb21QTER4ZDlJa2NUcmpRblpnXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=MDUwNWQwOWZiYzFkZjc5MmY5ZWI0NGZmNzg1MjA5MzZfMEVyUlFwYldtQTJ0dWgxdG5CY3l0cmg4TjBSUVFMTWlfVG9rZW46SFZoeGJaNTRybzVoZlF4MjNFYWM4M3psbk5kXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=ZGNiMTJkNDY2MjJkNzZmNmIwY2JmNTc5M2E1N2ZhMmFfQ2FnRU9hYmlPeHN2RUxoMDZTYkVtakduaUM3TWgxbUVfVG9rZW46WVNwUWI3NGZqb0I5TDh4Q0g0b2NHNGlqblFjXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=YzJlOTUxYjI5ZTRlOWJhNzk1Njc1Y2ZlZGJkMTU5M2JfUm4zcDltUUdLOFhGNnR3NEF5cTROd09iYlFTcE1vdmdfVG9rZW46T3ZDbmJiSzlMb1RGR1F4UUE0NGN0OGQ3bk9nXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=MTU3Mjg1Mjg5NjBkMzNkMWFkZmYxMTJmMDBiOWVhNmFfTDFRS1VXUXNwUk1ya25jdmM3bzh3M1Q3dWYzMEhIMURfVG9rZW46R3d6UWJMckhPb3VaOU94TTVIQWM1N2tobmxiXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=ZmRhNGY3MDllZDE0ODc5MmU4YTczZmQ5MzU2NjUyMjVfYlZwZnZFeHl2Z2o0aWpCNDNPbW1obFRQeXY0anZwVXhfVG9rZW46UERoeWJtM3Ixb1lqRjF4UExmU2NXdDBvbjNlXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=YjhmMGM1ODk2NWI3OTRlNjA5MzViZTQ1NDA0MjRiODlfOG5ISUNvdXdEakhncDBWYmdQSkVnVmRkeHdOVDFOcUZfVG9rZW46TkJiYmJ6RDNmb1FUZ1d4VHo2SGNGUDI5bmlnXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=OGZlYjBlNTI1ZGNmM2VkMjI4NmQ1NmI1NzgxZDkyMTZfWkdZdWdXMHZpT0hlSERUYjdqZVA4QnpEZHJNRmNYVWJfVG9rZW46TTJ0N2JEcnF4b1JVZWd4eU8wN2NsZVk3bldoXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=M2I3MmI0NTkwMThiYjA3ZGVhNjMxYThmY2E1MzkzOWNfWTNpczdOSVA4amxrTFZUWTdkT2tnYzhTNzBrRlRIY01fVG9rZW46TnNydmJua21Ub3c0Y2l4RXFJc2N2a1kybkFkXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=MmI5MjNiMGFjNGY3M2E4ZjQ4MzMxODJjZmNlOTNmYTBfdjI2QnR3OXFxdEl1ZEV3UDA0MHRUVzlUTTlVdVRENk9fVG9rZW46TzYxcGI5OEhwb083SG14SHBDb2NoemZpbkhoXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=NWY0MWEzNzhjM2I4MTZiN2Q4NzNhMDYxNGM0NDZjMTJfUkNVRnd4ODI4cUtIc2IzSHFxOWFKS1NkczZmRWVRY2hfVG9rZW46VnJYeWJrZjFCb1lnbDh4ckZxTWNLS1J5bk0yXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<h2 id="lec4">Lec4</h2>
+<h3 id="software-maintenance">Software Maintenance</h3>
+<h4 id="software-maintenance-definition-and-context">Software
+maintenance definition and context</h4>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDViNDU1N2Y5OGVhMGI2ODU1OWY2ZDQxZWViOWFmNjJfS1BrSVI4MEcxVDV1Z1I2b2VuaGpxWUdtUExYMjBmQWZfVG9rZW46RU94bGJnak1ab2l1UE14TmpHY2NHWnhwbkFoXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>The Iron Law of Software Maintenance</strong></p>
+<ul>
+<li>Useful software systems will spend twice as much on software
+maintenance as they did for development</li>
+</ul>
+<p><strong>Software Maintenance Categories</strong></p>
+<ul>
+<li><strong>Preventive maintenance</strong>: Modification of a software
+product after delivery to detect and correct latent faults in the
+software product before they become effective faults</li>
+<li><strong>Corrective maintenance</strong>: Reactive modification of a
+software product performed after delivery to correct discovered
+problems</li>
+<li><strong>Perfective maintenance:</strong> Modification of a software
+product after delivery to improve performance or maintainability</li>
+<li><strong>Adaptive maintenance:</strong> Modification of a software
+product performed after delivery to keep a software product usable in a
+changed or changing environment</li>
+</ul>
+<p><strong>Designing Maintainable Products</strong></p>
+<ul>
+<li>Modularize around sources of change</li>
+<li>Risk-manage choices of COTS products and cloud services
+<ul>
+<li>Fewer is generally better</li>
+<li>Compatible, stable, well supported, refreshed</li>
+</ul></li>
+<li>Deliver maintenance &amp; diagnostic software
+<ul>
+<li>Debug aids, test tools and cases, CM support</li>
+<li>Version control: having many versions to maintain is costly</li>
+</ul></li>
+<li>Follow good code and document standards</li>
+</ul>
+<h4 id="software-maintenance-in-the-ai-era">Software Maintenance in the
+AI Era</h4>
+<ul>
+<li>AI is transforming maintenance, but not replacing the need for it
+<ul>
+<li>AI boosts throughput (+7.5% to +21.8% PRs/week in field trials)</li>
+<li><strong>Code churn (revisions in 2 wks) is projected to 2x;</strong>
+shows maintenance burden</li>
+<li>AI adoption has shown a <strong>negative relationship with delivery
+stability</strong></li>
+<li>Acceleration without robust testing and feedback loops creates
+instability</li>
+</ul></li>
+<li>AI-generated code often violates the <strong>DRY</strong> principle
+and <strong>lacks architectural awareness</strong>, creating long-term
+maintainability challenges</li>
+<li>What students can do to adapt
+<ul>
+<li>Treat AI output as a draft, not final code; always review for
+architectural fit and coding standards</li>
+<li>Invest in automated testing (unit/integration/E2E) and CI/CD
+pipelines to catch regressions early</li>
+<li>Practice reading unfamiliar code; AI adds code that you did not
+write but you will need to maintain</li>
+</ul></li>
+</ul>
+<h3 id="software-engineering-best-practices">Software Engineering Best
+Practices</h3>
+<h4 id="the-triple-constraint-of-project-management">The triple
+constraint of project management</h4>
+<ul>
+<li>Time</li>
+<li>Scope</li>
+<li>Cost</li>
+</ul>
+<h4 id="best-practices-for-software-development-teams-from-rup">Best
+practices for software development teams (from RUP)</h4>
+<p>Rational Unified Process: Best Practices for Software Development
+Teams</p>
+<ul>
+<li>Proven approaches to software development</li>
+<li>“Best Practices” – not so much because you can precisely quantify
+their value, but rather, because they are <strong>observed to be
+commonly used in industry by successful organizations</strong>
+<ul>
+<li>Develop software iteratively</li>
+<li>Manage requirements</li>
+<li>Use component-based architectures</li>
+<li>Visual model software</li>
+<li>Verify software quality</li>
+<li>Control changes to software</li>
+</ul></li>
+</ul>
+<p>Best Practices 1: Develop Software Iteratively</p>
+<p>Best Practices 2: Manage Requirements</p>
+<p>Best Practices 3: Use Component-Based Architectures</p>
+<p>Best Practices 4: Visually Model Software</p>
+<p>Best Practices 5: Verify Software Quality</p>
+<p>Best Practices 6: Control Changes to Software</p>
+<h3 id="common-mistakes-in-software-engineering">Common Mistakes in
+Software Engineering</h3>
+<p><strong>Classic Mistakes</strong></p>
+<ul>
+<li>Mistakes about: • People</li>
+<li>• Process • Product • Technology</li>
+<li><strong>They fail software development projects</strong></li>
+<li><strong>Avoid making these mistakes to succeed in your
+project</strong></li>
+</ul>
+<p><strong>Classic Mistakes: People</strong></p>
+<ul>
+<li>Failure to take action to deal with a problem employee</li>
+<li>Adding people to a late project</li>
+<li>Not listening to user input</li>
+<li>Team members getting undermined motivation</li>
+<li>Lacking individual capabilities of the team members</li>
+</ul>
+<p><strong>Classic Mistakes: Process</strong></p>
+<ul>
+<li>Wasting time on</li>
+</ul>
+<p>• Fuzzy early schedule, approval and budgeting, and aggressive
+schedule later</p>
+<ul>
+<li>Human tendency to underestimate and produce overly optimistic
+schedules</li>
+</ul>
+<p>• Poor time estimates</p>
+<ul>
+<li>Insufficient risk management</li>
+</ul>
+<p>• Lack of sponsorship, changes in stakeholder commitment, scope
+creep, and contractor failure</p>
+<ul>
+<li>Risks from outsourcing and offshoring
+<ul>
+<li>QA, interfaces, unstable requirements</li>
+<li>Increased communication and coordination cost</li>
+</ul></li>
+<li>Not sharing knowledge with stakeholders</li>
+<li>Being unable to evaluate mistakes
+<ul>
+<li>Skipping Sprint reviews, retro, QA</li>
+<li>Limited code review,</li>
+<li>Not enough testing</li>
+</ul></li>
+</ul>
+<p><strong>Classic Mistakes: Product</strong></p>
+<ul>
+<li>Requirements gold-plating</li>
+</ul>
+<p>• Unnecessary product size and/or characteristics</p>
+<ul>
+<li>Developer gold-plating</li>
+</ul>
+<p>• Developers trying out new and hot technology / features</p>
+<ul>
+<li>Feature creep</li>
+</ul>
+<p>• Continuous/uncontrolled expansion of features beyond the original
+scope</p>
+<ul>
+<li>Relying on temporary solutions</li>
+</ul>
+<p>• Quick fix, mounting technical debt, poor code quality</p>
+<ul>
+<li>Not considering coding standards, secure coding, cybersecurity
+threats</li>
+<li>Useless, outdated, or unrelated documentation</li>
+</ul>
+<p>• <em>E.g.</em>, /* NO COMMENTS */</p>
+<p><strong>Classic Mistakes: Technology</strong></p>
+<ul>
+<li>Silver-bullet syndrome
+<ul>
+<li>Expect new technology to solve all problems</li>
+<li>AI, LLM, vibe coding, etc.</li>
+</ul></li>
+<li>Not staying current with technology</li>
+<li>Overestimated savings from new tools or methods
+<ul>
+<li>Did not account for learning curve and unknown unknowns</li>
+<li>“AI will make all engineers obsolete!”</li>
+</ul></li>
+<li>Switching tools in the middle of a project
+<ul>
+<li>Version upgrade</li>
+<li><em>E.g.</em>, operating system update on your MVP demo day</li>
+</ul></li>
+</ul>
+<h3 id="laws-of-software-engineering"><strong>“Laws” of S£oftware
+Engineering</strong></h3>
+<ul>
+<li>Daniel Bernoulli’s Principle
+<ul>
+<li>“Velocity is greatest where density is least.”</li>
+</ul></li>
+<li>Barry Boehm’s Law
+<ul>
+<li>“Errors are more frequent during requirements and design activities
+and are more expensive the later they are removed.”</li>
+</ul></li>
+<li>Fred Brooks’s Law
+<ul>
+<li>“Adding people to a late software project makes it later.”</li>
+</ul></li>
+<li>Melvin Conway’s Law
+<ul>
+<li>“Any piece of software reflects the organizational structure that
+produced it.”</li>
+</ul></li>
+<li>Phil Crosby’s Law
+<ul>
+<li>“Quality is free.”</li>
+</ul></li>
+<li>Dan Galorath’s Law
+<ul>
+<li>“Projects that get behind stay behind.”</li>
+</ul></li>
+<li>Watts Humphrey’s Law
+<ul>
+<li>“Users do not know what they want a software system to do until they
+see it working.”</li>
+</ul></li>
+<li>Caper Jones’s Law
+<ul>
+<li>“Every form of defect removal activity has a characteristic
+efficiency level, or percentage of bugs actually detected.”</li>
+</ul></li>
+<li>Goodhart’s law
+<ul>
+<li>“When a measure becomes a target, it ceases to be a good
+measure.”</li>
+</ul></li>
+<li>Hofstadter’s Law
+<ul>
+<li>"It always takes longer than you expect, even when you take into
+account Hofstadter's Law.”</li>
+</ul></li>
+<li>Donald Knuth’s optimization principle
+<ul>
+<li>“Premature optimization is the root of all evil.”</li>
+</ul></li>
+<li>Moore’s Law
+<ul>
+<li>“The processing speed of computers will double every two
+years.”</li>
+</ul></li>
+<li>Parkinson’s Law
+<ul>
+<li>“Work expands to fill the time available for completion.”</li>
+</ul></li>
+<li>Pareto Principle
+<ul>
+<li>“More than 80 percent of software bugs will be found in less than 20
+percent of software modules.”</li>
+</ul></li>
+<li>Ninety-ninety rule, Tom Cargill
+<ul>
+<li>“The first 90% of the code accounts for the first 90% of the
+development time. The remaining 10% of the code accounts for the other
+90% of the development time.”</li>
+</ul></li>
+<li>Facts and Fallacies of Software Engineering
+<ul>
+<li>“Modification of reused code is particularly error-prone. If more
+than 20 to 25 percent of a component is to be revised, it is more
+efficient and effective to rewrite it from scratch.”</li>
+</ul></li>
+<li>Facts and Fallacies of Software Engineering
+<ul>
+<li>“Eighty percent of software work is intellectual. A fair amount of
+it is creative. Little of it is clerical.”</li>
+</ul></li>
+<li>Facts and Fallacies of Software Engineering
+<ul>
+<li>“Missing requirements are the hardest requirements errors to
+correct.”</li>
+</ul></li>
+<li>Facts and Fallacies of Software Engineering
+<ul>
+<li>“Rigorous inspections can remove up to 90 percent of errors from a
+software product before the first test case is run.”</li>
+</ul></li>
+<li>Barry Boehm’s Law
+<ul>
+<li>“Prototyping significantly reduces requirements and design errors,
+especially for user errors.”</li>
+</ul></li>
+</ul>
+<h3 id="software-engineering-ethics">Software Engineering Ethics</h3>
+<h4 id="definitions-and-context"><strong>Definitions and
+context</strong></h4>
+<ul>
+<li><strong>Power to do public harm or good</strong></li>
+<li><strong>ACM/IEEE Software Engineering Code of Ethics</strong></li>
+<li>SW engineers will have <strong>vastly increasing power</strong> to
+do public harm or good
+<ul>
+<li>System safety and security</li>
+<li>Intellectual property</li>
+<li>Privacy</li>
+<li>Quality of work</li>
+<li>Fairness</li>
+<li>Liability</li>
+<li>Risk disclosure</li>
+<li>Conflict of interest</li>
+<li>Unauthorized access</li>
+</ul></li>
+<li>SW engineers today can now wield AI as a force multiplier</li>
+</ul>
+<h4 id="principles-and-examples">Principles and examples</h4>
+<ul>
+<li>Rawls’ Theory of Justice: Aims to constitute a system to ensure the
+fair distribution of primary social goods</li>
+</ul>
+<p><strong>Conclusions</strong></p>
+<ul>
+<li>SW engineers will have <strong>vastly increasing power</strong> to
+do public harm/good</li>
+<li>Rawls’ Theory of Justice enables constructive approach for
+integrating ethics into daily software engineering practice
+<ul>
+<li><em>E.g.</em>, ICSM Stakeholder win-win with least-advantaged system
+dependents as success-critical stakeholders</li>
+</ul></li>
+<li>Responsibility challenges for your future careers
+<ul>
+<li>Global threats, nanosecond decisions</li>
+<li>Coping with AI, Internet of Things, DevOps, Systems of Systems</li>
+<li>Try to build in reversibility of bad decisions</li>
+</ul></li>
+</ul>
+<h3 id="future-of-software-engineering">Future of Software
+Engineering</h3>
+<p><strong>“Software Engineering” Definition</strong></p>
+<ul>
+<li>Based on Webster definition of “engineering” : The application of
+science and mathematics by which the properties of software are made
+useful to people</li>
+<li>Many different definitions of the term, including the one from the
+first lecture: Development of software systems whose size/complexity
+warrants team(s) of engineers</li>
+<li>Includes computer science and the sciences of making things useful
+to people:Behavioral sciences, economics, management sciences</li>
+</ul>
+<figure>
+<img
+src="https://my.feishu.cn/space/api/box/stream/download/asynccode/?code=MTM4N2E5MmM0ODdhM2Q3MWJmY2JiYmU5YWQ0YmFkYTRfUXJkNTNDc28ybVlLT2FDRWtoSjBZSFFVMkYxNENLZDFfVG9rZW46TzVpMWJsNkZsb1J4ZUR4QnVuOGNhaXZnblZoXzE3NzUwMDE5MTg6MTc3NTAwNTUxOF9WNA"
+alt="img" />
+<figcaption aria-hidden="true">img</figcaption>
+</figure>
+<p><strong>The Future of Systems and Software</strong></p>
+<ul>
+<li>Eight surprise-free trends • Increasing integration of systems
+engineering and software engineering • User and value focus • Software
+criticality and dependability • Rapid, accelerating change •
+Distribution, mobility, interoperability, globalization • Complex
+systems of systems • COTS, open source, reuse, legacy integration •
+Computational plenty</li>
+<li>Two wild-card trends • Autonomy software • AI (including AI-assisted
+software engineering)</li>
+</ul></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://wangchunchia.github.io">Chunchia Wang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://wangchunchia.github.io/2026/03/21/USC%20CSCI-577A%E7%AC%94%E8%AE%B0/">https://wangchunchia.github.io/2026/03/21/USC%20CSCI-577A%E7%AC%94%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://wangchunchia.github.io" target="_blank">祇树给孤独园</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/image/%E7%AB%A0%E9%B1%BC%E5%93%A5.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2026/01/01/USC%20CSCI-585%E7%AC%94%E8%AE%B0/" title="USC CSCI-585 notes"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">USC CSCI-585 notes</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/image/%E7%AB%A0%E9%B1%BC%E5%93%A5.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Chunchia Wang</div><div class="author-info__description">自由而无用</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/wangchunchia"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#csci-577a-%E5%A4%8D%E4%B9%A0"><span class="toc-number">1.</span> <span class="toc-text">CSCI-577A 复习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#lec1"><span class="toc-number">1.1.</span> <span class="toc-text">Lec1</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#what-is-software-engineering"><span class="toc-number">1.1.1.</span> <span class="toc-text">What is Software Engineering?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#software-development-lifecycle-model"><span class="toc-number">1.1.2.</span> <span class="toc-text">Software Development
+Lifecycle Model</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#software-qualities"><span class="toc-number">1.1.3.</span> <span class="toc-text">Software Qualities</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lec2"><span class="toc-number">1.2.</span> <span class="toc-text">Lec2</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#software-engineering-philosophy"><span class="toc-number">1.2.1.</span> <span class="toc-text">Software Engineering
+Philosophy</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#software-process-models"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">Software Process
+Models</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#value-based-software-engineering"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">Value-based software
+engineering</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#incremental-commitment-spiral-model"><span class="toc-number">1.2.2.</span> <span class="toc-text">Incremental Commitment
+Spiral Model</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#agile-introduction"><span class="toc-number">1.2.3.</span> <span class="toc-text">Agile: Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#agile-concepts"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">Agile Concepts</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#agile-antipatterns"><span class="toc-number">1.2.3.2.</span> <span class="toc-text">Agile Antipatterns</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lec3"><span class="toc-number">1.3.</span> <span class="toc-text">Lec3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#software-analysis-and-planning"><span class="toc-number">1.3.1.</span> <span class="toc-text">Software Analysis and
+Planning</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#risk-analysis"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">Risk analysis</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cost-estimation"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">Cost estimation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#technical-debt"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">Technical debt</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#architecture-based-software-engineering"><span class="toc-number">1.3.2.</span> <span class="toc-text">Architecture-Based
+Software Engineering</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#prototyping-and-testing"><span class="toc-number">1.3.3.</span> <span class="toc-text">Prototyping and Testing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#devops"><span class="toc-number">1.3.4.</span> <span class="toc-text">DevOps</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lec4"><span class="toc-number">1.4.</span> <span class="toc-text">Lec4</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#software-maintenance"><span class="toc-number">1.4.1.</span> <span class="toc-text">Software Maintenance</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#software-maintenance-definition-and-context"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">Software
+maintenance definition and context</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#software-maintenance-in-the-ai-era"><span class="toc-number">1.4.1.2.</span> <span class="toc-text">Software Maintenance in the
+AI Era</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#software-engineering-best-practices"><span class="toc-number">1.4.2.</span> <span class="toc-text">Software Engineering Best
+Practices</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#the-triple-constraint-of-project-management"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">The triple
+constraint of project management</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#best-practices-for-software-development-teams-from-rup"><span class="toc-number">1.4.2.2.</span> <span class="toc-text">Best
+practices for software development teams (from RUP)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#common-mistakes-in-software-engineering"><span class="toc-number">1.4.3.</span> <span class="toc-text">Common Mistakes in
+Software Engineering</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#laws-of-software-engineering"><span class="toc-number">1.4.4.</span> <span class="toc-text">“Laws” of S£oftware
+Engineering</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#software-engineering-ethics"><span class="toc-number">1.4.5.</span> <span class="toc-text">Software Engineering Ethics</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#definitions-and-context"><span class="toc-number">1.4.5.1.</span> <span class="toc-text">Definitions and
+context</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#principles-and-examples"><span class="toc-number">1.4.5.2.</span> <span class="toc-text">Principles and examples</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#future-of-software-engineering"><span class="toc-number">1.4.6.</span> <span class="toc-text">Future of Software
+Engineering</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/21/USC%20CSCI-577A%E7%AC%94%E8%AE%B0/" title="USC CSCI-577A notes">USC CSCI-577A notes</a><time datetime="2026-03-21T07:00:00.000Z" title="发表于 2026-03-21 00:00:00">2026-03-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/01/USC%20CSCI-585%E7%AC%94%E8%AE%B0/" title="USC CSCI-585 notes">USC CSCI-585 notes</a><time datetime="2026-01-01T08:00:00.000Z" title="发表于 2026-01-01 00:00:00">2026-01-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/20/%E6%AF%95%E8%AE%BE%E8%87%B4%E8%B0%A2/" title="毕设致谢">毕设致谢</a><time datetime="2025-06-20T07:00:00.000Z" title="发表于 2025-06-20 00:00:00">2025-06-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/13/%E7%BA%AA%E5%BF%B5%E7%94%B0%E4%B8%B0%E8%80%81%E5%B8%88/" title="纪念田丰老师">纪念田丰老师</a><time datetime="2025-04-13T07:00:00.000Z" title="发表于 2025-04-13 00:00:00">2025-04-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/01/10/2025%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/" title="南京大学软件学院2025软件安全期末复习">南京大学软件学院2025软件安全期末复习</a><time datetime="2025-01-10T16:00:00.000Z" title="发表于 2025-01-10 08:00:00">2025-01-10</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2026 By Chunchia Wang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'Ov23lipGb2DQkRK6VkDe',
+      clientSecret: '16fd173d7022be11562011dc97f4f654941f7f77',
+      repo: 'wangchunchia.github.io',
+      owner: 'wangchunchia',
+      admin: ['wangchunchia'],
+      id: 'e81bdeb7aaaea18f0b1fb18470364443',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
