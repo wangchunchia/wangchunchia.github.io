@@ -1,0 +1,2761 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>USC CSCI-572 notes | 祇树给孤独园</title><meta name="author" content="Chunchia Wang"><meta name="copyright" content="Chunchia Wang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="Search Engine basics 一、搜索引擎的发展历史 搜索引擎最早并不是 Web 搜索引擎。从 1990 年代初开始出现各种原始信息搜索工具：  Archie、Veronica、Gopher：早期网络文件&#x2F;菜单搜索工具，不是真正的网页搜索。 1993 年左右出现最早的 Web 搜索尝试，比如 Wanderer、ALIWeb。 1994–1997 年出现了大量搜索引擎（Excite、Ly">
+<meta property="og:type" content="article">
+<meta property="og:title" content="USC CSCI-572 notes">
+<meta property="og:url" content="https://wangchunchia.github.io/2026/05/15/USC%20CSCI-572%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="祇树给孤独园">
+<meta property="og:description" content="Search Engine basics 一、搜索引擎的发展历史 搜索引擎最早并不是 Web 搜索引擎。从 1990 年代初开始出现各种原始信息搜索工具：  Archie、Veronica、Gopher：早期网络文件&#x2F;菜单搜索工具，不是真正的网页搜索。 1993 年左右出现最早的 Web 搜索尝试，比如 Wanderer、ALIWeb。 1994–1997 年出现了大量搜索引擎（Excite、Ly">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wangchunchia.github.io/image/%E7%AB%A0%E9%B1%BC%E5%93%A5.jpg">
+<meta property="article:published_time" content="2026-05-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-23T16:53:03.154Z">
+<meta property="article:author" content="Chunchia Wang">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wangchunchia.github.io/image/%E7%AB%A0%E9%B1%BC%E5%93%A5.jpg"><link rel="shortcut icon" href="/image/W%E7%8E%8B.svg"><link rel="canonical" href="https://wangchunchia.github.io/2026/05/15/USC%20CSCI-572%E7%AC%94%E8%AE%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'USC CSCI-572 notes',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-05-24 00:53:03'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/image/%E7%AB%A0%E9%B1%BC%E5%93%A5.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/image/Almond_blossom.jpeg')"><nav id="nav"><span id="blog-info"><a href="/" title="祇树给孤独园"><span class="site-name">祇树给孤独园</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">USC CSCI-572 notes</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-05-14T16:00:00.000Z" title="发表于 2026-05-15 00:00:00">2026-05-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-05-23T16:53:03.154Z" title="更新于 2026-05-24 00:53:03">2026-05-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/USC/">USC</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="USC CSCI-572 notes"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="search-engine-basics">Search Engine basics</h2>
+<p><strong>一、搜索引擎的发展历史</strong></p>
+<p>搜索引擎最早并不是 Web 搜索引擎。从 1990
+年代初开始出现各种原始信息搜索工具：</p>
+<ul>
+<li><strong>Archie、Veronica、Gopher</strong>：早期网络文件/菜单搜索工具，不是真正的网页搜索。</li>
+<li>1993 年左右出现最早的 Web 搜索尝试，比如
+<strong>Wanderer、ALIWeb</strong>。</li>
+<li>1994–1997 年出现了大量搜索引擎（Excite、Lycos、Yahoo、AltaVista、Ask
+Jeeves 等）。</li>
+<li><strong>1998 年 Google
+的出现标志着现代搜索引擎时代的开端</strong>，它用链接分析（PageRank）等新方法推进了相关排序技术。</li>
+</ul>
+<p>这一段历史说明：搜索引擎从简单索引工具逐步发展成复杂的系统，从单纯文本匹配走向结合统计与链接结构的排序逻辑。</p>
+<p><strong>二、什么是搜索引擎</strong></p>
+<p>搜索引擎是一个计算机程序，其目的是：</p>
+<blockquote>
+<p><strong>帮助用户查找存储在某个系统（如 Web
+或企业网络）中的信息。</strong></p>
+</blockquote>
+<p>这里的 “信息” 可以是网页、文档、图片、视频，只要用户能查到。</p>
+<p>搜索引擎包括集中式（Web 这样的大规模）和专用的企业/个人搜索系统。</p>
+<p><strong>三、搜索引擎的主要组成部分</strong></p>
+<p>一个典型的搜索引擎包含如下核心组件：</p>
+<ol type="1">
+<li>用户（User）</li>
+</ol>
+<p>用户通过查询界面提交搜索请求，用户行为（搜索历史、点击行为）会影响个性化排序。</p>
+<ol start="2" type="1">
+<li>爬虫 / Spider / Crawler</li>
+</ol>
+<p>自动遍历 Web 页面、抓取网页内容、提取链接，为索引构建做准备。
+工作的核心是递归抓取 URL、解析 HTML、发现新链接。</p>
+<ol start="3" type="1">
+<li>索引器（Indexer）</li>
+</ol>
+<p>把爬取到的文本转换为可检索的数据结构（例如倒排索引），包括词表处理、停用词过滤、词干提取等。</p>
+<ol start="4" type="1">
+<li>索引结构（Indexes）</li>
+</ol>
+<p>如倒排索引（term → 文档列表）和其他辅助索引（URL、anchor
+text、元数据等），用于快速查找匹配内容。</p>
+<ol start="5" type="1">
+<li>广告索引（Ad Indexes）</li>
+</ol>
+<p>专门存储广告内容及其关键词匹配结构，这是搜索引擎商业变现的重要部分。</p>
+<ol start="6" type="1">
+<li>查询处理器（Query Processor）</li>
+</ol>
+<p>处理用户输入的查询，进行分词、符号处理、语义扩展，然后查索引并返回结果。</p>
+<p>以上组件共同协作，使得搜索引擎能够高效地从海量信息中返回匹配结果。</p>
+<p><strong>四、Web 和搜索引擎的挑战</strong></p>
+<p>搜索引擎面对 Web 时有几个关键难点：</p>
+<ul>
+<li><strong>Web
+是开放且无序的分布式系统</strong>：没有中心结构，内容动态生成；</li>
+<li><strong>数据异构</strong>：文本、图片、视频等多种形式；</li>
+<li><strong>Web 规模巨大</strong>：文档数量呈指数级增长；</li>
+<li><strong>质量问题</strong>：页面可能包含错误信息、SEO
+干扰、垃圾内容。</li>
+</ul>
+<p>因此除了简单抓取和索引，搜索引擎还需要大量策略来提升效率与质量。</p>
+<p><strong>五、用户对搜索的需求</strong></p>
+<p>PPT 中提出：用户需求是多样的，通常可以分为几类：</p>
+<ul>
+<li><strong>信息型（Informational）</strong>：想了解某个主题；</li>
+<li><strong>导航型（Navigational）</strong>：想访问特定网站；</li>
+<li><strong>事务型（Transactional）</strong>：想完成某个操作（下载、购物等）。</li>
+</ul>
+<p>理解用户意图对排名与界面设计非常重要。</p>
+<p><strong>六、查询处理的智能化趋势</strong></p>
+<p>现代搜索不再是简单匹配词项，还会：</p>
+<ul>
+<li>识别查询语言；</li>
+<li>过滤停用词；</li>
+<li>推断查询意图（个性化、地理位置、历史偏好）；</li>
+<li>用上下文信息改善返回结果。</li>
+</ul>
+<p>这些处理提高了相关性和用户体验。</p>
+<p><strong>七、搜索结果不是孤立的</strong></p>
+<p>搜索返回的并不只是文档链接，而是“整体结果”，可能包括：</p>
+<ul>
+<li>新闻摘要；</li>
+<li>地图信息；</li>
+<li>图片、视频；</li>
+<li>相关主题推荐等。</li>
+</ul>
+<p>这说明现代搜索重视用户全方位信息需求，而不是简单匹配关键词。</p>
+<p><strong>八、搜索引擎作为产业</strong></p>
+<p>搜索引擎不是单纯技术，它是一个产业：</p>
+<ul>
+<li>收入主要来自广告，例如付费搜索竞价广告；</li>
+<li>公司如 Google、Bing、百度 都有巨量商业规模；</li>
+<li>搜索引擎技术和广告生态紧密耦合。</li>
+</ul>
+<p>PPT
+展示了搜索引擎行业收入规模及竞争分布，说明它不仅是学术课题，也是商业核心。</p>
+<p><strong>九、Google 在搜索行业的地位</strong></p>
+<p>课件特别引用了 Google 的历史与市场地位，说明它：</p>
+<ul>
+<li>在 Web 搜索领域占主导；</li>
+<li>索引规模最大；</li>
+<li>维护全球最大 Web 数据库。</li>
+</ul>
+<p>同时由于其市场规模，也引发监管和公平竞争问题。</p>
+<h2 id="web-serving-basics">Web Serving Basics</h2>
+<p>这节课主要讲了 <strong>Web
+的基本特征与趋势</strong>，为什么搜索引擎设计需要考虑规模、动态性、多样性以及网络结构等复杂属性。
+Web
+已经从几十年前的小规模、静态集合发展成一个极其庞大、动态生成、海量数据的分布式系统，这些特性决定了搜索系统必须采用分布式抓取、索引、存储与检索的架构。</p>
+<p><strong>全球互联网发展的趋势：</strong>全球数十亿用户连接网络，移动流量占比超过一半，在线视频和社交媒体增长极快，每分钟上传到
+YouTube 的视频达到数百小时级别，全球数据量以指数级增长，达到以 Zettabyte
+为单位的规模。这些统计说明 Web
+不再是少量静态页面，而是一个巨大、不断膨胀的实时内容生态。</p>
+<p><strong>从不同维度讨论如何“衡量
+Web”：</strong>通过网站的数量、域名分布、网页语言多样性、不同内容类型（文本、图片、视频、音频、二进制文件等）的比例、以及页面的变化速率等指标来描述
+Web 的复杂性。数量级上讲，Web 含有数十亿网站和数万亿唯一
+URL，如果完全存储一份快照需要数百 PB
+级别存储，这已经远超传统单机级能处理的规模。</p>
+<p><strong>Web 的动态性和测量难度：</strong>Web
+页面不断被创建、删除、更新，这让对 Web
+的统计变得很难长期有效；不同的抓取方式可能导致不同的样本特性，这些都对搜索引擎的抓取策略和索引设计提出挑战。虽然完整意义上描述整个
+Web 几乎不可能，但通过大规模抓取和统计仍然可以捕捉到一些代表性趋势。</p>
+<p>一些 Web 的基本事实统计：全球网站分布、不同顶级域（.com、.de
+等）的数量比例、网页内容语言的多样性、以及 Webgraph
+的基本属性。这一部分虽然数据本身会随着时间更新，但核心思想是：<strong>Web
+是一个极其巨大的、异质的、动态变化的网络系统，它的规模和结构特性必须成为搜索引擎设计的基本前提</strong>。</p>
+<p>一句话总结这节课：Web
+已经不是简单的静态页面集合，而是一个规模巨大、结构复杂、实时演化的网络，由此决定了搜索引擎必须用分布式架构、图结构分析、动态索引和高效数据处理技术来应对
+Web 的本质特点。</p>
+<h2 id="search-engine-evaluation">Search Engine Evaluation</h2>
+<p>Crawler → Indexer → Query Processor → Ranking → Results</p>
+<p>评价不是看界面，而是用指标和实验方法衡量系统返回结果的质量和排序表现。指标既要反映查准性、查全性，又要考虑结果的位置及用户体验。</p>
+<p>搜索引擎评估的核心是：对于一个查询，系统返回一串排序结果，你需要判断哪些是“相关”（relevant），哪些是“不相关”。不同指标从不同角度把这个结果串的表现量化出来，让你能比较不同模型或不同版本的效果。</p>
+<p><strong>质量评估指标</strong></p>
+<p>最基础的衡量是 <strong>Precision（查准率）</strong> 和
+<strong>Recall（查全率）</strong>。</p>
+<ul>
+<li><strong>Precision = TP / (TP +
+FP)</strong>，即被检索出的相关文档占所有检出的比例。</li>
+<li><strong>Recall = TP / (TP +
+FN)</strong>，即被检索出的相关文档占所有相关文档的比例。 这里 TP
+是检索到的相关文档数，FP 是检索到的非相关文档数，FN
+是未检索到的相关文档数。 两者反映不同侧重点：Precision
+强调结果干净、少噪声；Recall 强调覆盖全面。</li>
+</ul>
+<p><strong>F-Measure（F-score）</strong></p>
+<p>Precision 和 Recall 有权衡关系。<strong>F-score
+是它们的调和平均数</strong>，通过对两者取加权调和平均反映综合表现。
+F₁（默认 β = 1）是最常用的形式，强调 Precision 和 Recall
+同等重要。数学上它是：</p>
+<p><span class="math inline">\(F_1 = 2 × \frac{Precision ×
+Recall}{Precision + Recall}\)</span></p>
+<p>它在检索评估中常用于在同一个数值上综合反映查准与查全。</p>
+<p><strong>平均 Precision 与 MAP（Mean Average Precision）</strong></p>
+<p>对于一个查询，你可以计算每个相关文档在结果列表中出现时对应位置的
+Precision，然后求平均，这就是一个查询的 <strong>Average
+Precision（平均精度）</strong>。 对一组查询集计算平均，就得到
+<strong>Mean Average Precision（MAP）</strong>。MAP 是 IR
+研究中常用的指标，代表系统在多个查询上的整体表现，强调的是相关结果越全文提取得好越高。</p>
+<p><span class="math inline">\(MAP = \frac{\sum_{q=1}^{Q}
+AP(q)}{Q}\)</span></p>
+<p><strong>DCG / NDCG（折损累计增益与归一化）</strong></p>
+<p>现实检索更关注
+<strong>位置排位</strong>：把相关结果排在前面更重要。为此引入了
+<strong>Discounted Cumulative
+Gain（DCG）</strong>。它用每个结果的相关性得分除以一个与位置相关的衰减因子（通常是
+log₂(rank+1)），把越靠前的结果权重更高。</p>
+<p>如果用相关性等级（如 0 = 不相关, 1 = 有点相关, 2 = 很相关 等）：</p>
+<p><span class="math inline">\(DCG_p = \sum_{i=1}^{k}
+\frac{rel_i}{\log_2(i+1)}\)</span></p>
+<p>这样能量化排序的质量。为了能比较不同查询，使用 <strong>Normalized
+DCG（NDCG）</strong>：把 DCG 除以理想排序（IDCG）的 DCG，得到一个 0~1
+的标准值。NDCG 越大说明系统排序越好。</p>
+<p><strong>评估实验与用户反馈</strong></p>
+<p>课件里还提到评估方法不只是指标：要结合真实用户行为和实验。搜索引擎常用
+<strong>人工标注的测试集合</strong>（relevance
+judgments）来评测，因为系统内部日志里的点击数据可能有<strong>位置偏差</strong>（比如用户更容易点前面结果）并不能直接代表相关性。</p>
+<p>另外大公司（如 Google）会组织 <strong>Search Quality
+Raters</strong>（人工评估团队）使用统一标准对查询结果打分，再把这些统计数据用于优化模型。阿布测试（<strong>A/B
+Testing</strong>）也是常用方法：对比两个版本在真实用户流量下的点击/满意度差异，从而评估改动效果。</p>
+<p><strong>评价指标的意义与应用</strong></p>
+<ul>
+<li><strong>Precision / Recall</strong>
+强调查准查全，但只关注二值相关性，不看排序。</li>
+<li><strong>F-score</strong> 综合考量查准查全，适合单一数值比较。</li>
+<li><strong>MAP</strong>
+更适合研究和学术评估，在多个查询上综合比较性能。</li>
+<li><strong>DCG / NDCG</strong> 考虑位置影响，更接近用户体验评价。</li>
+<li><strong>用户点击和 A/B Testing</strong>
+则是工程层面评估，反映真实用户行为，但需注意噪声和偏见。</li>
+</ul>
+<h2 id="web-crawling">Web Crawling</h2>
+<p><strong>Web Crawling</strong> 是搜索引擎、搜索系统的第一步，就是
+<strong>系统地遍历 Web、抓取网页内容和结构</strong>。</p>
+<p>Web Crawling
+是搜索引擎系统的第一步，也是整个搜索系统的“数据入口”。搜索引擎不可能在用户查询时才去实时访问整个互联网，因此必须提前把网页抓取下来、解析并建立索引。爬虫（crawler、spider、bot）的任务就是系统性地遍历
+Web，把页面内容和链接结构收集起来，为后续倒排索引和排序算法提供原始数据。</p>
+<p>从结构上看，Web
+可以被视为一个巨大的有向图：每个网页是一个节点，超链接是边。爬虫的本质就是对这个图进行遍历。遍历的起点是一组种子
+URL（seed
+URLs），爬虫从这些页面开始抓取，解析出页面中的链接，再把新发现的链接加入待抓取队列，循环进行。这一过程不断扩展覆盖范围，因此常被称为“frontier
+扩展”。</p>
+<p>为了管理抓取顺序，系统会维护一个 URL
+frontier（待抓取队列）。这个队列不仅是简单的先进先出，还会根据策略进行优先级调度。例如，新闻站点更新频繁，应该高频抓取；而博物馆介绍页面多年不变，可以低频抓取。老师在课上强调过一个重要思想：爬虫不仅要“抓得多”，还要“抓得聪明”。盲目遍历会浪费资源。</p>
+<p>爬虫必须遵守 robots.txt 规则。robots.txt
+文件放在网站根目录，用于声明哪些路径允许抓取、哪些不允许。一个规范的搜索引擎必须先读取
+robots.txt 再决定抓取范围。这体现了所谓的“politeness
+policy”（礼貌抓取策略）。除此之外，还要控制抓取频率，避免短时间内向同一服务器发送过多请求，否则可能被视为攻击。</p>
+<p>现实中的 Web
+规模极其庞大，因此单机爬虫是不可能完成任务的。大型搜索引擎采用分布式架构，多台机器并行抓取，每台机器负责不同域名或不同
+URL
+范围。抓取过程中还必须处理网络错误、服务器超时、重复页面、死链接等问题。这使得
+Web Crawling 不只是算法问题，更是大规模工程系统问题。</p>
+<p>老师特别讲到“重复抓取”和“动态网页”的问题。很多网站内容相同或高度相似，如果不做去重，索引会膨胀并浪费存储。动态页面还可能在每次访问时生成不同参数的
+URL，形成“爬虫陷阱（crawl
+trap）”，导致爬虫陷入无限扩展。因此爬虫系统必须有去重机制（如记录已访问
+URL 或利用哈希技术）以及策略限制。</p>
+<p>在课堂中老师强调了一个关键点：爬虫不是为了抓“所有页面”，而是为了抓“有价值页面”。真正重要的是高质量页面和高链接权重页面。Web
+具有明显的幂律结构（少数页面有大量入链），因此可以通过链接结构优先抓取重要节点。</p>
+<p>与 Web Scraping 不同，Web Crawling 面向的是整个 Web
+生态，是系统级行为；Scraping
+通常针对特定站点、特定目标数据。搜索引擎爬虫必须保持长期运行，不断刷新内容，因为
+Web 是动态变化的。</p>
+<p>总结来说，Web Crawling
+是搜索引擎的基础设施层。它解决的问题是：如何在一个规模巨大、动态变化、分布式且结构复杂的网络中，高效、合法、稳定地获取尽可能多的有价值网页。没有高质量的爬虫，就没有后续的索引、排序和检索。</p>
+<h2 id="deduplication">Deduplication</h2>
+<p>在大规模爬取的过程中，会出现两个问题：</p>
+<p><strong>1）Exact Duplicate（完全重复）</strong></p>
+<ul>
+<li>多个 URL 可能指向相同内容（例如镜像网站、同样内容不同参数）。</li>
+<li>如果不处理，会浪费存储和索引资源。</li>
+</ul>
+<p><strong>2）Near-Duplicate（近似重复）</strong></p>
+<ul>
+<li>页面内容几乎一样但有细微改动（比如广告变动、时间戳变化）。</li>
+<li>对搜索引擎来说，保留这些重复内容对用户体验没价值。</li>
+</ul>
+<p><strong>Deduplication 的核心目标</strong></p>
+<blockquote>
+<p><strong>识别并剔除重复或近重复的网页，节省存储和计算成本，同时提升搜索结果的质量。</strong></p>
+</blockquote>
+<p><strong>传统 Hash（如 MD5）的问题</strong></p>
+<ul>
+<li>MD5 是加密式哈希：输入只要一丁点变化，输出 hash 完全不同。</li>
+<li>这种哈希适合检测绝对一样的内容，但<strong>不能反映“内容近似”</strong>。</li>
+</ul>
+<p>举例：两个只差一个空格的文本，其 MD5 完全不同，但内容几乎相同 —— 传统
+hash 检不出来。</p>
+<p><strong>真实世界要关注“相似度”</strong></p>
+<p>为了处理 near-duplicates，需要一种 hashing 方法让：</p>
+<ul>
+<li>输入内容小改动 → hash 只小幅改变；</li>
+<li>输入内容大改动 → hash 猛烈改变。</li>
+</ul>
+<p>这类 hash 称为 <strong>局部敏感哈希（Locality Sensitive Hashing,
+LSH）</strong>。</p>
+<p><strong>SimHash（特征降维+相似指纹）</strong></p>
+<p>SimHash 是一种 LSH 算法，非常适合在大规模爬虫/搜索场景下做去重。</p>
+<p>它的核心思想：</p>
+<ol type="1">
+<li><strong>提取特征</strong>（词、shingle 等）；</li>
+<li>用普通 hash 把每个特征映射到 bit 向量；</li>
+<li>对所有特征的 bit 向量按权重累加（出现 +1，没出现 -1）；</li>
+<li>最终把累加结果按符号转成固定长度二进制 fingerprint。</li>
+</ol>
+<p>结果：</p>
+<ul>
+<li>内容非常相似的文档 → fingerprint 很接近（海明距离小）；</li>
+<li>内容差异很大的文档 → fingerprint 差异大。</li>
+</ul>
+<p><strong>海明距离（Hamming Distance）</strong> =
+两个二进制串不同位置的个数 它是 SimHash 判断相似度的衡量标准。</p>
+<p><strong>为什么 SimHash 好用？</strong></p>
+<ul>
+<li>它使得“相似”在 hash 输出空间中变得可度量；</li>
+<li>与传统 hash 相比，小改动不会导致 hash 大变；</li>
+<li>便于在大规模网页库中快速判断近重复；</li>
+<li>可结合排序/索引优化避免 O(n²) 全比较。</li>
+</ul>
+<p><strong>大规模去重的优化思路（在课程图示中体现）</strong></p>
+<ul>
+<li>SimHash 输出固定长度（二进制） fingerprint；</li>
+<li>对所有 fingerprint 排序；</li>
+<li>通过邻近比较或“小窗口滑动检查”来找可能相似对；</li>
+<li>结合 bit 旋转/分块等技术可以提高命中率而非全对比</li>
+</ul>
+<p>这种 approach 比一对一计算每个文档相似度要高效得多。</p>
+<p><strong>核心目标</strong>：在海量网页中快速识别 near-duplicate
+文档，避免重复内容被索引和存储，从而提升检索效率和质量。</p>
+<h2 id="information-retrieval">Information Retrieval</h2>
+<p>如果在考试中问了什么是IR，一个单词概括就是Similarity</p>
+<p>把“搜索”从工程问题上升到数学建模问题。</p>
+<p>信息检索（IR）的本质是：在一个巨大的文档集合里，找到对用户查询最“相关”的文档。过去所谓的信息检索，其实只是“文档检索”——系统给你一堆链接，你自己去读。现在的
+RAG 和向量数据库，本质上还是
+IR，只是把“相关性计算”做得更精细，再由模型生成答案。</p>
+<p>真正的关键问题只有三个：文档如何表示？查询如何表示？相关性如何计算？</p>
+<p>第一种模型：Boolean
+Model（布尔模型）。布尔模型是最原始的做法。文档里有这个词就匹配，没有就不匹配。AND/OR/NOT
+是刚性的逻辑，没有“部分匹配”的概念，也无法表达“更相关”。它解决的是“是否满足条件”，不是“谁更好”。</p>
+<p>第二种模型：Vector Space
+Model向量空间模型。向量空间模型是真正的转折点。1.
+文档怎么表示？把整个词汇表当成一个高维坐标系，每个词是一个维度，每篇文档是一个向量。某个词出现几次，就在那个轴上有多大的值。2.
+查询也被表示成同样的向量。 3. 怎么判断相关？ Dot Product和Cosine
+Similarity于是检索问题变成几何问题：哪个文档向量和查询向量夹角最小？cos(θ)
+最大的，就是最相关的。这就是现代 embedding 检索的数学原型。</p>
+<p>权重（weight）其实就是词频（TF）。词出现越多，那个维度的分量越大，向量越往那个方向偏。后面再配合
+IDF 才形成完整的
+TF-IDF，但这节课已经建立了核心直觉：词频就是重要性。</p>
+<p>TF-IDF 是一种衡量某个词在某篇文档中“重要程度”的权重。</p>
+<p><span class="math inline">\(w_{ij} = tf_{ij} \cdot idf_j\)</span>，
+TF（Term Frequency），这个词在该文档中出现了多少次；IDF（Inverse
+Document Frequency）：这个词在整个语料库中“稀有程度”。公式：</p>
+<p><span class="math inline">\(idf_j = \log \frac{N}{df_j}\)</span></p>
+<p>如果向量变成二进制（出现=1，不出现=0），相关性就可以用 Hamming
+distance 来算；如果用实数向量，就用 dot product 或
+cosine。无论哪种形式，本质都是在计算“距离”或“相似度”。距离小，相似度高；距离大，相似度低。相似度和距离是对偶关系。</p>
+<p>常见相似度算法：</p>
+<p>不考虑位置：</p>
+<ul>
+<li>Cosine similarity：把文档或查询表示成向量（比如 TF-IDF
+向量），然后计算两个向量之间的夹角。</li>
+<li>Jaccard：衡量两个“集合”的重叠程度，交集/并集</li>
+</ul>
+<p>考虑位置：</p>
+<ul>
+<li>Edit distance：衡量把字符串 A 变成字符串 B 需要多少次“编辑操作”</li>
+<li>N-gram sequence：连续的 N 个词（或字符）组成的序列</li>
+<li>Hamming(bit-difference) distance</li>
+</ul>
+<p>倒排索引的作用是让搜索变成对索引的快速查找，而不是对全文扫描。搜索发生在
+index 上，ranking 发生在取出的候选集合上。用户点击行为又会反过来作为
+relevance feedback 修正模型。这是搜索引擎不断优化排序的基础思想。</p>
+<p>embedding 和向量数据库：现代 RAG 并没有推翻传统
+IR，而是把向量表示从“词频向量”升级成“语义向量”。查询变成
+embedding，文档也变成
+embedding，然后做向量相似度搜索。原理没有变，只是表示方式更聪明。</p>
+<h2 id="text-processing">Text Processing</h2>
+<ol type="1">
+<li><strong>文本分类的核心任务 (Text Classification)</strong></li>
+</ol>
+<p>文本分类是指将文档（或文本片段）分配到一个或多个预定义类别的过程。讲义中提到了几个典型应用场景：</p>
+<ul>
+<li><strong>垃圾邮件过滤 (Spam Filtering)：</strong>
+区分垃圾邮件（Spam）和非垃圾邮件（Ham）。</li>
+<li><strong>语言识别 (Language Identification)：</strong>
+自动判断文本所属的语言。</li>
+<li><strong>主题分类 (Topic Classification)：</strong>
+例如将新闻分为政治、体育、科技等。</li>
+</ul>
+<ol start="2" type="1">
+<li><strong>核心算法与模型</strong></li>
+</ol>
+<p>讲义介绍了多种用于文本分类的模型，涵盖了从传统统计方法到深度学习的内容：</p>
+<ul>
+<li><strong>朴素贝叶斯 (Naive Bayes)：</strong> *
+这是文本分类中最经典的基准算法。
+<ul>
+<li>基于贝叶斯定理，假设特征（单词）之间相互独立。</li>
+<li>提到了 Paul Graham 的垃圾邮件过滤实验。</li>
+</ul></li>
+<li><strong>神经网络 (Neural Networks)：</strong> *
+强调了神经网络是目前最强大的监督学习架构之一。
+<ul>
+<li>特别提到了使用 <strong>交叉熵损失函数 (Cross-Entropy Loss)</strong>
+来训练分类器。</li>
+</ul></li>
+<li><strong>Rocchio 分类法：</strong>
+<ul>
+<li>利用<strong>质心 (Centroids)</strong> 来定义每个类别的区域。</li>
+<li>通过计算新文档到各个类别质心的距离来进行分类，涉及到了
+<strong>Voronoi 图 (Voronoi Regions)</strong> 的概念。</li>
+</ul></li>
+<li><strong>支持向量机 (SVM)：</strong>
+<ul>
+<li>旨在寻找能够最大化类别间距的超平面 (Hyperplane)。</li>
+</ul></li>
+</ul>
+<ol start="3" type="1">
+<li><strong>关键工具与案例</strong></li>
+</ol>
+<ul>
+<li><strong>SpamAssassin：</strong> 讲义引用了 Apache SpamAssassin
+作为一个真实的工业级垃圾邮件过滤案例。</li>
+<li><strong>特征提取：</strong>
+讨论了如何将文本转换为机器可以理解的向量形式（如词袋模型、TF-IDF
+等，尽管部分细节在图片中，但这是文本处理的通用背景）。</li>
+</ul>
+<p><strong>4. 分类过程的逻辑</strong></p>
+<ul>
+<li><strong>训练 (Training)：</strong>
+使用带有标签的文档集来学习分类模型。</li>
+<li><strong>测试/评估 (Evaluation)：</strong>
+在未见过的测试数据上验证模型的准确性。</li>
+<li><strong>决策边界：</strong>
+讲义通过视觉化的图片展示了不同算法如何划分特征空间，例如线性划分与非线性划分的区别。</li>
+</ul>
+<h2 id="inverted-index">Inverted Index</h2>
+<p>核心主题：倒排索引。它是搜索引擎最核心的数据结构，也是后面所有检索模型（包括
+RAG、向量数据库）能够工作的基础。</p>
+<p>倒排索引本质是一个 Key–Value 结构。Key
+是用户可能搜索的词（term），Value 是包含该词的文档列表（postings
+list）。和传统书本的索引类似，只不过方向是反过来的：传统是“一本书 →
+很多词”，倒排索引是“一个词 → 很多文档”。因此叫 Inverted Index。</p>
+<p>搜索引擎之所以快，不是因为“实时扫描网页”，而是因为提前构建好了倒排索引。当用户输入一个词，比如
+“banana”，系统做的事情是：在排序好的词典里用二分查找迅速找到这个词，然后直接取出对应的文档列表，再进行排序输出。查找复杂度是
+O(log n)，而不是遍历所有网页。</p>
+<p>倒排索引的构建过程包括：分词、大小写统一、去除停用词（the, a, of
+等）、词干提取（run / running →
+run）、统计词频。每个词不仅存储出现在哪些文档，还可以存储出现次数（Term
+Frequency）和位置（Position）。位置索引可以支持短语查询，比如 “computer
+architecture” 必须按顺序出现。</p>
+<p>排序时使用 TF-IDF 思想。TF（Term
+Frequency）表示词在文档中出现的次数，出现越多越重要。DF（Document
+Frequency）表示该词出现在多少个文档中。如果一个词出现在几乎所有文档里（如
+the），说明它区分能力弱。于是使用 IDF = log(N / df)
+来惩罚高频词。最终权重是 TF × IDF。这个模型后来发展成
+BM25，是工业界真正使用的改进版本。</p>
+<p>当查询包含多个词时，比如 “Brutus AND Caesar NOT
+Calpurnia”，系统会分别取出每个词的 postings
+list，然后做集合运算。核心操作是合并有序列表。最基础做法是线性
+merge，时间复杂度 O(n)。为了优化，倒排列表中可以加入 Skip
+Pointers（跳跃指针），允许在合并时跳过大片不匹配区域，从而加速 AND
+查询。</p>
+<p>短语查询可以通过三种方式实现：基于位置索引做精确匹配、建立 biword
+索引（把常见词对当作一个 term）、或使用 n-gram
+索引。实际搜索系统会根据用户查询日志，把高频短语单独建索引以提高效率。</p>
+<p>老师特别强调：倒排索引的价值极高。它是搜索引擎最核心资产之一。美国司法部曾考虑要求
+Google
+分享其索引，因为建立一个高质量、规模巨大的倒排索引需要多年积累。</p>
+<p>总结来说，这节课的核心理解是：搜索不是扫描网页，而是在预构建的倒排索引上做集合运算和排序。倒排索引负责“找候选文档”，TF-IDF/BM25
+负责“排序”，两者结合才构成完整的信息检索系统。</p>
+<h2 id="video-search-engines">Video Search Engines</h2>
+<p>这节课一开始老师讲的是 Agent
+世界的快速变化。Cloud/OpenCloud、PicoCloud、在 10 美元硬件上跑
+agent、Android 手机跑 agent、Meta 眼镜接入 agent
+等等，这些例子本质上是在说明：Agent
+已经不再是实验室概念，而是可以运行在边缘设备上的系统。Agent
+不仅仅做文本问答，而是可以调 API、操作应用、执行循环调用工具（tool
+loop），直到满足用户高层目标。老师强调，很多 orchestration
+逻辑已经可以由模型自己写出来，人类不再手动写复杂 agent
+框架。这背后的核心结构是：大模型（pretrain + fine-tune +
+RLHF）只是中枢，大量能力来自外部工具调用与循环执行。</p>
+<p>随后老师强调一个非常重要的观点：AI
+生成能力（video、3D、音频）正在冲击传统内容创作行业，但这些系统“仍然不理解世界”。它们只是基于概率生成
+token。生成的视频、动画可能看起来逼真，但在物理一致性、逻辑一致性上会出现严重错误。这和信息检索里的“幻觉”问题是同源的：模型生成的是高概率输出，不是事实。</p>
+<p>课堂后半部分进入真正的技术主题：Video Search Engine。</p>
+<p>老师用 YouTube 作为案例说明视频检索系统的整体架构。</p>
+<p>首先是系统架构层面。一个视频平台至少包含：</p>
+<ul>
+<li>Load Balancer（负载均衡）：分发用户请求。</li>
+<li>Web Server / Application Server：处理业务逻辑。</li>
+<li>Media Storage：原始视频存储。</li>
+<li>Transcoding Server：转码成不同分辨率和格式。</li>
+<li>CDN（Content Delivery
+Network）：在全球边缘节点缓存视频，减少延迟。</li>
+<li>Metadata Storage：保存视频标题、描述、标签等文本信息。</li>
+<li>User Database：保存用户观看历史与偏好。</li>
+</ul>
+<p>上传视频是“push”模型：内容创作者主动上传，系统无需爬虫。和 Web
+crawling 不同，视频平台通常不需要主动去外部抓视频，而是用户提交。</p>
+<p>当用户搜索时，真正被搜索的并不是“原始视频帧”，而是
+metadata。标题、标签、描述、字幕文本等构成了可索引文本。也就是说，视频搜索的核心仍然是文本倒排索引，只不过索引对象从网页变成视频条目。</p>
+<p>视频检索的核心流程和普通 IR 非常类似：</p>
+<ol type="1">
+<li>用户输入查询词。</li>
+<li>系统在 metadata 的 inverted index 中查找匹配视频。</li>
+<li>得到候选视频集合。</li>
+<li>进行排序（ranking）。</li>
+<li>返回排序后的视频列表。</li>
+</ol>
+<p>排序信号包括：</p>
+<ul>
+<li>观看次数</li>
+<li>点赞数</li>
+<li>用户互动率</li>
+<li>上传时间（新视频通常加权）</li>
+<li>视频长度（短视频更易传播）</li>
+<li>用户历史兴趣（推荐系统信号）</li>
+</ul>
+<p>这本质上是经典 IR + 推荐系统融合。</p>
+<p>视频检索和文本检索的区别在于：视频有多模态特征。</p>
+<p>除了标题和标签，还可能包含：</p>
+<ul>
+<li>自动生成字幕（Speech-to-Text）</li>
+<li>OCR（视频中的文字识别）</li>
+<li>画面内容识别（对象检测）</li>
+<li>音频情绪识别</li>
+<li>视觉 embedding</li>
+</ul>
+<p>但当前大规模视频搜索仍然严重依赖文本代理（metadata
+proxy），而不是直接索引视频内容本身。</p>
+<p>视频平台中的附加技术：</p>
+<p>Closed Caption（可开关字幕） Open Caption（烧录进视频，无法关闭）
+Speech Recognition（自动语音转文本） OCR（视频内文字识别）
+Transcoding（多码率适配不同设备）</p>
+<p>这些技术本质上都是为了增强“可检索性”和“可访问性”。</p>
+<p>一个非常重要的延伸是：信息检索正在向信息生成转变。</p>
+<p>过去：搜索 → 返回文档 现在：搜索 + 聚合 + 生成 → 返回摘要或新内容
+未来：生成全新视频（例如自动拼接多个视频片段做 summary montage）</p>
+<p>老师举的例子是：假设搜索“kite
+flying”，系统不仅返回视频列表，还可以自动从前 100 个视频中抽取最精彩 3
+秒，拼成一个总结视频。这就是从 IR 走向 IG（Information
+Generation）。</p>
+<p>视频搜索引擎本质仍然是倒排索引 +
+排序系统，只是对象从网页变成视频，多模态技术增强可检索性，而未来趋势是从信息检索走向信息生成。</p>
+<h2 id="querying">Querying</h2>
+<p>Querying
+这一部分主要讲的是搜索引擎如何处理查询、如何改进查询结果，以及如何评价一个搜索引擎的好坏。老师首先强调，查询不仅仅是用户输入几个关键词然后返回结果这么简单，它背后涉及排序机制、用户行为反馈、查询扩展以及评估指标等多个层面。</p>
+<p>在传统查询模型中，搜索引擎基于关键词匹配进行检索，早期主要使用布尔查询语言，例如
+AND、OR、NOT
+这样的逻辑运算符来精确控制查询条件。用户可以指定必须包含某些词、排除某些词。这种方式强调精确匹配，属于经典信息检索方法。后来发展为基于
+tf-idf
+的向量空间模型，通过计算词频和逆文档频率来衡量文档与查询之间的相关性，从而进行排序。</p>
+<p>接着老师讲到了 Query Expansion 和 Relevance
+Feedback。现代搜索引擎会根据用户的点击行为来改进排序。例如，当你搜索一个问题时，页面上会出现
+“People also ask” 或 “Related
+searches”。如果大量用户在搜索某个词后点击某些相关问题，搜索引擎就会记录这种行为，在未来提高这些结果的排名。这种机制叫做
+Relevance
+Feedback，即用户点击行为作为相关性信号反向优化排序系统。点击行为可以被理解为一种隐式反馈，如果
+90% 的用户点击某个结果而不是当前第一名结果，说明排序可能需要调整。</p>
+<p>老师还讲到了 Related Search 的概念。例如你搜索 rock bands，系统会推荐
+metal、emo、punk
+等相关类别。这些并不是你明确输入的查询，而是基于用户群体行为产生的查询扩展。这属于查询重构（Query
+Reformulation）的一种方式，可以帮助用户发现自己没有想到的相关信息。</p>
+<p>另一个重要概念是 Standing Query。Standing Query
+是指持续查询机制，也就是当用户设置一个长期关注的关键词时，系统会自动监控新内容并推送给用户。例如
+Google
+Alerts，当有新的网页或新闻匹配你的关键词时，系统会自动发邮件通知。这种机制体现了
+Push 和 Pull 的区别。Pull 是用户主动搜索，Push
+是系统主动推送。这实际上是一种持续性的查询匹配和分类过程。</p>
+<p>在查询评估方面，老师重点讲了 Mean Reciprocal
+Rank（MRR）。这是评价搜索引擎性能的重要指标。具体做法是：对于每个查询，找到正确答案出现的位置
+rank，然后计算 1/rank。多个查询的结果取平均值，就是该搜索引擎的
+MRR。这个指标的意义在于，正确答案越靠前，1/rank
+越大，平均值越高。如果正确答案根本没有出现在结果中，则可以视为 rank
+为无穷大，对应的倒数为 0。这样 MRR
+就能够惩罚那些没有正确答案或把正确答案排在很后面的搜索引擎。老师强调，在实际应用中不会只用
+3 个查询测试，而是会用几百甚至几千个查询来获得稳定评估结果。</p>
+<p>老师还提到 Custom Search Engines，例如 Google Scholar、Google Books
+或专门的专利搜索系统。这些系统看起来和普通搜索引擎类似，但它们的索引范围不同，只针对特定领域进行搜索。这说明查询系统可以针对不同数据集进行定制。</p>
+<p>在现代搜索环境中，查询不再仅仅基于关键词匹配，而是进入了语义检索阶段。老师举例说明视频搜索系统如何通过
+embedding 技术将视频帧映射到向量空间中，从而实现语义搜索。embedding
+的核心思想是将具有相似语义的内容映射到向量空间中相近的位置，使搜索从“词匹配”升级为“语义匹配”。这意味着查询可以是文本、图片甚至视频片段，多模态搜索成为可能。</p>
+<p>总体来说，Querying
+这一部分围绕四个核心思想展开：第一是传统关键词与布尔查询模型；第二是用户行为驱动的查询扩展与相关反馈；第三是搜索引擎性能评估方法，尤其是
+MRR；第四是现代基于向量和 embedding
+的语义查询。查询系统从简单的字符串匹配逐渐演变为结合统计模型、用户行为数据以及深度学习技术的复杂系统，其目标始终是将最相关的结果尽可能排在最前面。</p>
+<h2 id="search-engine-advertising">Search engine advertising</h2>
+<p>Search Engine Advertising
+本质上是一个实时竞价系统。当用户在搜索引擎中输入一个查询词时，系统不仅会返回自然排序结果，还会触发一次广告拍卖。所有购买了该关键词的商家都会自动进入这场拍卖。搜索引擎不会简单地按照谁出价最高来排序，而是通过一个综合排名公式来决定广告位置，这个公式是广告出价（Bid）乘以质量分（Quality
+Score）。老师强调，排名不是单纯拼钱，而是拼“出价 ×
+质量”。即使某个商家出价较低，只要质量分高，仍然可以排在前面。</p>
+<p>质量分是搜索引擎内部计算出来的一个指标，主要依据广告历史表现，例如过去的点击率（CTR）、用户互动情况、页面质量和相关性等。老师提到，这些数值是搜索引擎根据历史数据估计出来的，比如广告过去被点击了多少次，用户是否真正对内容感兴趣。因此，一个广告如果经常被点击，说明用户认为它有价值，质量分就会提高，从而在未来的竞价中更有优势。</p>
+<p>广告位置与点击率之间存在明显差异。排名第一通常能获得最多点击，老师举例说明排名第一大约可以获得
+42%
+的点击率。这意味着广告主会非常重视排名位置，因为更靠前的位置直接带来更多流量和潜在收益。因此广告竞价本质上是一种商业博弈，企业不断调整出价和策略，以获得更优展示位置。</p>
+<p>老师还讲到广告营销活动（Ad
+Campaign）的概念。企业可以同时运行多个广告项目，为不同关键词设置不同出价，并进行
+A/B
+测试来优化效果。广告主会不断测试不同关键词、文案和预算组合，以观察哪种组合带来更高点击率和转化率。这种系统化的广告管理方式在商业中被称为营销活动（Marketing
+Campaign）。</p>
+<p>在讲广告机制之前，老师回顾了早期的
+SEO（搜索引擎优化）历史。过去曾经存在“关键词堆砌”（Keyword
+Stuffing）等作弊行为，即在网页源码中反复隐藏关键词以提高排名。但现在搜索引擎算法已经足够成熟，会惩罚这种行为，因此黑帽
+SEO
+基本失效。如今如果想稳定排在搜索顶部，付费广告成为更加直接有效的方式。</p>
+<p>老师还提到一个新的趋势叫做 Generative Engine
+Optimization（GEO）。随着生成式 AI
+的发展，未来不仅要优化网页以适应传统搜索引擎，还要优化内容以便被生成式
+AI
+系统引用。这意味着广告与内容优化的对象正在从“传统搜索引擎”扩展到“生成式搜索引擎”。</p>
+<p>最后，老师强调这个广告系统的商业逻辑：企业之间通过竞价竞争流量，而搜索引擎平台无论排名如何都会盈利。这种机制使搜索引擎成为一个拍卖平台，广告排序既反映市场竞争，也反映用户行为数据。</p>
+<p>总体而言，Search Engine Advertising
+是一个结合实时拍卖机制、用户行为反馈和质量评估体系的复杂系统。其核心在于出价与质量分的乘积决定广告排名，而点击率与历史表现又反过来影响质量分，从而形成一个动态循环的商业优化过程。</p>
+<h2 id="期中复习">期中复习</h2>
+<p><strong>The Web</strong></p>
+<p><strong>核心本质</strong></p>
+<ul>
+<li>Web 是一个 <strong>有向图 (directed graph)</strong></li>
+<li>页面 = nodes</li>
+<li>超链接 = edges</li>
+</ul>
+<p><span class="math inline">\(G=(V,E)\)</span></p>
+<p><strong>特征</strong></p>
+<ul>
+<li>非结构化 / 半结构化</li>
+<li>动态内容</li>
+<li>大规模</li>
+<li>频繁更新</li>
+</ul>
+<p><strong>IR 角度重要点</strong></p>
+<ul>
+<li>link structure ≠ relevance</li>
+<li>规模极大 → 必须 index</li>
+<li>需要 crawling</li>
+</ul>
+<p><strong>Web Crawling</strong></p>
+<p><strong>定义</strong></p>
+<p>自动抓取网页内容。</p>
+<p><strong>两种遍历方式</strong></p>
+<p>BFS（Queue）</p>
+<ul>
+<li>广度优先</li>
+<li>更 topical</li>
+<li>早期质量高</li>
+</ul>
+<p>DFS（Stack）</p>
+<ul>
+<li>深度优先</li>
+<li>容易跑偏</li>
+</ul>
+<p><strong>数据结构</strong></p>
+<ul>
+<li>Queue → FIFO</li>
+<li>Stack → LIFO</li>
+</ul>
+<p><strong>现代挑战</strong></p>
+<ul>
+<li>JavaScript 渲染</li>
+<li>动态内容</li>
+<li>anti-bot</li>
+<li>robots.txt</li>
+</ul>
+<p><strong>Indexes（尤其 Inverted Index）</strong></p>
+<p><strong>核心问题</strong></p>
+<p>没有 index：</p>
+<p><span class="math inline">\(O(N) \text{ scan every
+document}\)</span></p>
+<p>不可扩展。</p>
+<p><strong>Inverted Index 结构</strong></p>
+<p><span class="math inline">\(term \rightarrow [doc_1, doc_2,
+...]\)</span></p>
+<p><strong>查询流程</strong></p>
+<ol type="1">
+<li>分词</li>
+<li>查 posting list</li>
+<li>交集 / 合并</li>
+<li>排序</li>
+</ol>
+<p><strong>时间复杂度</strong></p>
+<p><span class="math inline">\(O(\log N) \text{
+或近似常数级}\)</span></p>
+<p><strong>Search Engines</strong></p>
+<p><strong>架构</strong></p>
+<p>Crawler → Indexer → Query Processor → Ranking → Results</p>
+<p><strong>核心目标</strong></p>
+<ul>
+<li>Relevance</li>
+<li>Speed</li>
+<li>Scalability</li>
+</ul>
+<p><strong>关键区别</strong></p>
+<p>Retrieval ≠ Ranking</p>
+<p><strong>Ranking</strong></p>
+<p>为什么重要？</p>
+<ul>
+<li>用户 top-down 扫描</li>
+<li>只看前几条</li>
+</ul>
+<p><strong>经典公式</strong></p>
+<p>DCG：</p>
+<p><span class="math inline">\(DCG = \sum_{i=1}^{n}
+\frac{rel_i}{\log_2(i+1)}\)</span></p>
+<p>MRR：</p>
+<p><span class="math inline">\(MRR = \frac{1}{Q} \sum
+\frac{1}{rank_i}\)</span></p>
+<p><strong>设计思想</strong></p>
+<ul>
+<li>penalize lower ranks</li>
+<li>diminishing returns</li>
+</ul>
+<p><strong>Hashing</strong></p>
+<p><strong>定义</strong></p>
+<p>将 key 映射到固定大小空间。</p>
+<p><span class="math inline">\(h(key) \rightarrow index\)</span></p>
+<p><strong>用途</strong></p>
+<ul>
+<li>term lookup</li>
+<li>O(1) access</li>
+</ul>
+<p><strong>冲突处理</strong></p>
+<ul>
+<li>chaining</li>
+<li>open addressing</li>
+</ul>
+<p><strong>IR 中</strong></p>
+<ul>
+<li>dictionary → hash table</li>
+</ul>
+<p>Classifying</p>
+<p><strong>定义</strong></p>
+<p>将文档分配到类别。</p>
+<p><strong>常见算法</strong></p>
+<p><strong>Rocchio</strong></p>
+<p><span class="math inline">\(\vec{c} = \frac{1}{|D_c|} \sum_{d \in
+D_c} \vec{d}\)</span></p>
+<p>centroid-based</p>
+<p><strong>kNN</strong></p>
+<ul>
+<li>选 k 个最近邻</li>
+<li>majority vote</li>
+</ul>
+<p><strong>NN</strong></p>
+<ul>
+<li>最近一个</li>
+</ul>
+<p><strong>几何视角</strong></p>
+<ul>
+<li>向量空间</li>
+<li>点 / cluster / centroid</li>
+</ul>
+<p>SIMILARITY</p>
+<p><strong>定义</strong></p>
+<p>衡量两个对象“相似程度”。</p>
+<p><strong>Cosine Similarity</strong></p>
+<p><span class="math inline">\(\cos(\theta) = \frac{\vec{d} \cdot
+\vec{q}}{||d|| \, ||q||}\)</span></p>
+<p><strong>Jaccard</strong></p>
+<p><span class="math inline">\(J(A,B) = \frac{|A \cap B|}{|A \cup
+B|}\)</span></p>
+<p><strong>Edit Distance</strong></p>
+<p><span class="math inline">\(\text{min operations to
+transform}\)</span></p>
+<p><strong>Binary Similarity</strong></p>
+<ul>
+<li>TP, FP, FN, TN</li>
+</ul>
+<p><strong>SimHash</strong></p>
+<p><span class="math inline">\(HammingDistance(h_1, h_2) \le
+k\)</span></p>
+<p><strong>Speeding Up Processing</strong></p>
+<p><strong>四个维度</strong></p>
+<p><strong>数据结构</strong></p>
+<ul>
+<li>inverted index</li>
+<li>trie</li>
+<li>B-tree</li>
+</ul>
+<p><strong>计算</strong></p>
+<ul>
+<li>distributed computing</li>
+<li>MapReduce</li>
+<li>GPU</li>
+</ul>
+<p><strong>磁盘</strong></p>
+<ul>
+<li>compression</li>
+<li>deduplication</li>
+</ul>
+<p><strong>带宽</strong></p>
+<ul>
+<li>CDN</li>
+<li>caching</li>
+<li>parallel fetching</li>
+</ul>
+<p><strong>Searching</strong></p>
+<p>两种类型</p>
+<p>Database Search</p>
+<ul>
+<li>structured</li>
+<li>exact</li>
+<li>SQL</li>
+</ul>
+<p>Web Search</p>
+<ul>
+<li>unstructured</li>
+<li>natural language</li>
+<li>ranked</li>
+</ul>
+<h2 id="mapreduce">MapReduce</h2>
+<p>前半部分讲AI从retrieval走向generation，本质是从“查已有内容”变成“按需生成内容”，例如音乐机器人可以实时根据输入生成和声，体现出生成式AI的个性化和实时性，同时引入synthetic
+data概念，即用符合真实分布的“假数据”训练模型来解决数据枯竭问题，并指出AI生态已经变成调用模型和API的工程问题而不是从零训练；同时老师批判性地讨论了现实影响，包括内容创作者被挤压、公司强制使用AI导致技术债、以及AI与权力和政治的关系。</p>
+<p><strong>MapReduce</strong> 是 Google 在 2004
+年提出的并行处理算法，公开版本叫
+<strong>Hadoop</strong>。两者在概念上做的是同一件事：大规模并行处理数据。</p>
+<p>MapReduce 不只是两个步骤，完整流程更接近：</p>
+<p><strong>Map → Combine → Shuffle → Reduce</strong></p>
+<p>其中 Combine 有时可选，但 Shuffle 是核心步骤。</p>
+<p><strong>MapReduce、GFS、Bigtable 三件套</strong></p>
+<p>Google 早期的大规模基础设施由三部分组成：</p>
+<p><strong>GFS：Google File System</strong>
+一个分布式文件系统，把数据分散存储在很多机器上，但对工程师来说像一个统一文件系统。</p>
+<p><strong>MapReduce</strong> 大规模并行计算框架，让工程师写 map 和
+reduce 函数，系统自动把任务分发到很多机器上执行。</p>
+<p><strong>Bigtable</strong> Google
+的大规模分布式数据库，用来存储搜索索引、Google
+Docs、YouTube、新闻缓存等数据。 Bigtable
+不只是二维表，还可以有时间维度，用于保存不同时间版本的数据。</p>
+<p><strong>为什么 MapReduce 重要：Google 搜索变快</strong></p>
+<p>早期 Google
+搜索一度变慢，因为网页规模越来越大，传统方式无法快速处理。MapReduce 和
+GFS 让 Google
+可以把巨大索引拆到大量机器上并行处理，从而让搜索重新变得很快。</p>
+<p>搜索 “Anthropic”
+的例子说明：用户感觉是一瞬间得到结果，但背后可能是海量服务器同时搜索、排序、聚合结果。</p>
+<p><strong>并行计算：SIMD vs MIMD</strong></p>
+<p>两类并行：</p>
+<p>​ <strong>SIMD：Single Instruction, Multiple Data</strong>
+同一个操作应用到很多数据上，比如对一张图像的不同区域做同样处理，或对很多温度数据求和。MapReduce
+更接近这种思想，比较容易自动并行化。</p>
+<p>​ <strong>MIMD：Multiple Instruction, Multiple Data</strong>
+不同任务、不同操作之间存在依赖关系，比如图像处理
+pipeline、神经网络计算图、自动驾驶系统等。 TensorFlow
+的计算图：某些节点可以并行，某些必须等待前置结果。</p>
+<p><strong>MapReduce 的直觉例子：全球温度求平均</strong></p>
+<p>10 亿条温度记录求平均：</p>
+<p>传统做法：一台机器循环累加 10 亿个数，再除以 10 亿，可能很慢。</p>
+<p>MapReduce 做法：</p>
+<ol type="1">
+<li>把 10 亿条数据切成很多片，比如 10 片、100 片、1000 片；</li>
+<li>每台机器对自己的片段求局部和，这是 Map；</li>
+<li>把局部结果发送到 reducer；</li>
+<li>reducer 把这些局部和加起来，再求平均。</li>
+</ol>
+<p>机器越多，速度越快。老师强调这就是 MapReduce
+的巨大价值：通过横向扩展机器数，获得数量级的加速。</p>
+<p><strong>MapReduce 的编程来源：函数式编程</strong></p>
+<p>MapReduce 名字来自函数式编程里的 <code>map</code> 和
+<code>reduce</code>。</p>
+<p>比如 Python 中：</p>
+<ul>
+<li><code>map(function, data)</code>：把一个函数应用到列表中每个元素；</li>
+<li><code>reduce(function, data)</code>：把一组值合并成一个值，比如求和。</li>
+</ul>
+<p>他举了摄氏度转华氏度的例子，也讲到 lambda
+匿名函数、高阶函数、Lisp、Scheme、JavaScript、Haskell
+等函数式编程背景。</p>
+<p><strong>Yarn 与容错</strong></p>
+<p>MapReduce
+初期版本的容错能力不完善。如果某台机器失败，系统可能一直等它返回结果。</p>
+<p>后来 Hadoop 生态中出现 <strong>YARN: Yet Another Resource
+Negotiator</strong>，相当于 MapReduce
+2.0，负责资源管理、任务调度、失败重试等。这样系统能自动发现某个节点失败，并把任务重新分配到其他机器。</p>
+<h2 id="knowledge-graphs">Knowledge Graphs</h2>
+<p><strong>Graph：最通用的数据结构</strong></p>
+<p>图由节点和边组成。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node -- edge -- node</span><br></pre></td></tr></table></figure>
+<p>图非常通用，因为它可以表示很多结构：</p>
+<ul>
+<li>array；</li>
+<li>tree；</li>
+<li>database schema；</li>
+<li>social network；</li>
+<li>web pages；</li>
+<li>recommendation system；</li>
+<li>playlists；</li>
+<li>movie database；</li>
+<li>dependency graph；</li>
+<li>dataflow graph；</li>
+<li>knowledge graph。</li>
+</ul>
+<p>例如：</p>
+<p>IMDb 可以看成图：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Movie → directed by → Director</span><br><span class="line">Movie → acted in by → Actor</span><br><span class="line">Actor → married to → Actor</span><br></pre></td></tr></table></figure>
+<p>Wikipedia 也可以看成图：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Page → links to → Page</span><br></pre></td></tr></table></figure>
+<p>Spotify playlist 也可以看成图：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">User → listens to → Song</span><br><span class="line">Song → appears in → Playlist</span><br><span class="line">Playlist → created by → User</span><br></pre></td></tr></table></figure>
+<p>推荐系统也可以看成图：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">User → bought → Product</span><br><span class="line">Product → frequently bought with → Product</span><br></pre></td></tr></table></figure>
+<p><strong>图数据库 Graph Database</strong></p>
+<p>普通关系型数据库用表存储数据。 图数据库直接用节点和边存储数据。</p>
+<p>典型例子是 <strong>Neo4j</strong>。</p>
+<p>图数据库适合表示关系复杂的数据，例如：</p>
+<ul>
+<li>社交网络；</li>
+<li>推荐系统；</li>
+<li>金融交易；</li>
+<li>欺诈检测；</li>
+<li>供应链；</li>
+<li>电影人物关系；</li>
+<li>知识网络；</li>
+<li>路径查询。</li>
+</ul>
+<p>但注意：<strong>图数据库不一定是知识图谱</strong>。</p>
+<p>图数据库只是存图； 知识图谱要求图里的节点和边具有明确语义。</p>
+<p><strong>Knowledge Graph 知识图谱</strong></p>
+<p>知识图谱是一种特殊的图。</p>
+<p>它不仅有节点和边，还要表达 <strong>meaning 语义 / knowledge
+知识</strong>。</p>
+<p>普通图：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A -- connected to -- B</span><br></pre></td></tr></table></figure>
+<p>知识图谱：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Elvis Presley -- born in -- Tupelo, Mississippi</span><br><span class="line">Tupelo -- located in -- Mississippi</span><br><span class="line">Mississippi -- part of -- United States</span><br></pre></td></tr></table></figure>
+<p>知识图谱的节点通常是实体：</p>
+<ul>
+<li>人；</li>
+<li>地点；</li>
+<li>作品；</li>
+<li>公司；</li>
+<li>概念；</li>
+<li>事件；</li>
+<li>学科</li>
+</ul>
+<p>边表示有意义的关系：</p>
+<ul>
+<li>born in；</li>
+<li>located in；</li>
+<li>created by；</li>
+<li>part of；</li>
+<li>caused by</li>
+</ul>
+<p>知识图谱的目标是让机器不仅“存储数据”，而且能理解实体之间的语义关系。</p>
+<p><strong>Knowledge Graph 为什么重要</strong></p>
+<p>知识图谱比纯机器学习更“干净”的地方在于：</p>
+<p>每个节点和每条边都可以由人类专家确认。 因此它可以非常高质量。</p>
+<p>机器学习依赖大量训练数据，数据可能有：</p>
+<ul>
+<li>偏差；</li>
+<li>缺失；</li>
+<li>错误；</li>
+<li>噪声；</li>
+<li>幻觉；</li>
+<li>不可解释性。</li>
+</ul>
+<p>知识图谱则可以更精确：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Picasso -- painted -- Guernica</span><br><span class="line">Guernica -- style -- Cubism</span><br><span class="line">Cubism -- art movement -- Modern Art</span><br></pre></td></tr></table></figure>
+<p>这些关系可以被验证。</p>
+<p>问题是： 人工构建知识图谱很慢，难以扩展。 现在 LLM
+可以快速从文本中抽取实体和关系，但也可能
+hallucinate，所以需要人工审核或验证机制。</p>
+<p><strong>Taxonomy 分类法</strong></p>
+<p><strong>Taxonomy</strong> 指分类体系。</p>
+<p>它的核心是：把世界上的东西分门别类。</p>
+<p>例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Vehicle</span><br><span class="line">├── Car</span><br><span class="line">│   ├── Sedan</span><br><span class="line">│   ├── SUV</span><br><span class="line">│   └── Sports Car</span><br><span class="line">├── Truck</span><br><span class="line">└── Motorcycle</span><br></pre></td></tr></table></figure>
+<p>周期表也是一种 taxonomy，因为它把化学元素按性质分类。</p>
+<p>Taxonomy 的价值是帮助人理解世界。
+科学本质上经常依赖分类：先知道有哪些类别，再研究类别之间的规律。</p>
+<p><strong>Ontology 本体论</strong></p>
+<p><strong>Ontology</strong> 比 taxonomy 更强。</p>
+<p>Taxonomy 主要是分类；Ontology
+不仅有分类，还定义实体、属性、关系和规则。</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Car is a Vehicle</span><br><span class="line">ElectricCar is a Car</span><br><span class="line">TeslaModel3 is an ElectricCar</span><br><span class="line">Car has part Wheel</span><br><span class="line">Person owns Car</span><br></pre></td></tr></table></figure>
+<p>Ontology 关注的是：</p>
+<ul>
+<li>什么东西存在；</li>
+<li>它们属于什么类别；</li>
+<li>它们有什么属性；</li>
+<li>它们之间有什么关系；</li>
+<li>哪些规则可以推理出新知识。</li>
+</ul>
+<p>可以理解为： <strong>ontology = 带语义和规则的知识结构</strong>。</p>
+<p><strong>Knowledge Base 与 Rule</strong></p>
+<p>知识图谱可以和规则系统结合，形成 knowledge base。</p>
+<p>规则通常是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IF condition THEN conclusion</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IF many people carry umbrellas</span><br><span class="line">THEN it is probably raining</span><br></pre></td></tr></table></figure>
+<p>或者：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">IF X is a dog</span><br><span class="line">AND dog is a mammal</span><br><span class="line">THEN X is a mammal</span><br></pre></td></tr></table></figure>
+<p>这些规则可以被 <strong>inference engine 推理引擎</strong> 使用。</p>
+<p>推理引擎会根据已有事实和规则推出新事实。</p>
+<p>例如已有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Snoopy is a dog</span><br><span class="line">Dog is a mammal</span><br></pre></td></tr></table></figure>
+<p>推出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Snoopy is a mammal</span><br></pre></td></tr></table></figure>
+<p>这就是知识图谱和传统 AI / expert system 的联系。</p>
+<p><strong>Syntax vs Semantics</strong></p>
+<p>这节课强调一个重要区别：</p>
+<p><strong>Syntax 语法 / 结构</strong></p>
+<p>只看形式和结构，不真正理解含义。</p>
+<p>例如传统关键词搜索：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chemistry</span><br></pre></td></tr></table></figure>
+<p>系统只是匹配包含这个词的文档。</p>
+<p><strong>Semantics 语义</strong></p>
+<p>理解词、实体、关系背后的含义。</p>
+<p>例如知识图谱知道：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Chemistry -- studies -- Matter</span><br><span class="line">Organic Chemistry -- subclass of -- Chemistry</span><br><span class="line">Benzene -- compound in -- Organic Chemistry</span><br></pre></td></tr></table></figure>
+<p>这比单纯关键词匹配更接近“理解”。</p>
+<p>Embedding 也能捕捉一定语义，因为相似含义的词会在向量空间中靠近。 但
+embedding
+本身仍然是向量，不是显式知识。知识图谱则把语义关系明确写出来。</p>
+<p><strong>RAG、Graph RAG 与 Knowledge Graph</strong></p>
+<p>传统 RAG 通常是：</p>
+<ol type="1">
+<li>文档切 chunk；</li>
+<li>chunk 转 embedding；</li>
+<li>用户问题转 embedding；</li>
+<li>找相似 chunk；</li>
+<li>把 chunk 放进 prompt；</li>
+<li>LLM 生成答案。</li>
+</ol>
+<p>这叫 <strong>Vector RAG</strong>。</p>
+<p>但 Vector RAG 有局限：</p>
+<ul>
+<li>只靠相似度；</li>
+<li>不一定理解实体关系；</li>
+<li>跨文档推理弱；</li>
+<li>容易漏掉结构信息；</li>
+<li>对复杂关系问题不够好。</li>
+</ul>
+<p>因此出现 <strong>Graph RAG</strong>。</p>
+<p>Graph RAG 会使用知识图谱作为检索结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Question → entity extraction → graph traversal → retrieve related facts → LLM answer</span><br></pre></td></tr></table></figure>
+<p>例如问：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Impressionist art in Europe 有哪些重要人物和作品？</span><br></pre></td></tr></table></figure>
+<p>系统可以在艺术知识图谱里找到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Impressionism</span><br><span class="line">→ painters</span><br><span class="line">→ artworks</span><br><span class="line">→ countries</span><br><span class="line">→ periods</span><br><span class="line">→ influences</span><br><span class="line">→ related movements</span><br></pre></td></tr></table></figure>
+<p>然后再生成答案。</p>
+<p>Graph RAG 的优势是能利用显式关系，而不只是向量相似度。</p>
+<p><strong>Hybrid RAG</strong></p>
+<p>现代 RAG 不一定只用一种检索方式，可以混合：</p>
+<ul>
+<li>vector search；</li>
+<li>graph search；</li>
+<li>BM25；</li>
+<li>TF-IDF；</li>
+<li>SQL query；</li>
+<li>HTML parsing；</li>
+<li>metadata filtering；</li>
+<li>knowledge graph traversal。</li>
+</ul>
+<p>这叫 hybrid RAG。</p>
+<p>原因是：不同数据结构适合回答不同问题。</p>
+<p>例如：</p>
+<table>
+<thead>
+<tr>
+<th>问题类型</th>
+<th>更适合的方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>找语义相近文本</td>
+<td>Vector search</td>
+</tr>
+<tr>
+<td>找关键词精确匹配</td>
+<td>BM25 / TF-IDF</td>
+</tr>
+<tr>
+<td>查结构化数据</td>
+<td>SQL</td>
+</tr>
+<tr>
+<td>查实体关系</td>
+<td>Knowledge Graph</td>
+</tr>
+<tr>
+<td>查网页结构</td>
+<td>HTML parsing</td>
+</tr>
+<tr>
+<td>复杂问答</td>
+<td>Hybrid RAG</td>
+</tr>
+</tbody>
+</table>
+<p>所以未来的 RAG 更像一个多工具系统，而不是单纯 embedding search。</p>
+<h2 id="snippets">Snippets</h2>
+<p><strong>Snippet</strong>
+指搜索引擎结果页中，标题和链接下面显示的一小段内容。</p>
+<p>它的作用是帮助用户判断：</p>
+<ul>
+<li>这个页面是不是我想要的？</li>
+<li>它是否回答我的问题？</li>
+<li>我要不要点击进去？</li>
+</ul>
+<p>传统 snippet 通常来自网页正文中和查询词相关的一段文字，但现代 snippet
+可以更丰富。</p>
+<p><strong>Snippet 会随着查询变化</strong></p>
+<blockquote>
+<p>同一个网页，面对不同搜索 query，Google 可能给出不同的 snippet。
+比如某个 Cleveland Clinic 页面，用户搜 “what cholesterol levels mean”
+时，Google 展示的是一段 FAQ/说明式内容；但搜另一个相关问题时，展示的
+snippet 可能完全不同。</p>
+<p>这说明 snippet 不是固定写死的，而是 <strong>query-time 生成</strong>
+的：搜索时根据用户查询、网页内容、页面结构等动态决定展示哪一段。</p>
+</blockquote>
+<p><strong>Snippet 本质上是自动摘要问题</strong></p>
+<p>snippet 被归到 <strong>automatic summarization
+自动摘要</strong>。传统摘要有两类：</p>
+<p><strong>Extractive
+summary</strong>：从原文里挑句子或片段出来组成摘要。 <strong>Abstractive
+summary</strong>：重新生成一句新的摘要，不一定完全来自原文。</p>
+<p>搜索引擎 snippet 更接近 extractive
+summary，因为它通常从网页中抽取包含 query
+关键词、上下文合适的文本片段。</p>
+<p><strong>Featured Snippet</strong> 是 Google
+为了在搜索结果页直接回答问题而设计的特殊摘要，通常出现在普通结果上方。它一般来自排名靠前的页面，并用简洁格式回答
+query。如果网页想更容易成为 Featured
+Snippet，可以做一些页面优化，例如：用清晰的问题标题、紧接着给出简洁答案、使用
+1–2 句话定义、用表格或列表组织信息、避免过度第一人称表达。</p>
+<p><strong>PAA</strong> 是 Google 搜索结果中的 “People Also Ask” 模块。
+它会列出与当前查询相关的问题，点开后展示简短答案，并可能继续扩展出更多问题。
+PAA 增长很快，而且它和 Featured Snippet
+类似，也是直接在搜索结果页回答用户问题的一种机制。</p>
+<p><strong>Rich Snippets</strong> 是普通 snippet
+的增强版。网页开发者可以在页面中嵌入 <strong>structured
+data（结构化数据）</strong>，让 Google
+更容易识别页面里的实体和属性，从而在搜索结果中展示评分、价格、地址、营业时间、事件时间、人物信息等。例如餐厅结果可能显示地址、评分、营业时间；电影页面可能显示导演、演员、评分、简介等。</p>
+<p><strong>结构化数据技术</strong></p>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 73%" />
+</colgroup>
+<thead>
+<tr>
+<th>技术</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>schema.org</td>
+<td>定义实体和属性词汇，比如 Movie、Person、Event、Review</td>
+</tr>
+<tr>
+<td>Microdata</td>
+<td>在 HTML 标签中加
+<code>itemscope</code>、<code>itemtype</code>、<code>itemprop</code></td>
+</tr>
+<tr>
+<td>RDFa / Microformats</td>
+<td>其他结构化标记方式</td>
+</tr>
+<tr>
+<td>JSON-LD</td>
+<td>现在很常见的结构化数据格式</td>
+</tr>
+</tbody>
+</table>
+<h2 id="pagerank">PageRank</h2>
+<p><strong>PageRank</strong>：Google
+早期用来衡量网页“重要性”的链接分析算法。它的核心问题可以概括成一句话：<strong>谁链接了你？链接你的人本身有多重要？</strong></p>
+<p>搜索引擎不只是要找到相关网页，还要决定：哪个结果排第一？哪个排第二？哪个排第三？</p>
+<p><strong>1. 从论文引用到网页链接</strong></p>
+<p>PPT 一开始先讲
+<strong>bibliometrics（文献计量学）</strong>，也就是通过论文之间的引用关系来衡量论文、作者、期刊的影响力。</p>
+<p>比如：</p>
+<ul>
+<li>一篇论文被很多论文引用，通常说明它有影响力。</li>
+<li>两篇论文如果引用了很多相同文献，说明它们主题可能相近，这叫
+<strong>bibliographic coupling</strong>。</li>
+<li>一个期刊的论文平均被引用次数高，就可能有较高的 <strong>impact
+factor</strong>。</li>
+</ul>
+<p>PageRank 的思想和这个很像：
+<strong>网页之间的链接可以看作某种“投票”或“引用”。</strong></p>
+<p>但 PPT
+也提醒：网页链接不完全等于学术引用。论文引用通常比较正式、有同行评审背景；网页链接可能只是导航、广告、门户页入口，甚至不一定代表认可。</p>
+<p><strong>2. PageRank 的直觉</strong></p>
+<p>PageRank 的基本想法是：</p>
+<p><strong>一个网页重要，不只是因为很多网页链接到它，还因为链接到它的网页本身也重要。</strong></p>
+<p>也就是说：</p>
+<ul>
+<li>普通网页给你一个链接，有价值；</li>
+<li>权威网页给你一个链接，更有价值；</li>
+<li>如果一个网页链接出去很多个页面，它给每个页面分到的“投票权”就会变少。</li>
+</ul>
+<p>所以 PageRank 不是简单数入链数量，而是看 <strong>链接质量 +
+链接来源的权重分配</strong>。</p>
+<p><strong>3. 简化版 PageRank 公式</strong></p>
+<p>PPT 给出的初始公式是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PR(u) = Σ PR(v) / |out(v)|</span><br></pre></td></tr></table></figure>
+<p>意思是：</p>
+<ul>
+<li><code>PR(u)</code>：页面 u 的 PageRank；</li>
+<li><code>in(u)</code>：所有指向 u 的页面集合；</li>
+<li><code>PR(v)</code>：某个指向 u 的页面 v 的 PageRank；</li>
+<li><code>out(v)</code>：页面 v 链出去的总数。</li>
+</ul>
+<p>通俗说就是：</p>
+<p><strong>页面 u 的分数 = 所有指向 u
+的页面，把自己的分数平均分给外链后，u 收到的总和。</strong></p>
+<p>比如某个页面 v 有 4 个外链，那么它只会把自己 PageRank 的 1/4
+传给每个被链接页面。</p>
+<p><strong>4. 迭代计算</strong></p>
+<p>PageRank 不是一次算出来的，而是反复迭代。</p>
+<p>PPT 的简化算法步骤是：</p>
+<ol type="1">
+<li>初始时，每个网页分配相同 PageRank，比如总共有 5
+个网页，每个网页初始是 <code>1/5</code>。</li>
+<li>下一轮，每个网页把自己的 PageRank 平均分给它链接出去的页面。</li>
+<li>每个页面把收到的分数加起来，得到新 PageRank。</li>
+<li>重复很多轮，直到数值稳定。</li>
+</ol>
+<p>这就是为什么 PageRank 可以处理整个 Web
+这种巨大图结构：它不需要一次性“直接求解”，而是通过不断更新逐步收敛。</p>
+<p><strong>5. 为什么需要完整公式：damping factor</strong></p>
+<p>简化版有问题。比如有些网页没有外链，或者一些网页形成小循环，PageRank
+可能会卡在某些页面里。</p>
+<p>所以完整 PageRank 加入了 <strong>damping
+factor（阻尼因子）</strong>，通常记作 <code>d</code>，经典值是
+<code>0.85</code>。</p>
+<p>完整思想是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PR(A) = (1 - d) + d * Σ PR(Ti) / C(Ti)</span><br></pre></td></tr></table></figure>
+<p>这里：</p>
+<ul>
+<li><code>d</code> 通常是 0.85；</li>
+<li><code>(1 - d)</code> 表示即使没人链接你，你也有一点基础分；</li>
+<li>后半部分表示从其他链接页面传来的分数；</li>
+<li><code>C(Ti)</code> 是页面 Ti 的外链数量。</li>
+</ul>
+<p>这个公式背后的直觉是 <strong>random surfer
+model（随机冲浪者模型）</strong>：</p>
+<p>一个用户在网页间随机点击链接，但有一定概率会不再沿着链接走，而是随机跳到其他页面。
+<code>d = 0.85</code> 就表示大约 85% 的时候继续点链接，15%
+的时候随机跳转。</p>
+<p><strong>6. 收敛问题</strong></p>
+<p>PPT 专门讲了 PageRank 的收敛。</p>
+<p>关键点是：</p>
+<ul>
+<li>迭代次数不会随着网页数量简单线性增加；</li>
+<li>实验中，即使有上亿链接，也可以在几十轮左右收敛；</li>
+<li>damping factor 太高，收敛会慢；</li>
+<li>damping factor 太低，PageRank 区分度会变弱；</li>
+<li>没有 damping factor 时，一些图结构可能导致数值卡住或震荡。</li>
+</ul>
+<p>所以 damping factor 的作用不仅是模拟用户行为，也让算法更稳定。</p>
+<p><strong>7. 链接结构如何影响 PageRank</strong></p>
+<p>不同网站结构会让 PageRank 分布不同。</p>
+<p>几个重要结论：</p>
+<p><strong>首页通常 PageRank 高。</strong>
+如果网站是层级结构，很多页面指回首页，首页会集中获得较高 PageRank。</p>
+<p><strong>外部链接很重要。</strong>
+如果外部网站链接到你的网站，尤其链接到首页，你的网站整体 PageRank
+会提高。</p>
+<p><strong>内部链接会重新分配 PageRank。</strong>
+站内页面之间如何互相链接，会影响 PageRank 在网站内部的流动。</p>
+<p><strong>链接出去会分走 PageRank。</strong>
+如果页面有很多外链，它会把自己的 PageRank 分散出去。PPT
+里提到，增加内部链接可以减少 PageRank 完全流向外部站点。</p>
+<p><strong>完全互链不一定更好。</strong>
+如果所有页面都互相链接，PageRank 可能会变得平均，无法突出重要页面。</p>
+<p><strong>人为制造 link farm 是错误方式。</strong> PPT
+后面举例说，建立大量垃圾页面只为了给目标页面增加链接，虽然可能暂时提高某页
+PageRank，但搜索引擎会把这种结构视为 spam。</p>
+<p><strong>8. 提高 PageRank 的建议</strong></p>
+<ul>
+<li>增加真正有价值的外部入链。</li>
+<li>如果必须链接到外部网站，要意识到 PageRank 会被分出去。</li>
+<li>网站内部结构要清晰，不要让所有页面随便乱连。</li>
+<li>对重要页面，可以通过站内链接让更多 PageRank 流向它。</li>
+<li>使用 sitemap，帮助搜索引擎发现更多页面。</li>
+<li>不要用 link farm 或垃圾链接作弊。</li>
+</ul>
+<p><strong>9. PageRank 不是 Google 排名的全部</strong></p>
+<p><strong>PageRank 只是 Google 搜索排名的众多信号之一。</strong></p>
+<p>它衡量的是链接层面的“重要性”，但搜索排名还要考虑：</p>
+<ul>
+<li>页面内容是否和查询相关；</li>
+<li>anchor text；</li>
+<li>页面质量；</li>
+<li>用户体验；</li>
+<li>搜索意图；</li>
+<li>反作弊机制；</li>
+<li>其他大量 ranking signals。</li>
+</ul>
+<p>所以不能简单理解为：PageRank 高，搜索排名就一定高。
+更准确地说，PageRank 是 Google
+早期搜索成功的关键技术之一，但现代搜索排名已经远比单一 PageRank
+复杂。</p>
+<p><strong>总结</strong></p>
+<p><strong>PageRank
+把网页链接看成投票，但不是所有票都一样重要；来自重要网页的链接更值钱，而一个网页的投票权会被它的外链数量分摊。通过不断迭代，算法最终得到每个网页的相对重要性。</strong></p>
+<h2 id="query-processing">Query Processing</h2>
+<p><strong>1. 搜索引擎收到 query 后要做什么</strong></p>
+<p>PPT 开头把搜索引擎的任务分成两步：</p>
+<p>第一步是 <strong>快速找到包含查询词的候选文档</strong>。
+这主要依赖倒排索引，也就是通过 query terms 找到对应 posting lists。</p>
+<p>第二步是
+<strong>判断用户真正想要什么，并给出尽可能准确的结果</strong>。
+用户输入的 query 往往很短、很模糊，比如 “jaguar”
+可能是动物、汽车品牌，也可能是球队，所以现代搜索不能只做关键词匹配。</p>
+<p>这份 PPT 前半部分讲 <strong>如何加速倒排索引检索和 top-k
+排名</strong>，后半部分讲 <strong>Google
+查询处理如何从关键词匹配发展到语义理解</strong>。</p>
+<p><strong>2. 加速检索：不要一开始就算所有文档</strong></p>
+<p>理论上，只要文档包含 query
+中任意一个词，它都可以成为候选文档。但现实中网页数量太大，如果每个候选文档都算完整
+cosine score，成本太高。</p>
+<p>所以课件介绍了一系列 heuristic，也就是工程上的加速策略。</p>
+<p><strong>3. 策略一：只优先考虑高 idf 的词</strong></p>
+<p>比如 query 是：catcher in the rye</p>
+<p>其中 <code>catcher</code> 和 <code>rye</code> 比较有区分度，而
+<code>in</code>、<code>the</code> 太常见。 PPT
+的策略是：<strong>只先累计高 idf 词的 cosine score</strong>。</p>
+<p>直觉是： 常见词的 posting list 很长，处理成本高，但对排名贡献很小；高
+idf 词更能区分文档，所以优先处理它们更划算。</p>
+<p><strong>4. 策略二：多词查询时只考虑包含多个 query terms
+的文档</strong></p>
+<p>对于多词 query，理论上包含一个 query term
+的文档都可以入选。但实际中，可以只对包含多个 query terms
+的文档计算分数。</p>
+<p>例如 4 个 query terms 中，要求文档至少包含 3 个。这相当于对 query
+加了一个 <strong>soft conjunction（软
+AND）</strong>：不是必须包含所有词，但至少要包含大部分关键词。</p>
+<p>这样能明显减少候选文档数量。</p>
+<p><strong>5. 策略三：Champion Lists</strong></p>
+<p><strong>champion list</strong>，也叫 fancy list 或 top docs
+list。做法是：</p>
+<p>对词典中的每个 term，提前保存该 term 对应 posting list 中 tf-idf
+分数最高的 <code>r</code> 个文档。</p>
+<p>查询时，不扫描完整 posting list，而是优先只看 query terms 的 champion
+lists，然后从这些文档中选 top-k。</p>
+<p>它的核心思想是：<strong>提前把每个词最有代表性的文档存起来，查询时少算很多低可能性的文档。</strong></p>
+<p>缺点是 <code>r</code> 要在建索引时决定。如果 <code>r</code>
+太小，可能漏掉好结果；如果太大，节省不明显。</p>
+<p><strong>6. 策略四：引入 Authority Measure</strong></p>
+<p>前面的方法主要考虑 relevance，也就是文档和 query
+的相关性。但搜索结果还应该考虑
+authority，也就是文档本身的权威性或质量。</p>
+<p>PPT 里把每个文档赋予一个 query-independent quality score：g(d)</p>
+<p>它和具体 query 无关，表示文档本身的“好坏”。</p>
+<p>authority signals 可以包括：</p>
+<ul>
+<li>Wikipedia 这类权威网站；</li>
+<li>高 PageRank 页面；</li>
+<li>被精心编辑的内容；</li>
+<li>有大量好评的文档；</li>
+<li>高质量新闻文章；</li>
+<li>被大量引用的论文或网页。</li>
+</ul>
+<p><strong>7. 相关性和权威性合并</strong></p>
+<p>PPT 给了一个简单的组合公式：net-score(q, d) = g(d) + cosine(q, d)</p>
+<p>也就是说，一个文档最终得分由两部分组成：</p>
+<p><strong>最终分数 = 文档权威性 + 与 query 的相关性</strong></p>
+<p>其中 cosine score 衡量 relevance，<code>g(d)</code> 衡量
+authority。</p>
+<p>实际搜索引擎可能会用更复杂的线性组合或机器学习排序模型，但这个公式表达了基本思想：
+<strong>搜索结果不能只相关，还要可信、有质量。</strong></p>
+<p><strong>8. 策略五：按 authority 重排倒排列表</strong></p>
+<p>传统倒排索引的 posting list 通常按 docID 排序，这样方便合并列表。 但
+PPT 提出一种优化：把 posting list 按 <code>g(d)</code>，也就是 authority
+score 排序。</p>
+<p>这样最权威的文档会排在 posting list 前面。
+查询时可以更早看到高质量候选文档，更快找到 top-k。</p>
+<p>这不会改变 posting list
+合并的基本逻辑，但可以让系统更早集中处理高价值文档。</p>
+<p><strong>9. 策略六：High / Low Lists</strong></p>
+<p>还有一种方法是： 对每个 term 维护两个 posting lists：</p>
+<ul>
+<li><strong>high list</strong>：高质量或高分文档；</li>
+<li><strong>low list</strong>：其他文档。</li>
+</ul>
+<p>查询时先遍历 high lists。 如果已经找到超过 K 个好结果，就直接选 top K
+并停止；如果不够，再去 low lists 里补。</p>
+<p>这也是一种分层检索思想：
+<strong>先查最可能进入前几名的文档，没必要一开始扫描全部。</strong></p>
+<p><strong>10. 从关键词匹配到现代 Query Processing</strong></p>
+<p>后半部分讲 Google 查询处理的演进。</p>
+<p>早期搜索主要流程是：</p>
+<ol type="1">
+<li>parse query；</li>
+<li>把词转成 wordID；</li>
+<li>找到包含这些 wordID 的 barrels / posting lists；</li>
+<li>扫描文档列表；</li>
+<li>用 PageRank 和文本相关性计算排名；</li>
+<li>返回 top-k。</li>
+</ol>
+<p>但现代搜索已经不只是 keyword matching，而是包含更多语义处理：</p>
+<ul>
+<li>理解 query 的主题和意图；</li>
+<li>识别 query 中的实体；</li>
+<li>判断 query 是导航型、信息型、交易型还是本地搜索；</li>
+<li>结合用户位置、设备、历史行为；</li>
+<li>生成 SERP features，比如知识图谱、图片、People Also Ask、featured
+snippets 等。</li>
+</ul>
+<p><strong>11. Term-based vs Entity-based Meaning</strong></p>
+<p>PPT 用 “red stoplight” 和 “stoplight red” 的例子说明：</p>
+<p>如果只是 term-based search，系统可能把 <code>red</code> 和
+<code>stoplight</code> 当成两个独立词。 但 entity-based search 会理解：
+<strong>“red stoplight”
+指的是一个具体概念或实体，而不是两个词的简单组合。</strong></p>
+<p>这就是现代搜索和传统倒排索引的区别：它不只是匹配词，还要理解词组合起来的意义。</p>
+<p><strong>12. Knowledge Graph 的作用</strong></p>
+<p>Google Knowledge Graph 用来识别和存储实体及其关系。</p>
+<p>比如 query：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ceo vw</span><br></pre></td></tr></table></figure>
+<p>Google 不只是匹配 <code>ceo</code> 和 <code>vw</code>
+两个词，而是识别：</p>
+<ul>
+<li><code>vw</code> 是 Volkswagen；</li>
+<li><code>ceo</code> 是一种角色/关系；</li>
+<li>用户想找 Volkswagen 的 CEO。</li>
+</ul>
+<p>另一个例子是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">founder adidas</span><br></pre></td></tr></table></figure>
+<p>系统会识别 <code>Adidas</code> 和 <code>founder</code>
+之间的实体关系，然后返回 Adolf Dassler。</p>
+<p>所以 Knowledge Graph
+让搜索引擎从“字符串匹配”转向“实体和关系理解”。</p>
+<p><strong>13. RankBrain</strong></p>
+<p>PPT 最后讲 <strong>RankBrain</strong>，它是 Google
+用于查询理解的机器学习系统，尤其擅长处理以前没见过的新 query。</p>
+<p>它的作用包括：</p>
+<ul>
+<li>把关键词映射到概念；</li>
+<li>根据上下文理解实体；</li>
+<li>处理长尾 query 或新 query；</li>
+<li>学习词与词、实体与实体之间的关系；</li>
+<li>结合用户交互信号判断结果是否有用。</li>
+</ul>
+<p>PPT 里还提到 RankBrain 会利用 UX signals，例如：</p>
+<ul>
+<li>用户是否点击某个结果；</li>
+<li>dwell time，也就是用户点进去后停留多久；</li>
+<li>bounce rate；</li>
+<li>pogo-sticking，也就是用户点进去马上返回搜索结果再点别的结果。</li>
+</ul>
+<p>这些信号可以帮助系统判断结果是否真的满足用户需求。</p>
+<p><strong>总结</strong></p>
+<p><strong>查询处理不是简单地“找包含关键词的网页”。搜索引擎要先用倒排索引和各种
+heuristic
+快速缩小候选集，再结合相关性、权威性、PageRank、实体识别、Knowledge
+Graph、RankBrain 和用户反馈来生成最终搜索结果。</strong></p>
+<h2 id="question-answering">Question Answering</h2>
+<p><strong>1. IR 和 QA 的区别</strong></p>
+<p>传统 <strong>Information Retrieval（信息检索）</strong>
+的目标是：用户输入 query，系统返回相关文档。</p>
+<p>但 <strong>Question Answering（问答）</strong>
+的目标更进一步：用户用自然语言提出问题，系统直接给出答案。</p>
+<p>比如用户问：Who was the prime minister of Australia during the Great
+Depression?</p>
+<p>传统搜索可能返回一堆网页；QA 系统希望直接回答：James Scullin</p>
+<p>PPT 强调，现代搜索已经不只是 document retrieval，而是逐渐转向
+<strong>answer
+search</strong>：结合信息检索、知识图谱、自然语言处理、查询历史、位置、用户行为等信息，直接生成或抽取答案。</p>
+<p><strong>2. 为什么 QA 很重要</strong></p>
+<p>PPT 举了 Ask.com query log 的例子，里面有大量自然语言问题，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">how much should I weigh</span><br><span class="line">what does my name mean</span><br><span class="line">how to get pregnant</span><br><span class="line">where can I find pictures of hairstyles</span><br><span class="line">who is the richest man in the world</span><br><span class="line">what is true love</span><br></pre></td></tr></table></figure>
+<p>大约 <strong>10–20% 的 query log
+都是这种问题形式</strong>。这说明用户并不总是输入关键词，而是经常直接问完整问题。</p>
+<p>所以搜索引擎必须能理解：</p>
+<ul>
+<li>问题在问什么；</li>
+<li>答案类型是什么；</li>
+<li>哪些网页或知识库可能包含答案；</li>
+<li>如何从候选文本中抽取最可信答案。</li>
+</ul>
+<p><strong>3. 有些问题很容易，有些很难</strong></p>
+<p>有些问题很容易回答，比如：how tall is mount everest</p>
+<p>Google
+可以直接显示高度，因为这是明确的事实型问题，答案存在于知识库或高可信来源中。</p>
+<p>但有些问题很难，比如：Who is Michael Jordan?</p>
+<p>这个问题有歧义。Michael Jordan
+可能是篮球运动员，也可能是机器学习领域的学者。QA 系统必须做
+<strong>entity disambiguation（实体消歧）</strong>。</p>
+<p>还有些问题需要推理，例如：What is the distance between the largest
+city in California and the largest city in Nevada?</p>
+<p>系统不能只查一句话答案。它需要先知道：</p>
+<ul>
+<li>California 最大城市是 Los Angeles；</li>
+<li>Nevada 最大城市是 Las Vegas；</li>
+<li>再计算两者距离。</li>
+</ul>
+<p>这属于多步推理。</p>
+<p>还有些问题甚至没有可用数据，比如某年欧洲大学授予多少数学
+PhD。这种情况下系统可能找不到答案，或者结果不可靠。</p>
+<p><strong>4. 早期 Google QA 方法</strong></p>
+<p>Google 早期处理问答的方式比较简单：</p>
+<ol type="1">
+<li>把问题当成字符串去网页里搜索；</li>
+<li>如果某个网页里出现了完全相同或很相似的问题，比如 FAQ 页面；</li>
+<li>返回该网页中紧跟问题后面的句子作为答案。</li>
+</ol>
+<p>这种方法在 FAQ 场景下很好用，但缺点是明显的：
+如果问题没有以原句形式出现在网页里，系统就很难回答。</p>
+<p>后来系统变复杂，开始结合：</p>
+<ul>
+<li>Knowledge Graph；</li>
+<li>N-grams；</li>
+<li>WordNet；</li>
+<li>NLP techniques。</li>
+</ul>
+<p><strong>5. 为什么需要 NLP</strong></p>
+<p>PPT 用一个例子说明只靠关键词会出错：</p>
+<p>问题：When was Wendy's founded?</p>
+<p>候选段落中可能出现：Wendy's Moonan ...</p>
+<p>系统如果只看到 <code>Wendy's</code> 和
+<code>founded</code>，可能误以为答案是 “20th century”。但这里的 Wendy’s
+是人名，不是快餐品牌 Wendy’s。</p>
+<p>所以 QA 必须理解：</p>
+<ul>
+<li>实体是什么；</li>
+<li>词之间是什么关系；</li>
+<li>问题中的 predicate 和 argument 是什么；</li>
+<li>候选答案是否真的回答了问题。</li>
+</ul>
+<p>另一个例子是：When was Microsoft established?</p>
+<p>正确答案可能来自不完全包含 query term 的句子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Microsoft Corp was founded in the US in 1975, incorporated in 1981, and established in the UK in 1982.</span><br></pre></td></tr></table></figure>
+<p>系统要区分 founded、incorporated、established
+这些词的语义关系，并判断问题具体问的是哪种 established。</p>
+<p><strong>6. 四类常见 QA 产品思路</strong></p>
+<p>PPT 总结了几种问答系统路线：</p>
+<p><strong>Siri 类方法</strong>：
+把问题映射到已知实体和结构化数据库，比如天气、地图、餐厅、日历、联系人。</p>
+<p><strong>Ask.com 类方法</strong>： 判断问题类型，然后利用搜索引擎
+snippet 找答案。</p>
+<p><strong>IBM Watson 类方法</strong>：
+结合结构化数据库、非结构化文本、候选答案评分等多种方法。</p>
+<p><strong>Google Knowledge Graph 类方法</strong>：
+使用实体—关系图谱，基于图中的实体和关系直接推理答案。</p>
+<p><strong>7. Siri 的知识驱动方法</strong></p>
+<p>Siri 的流程大致是：</p>
+<ol type="1">
+<li>语音识别，把用户语音转文字；</li>
+<li>语言模型理解用户意图；</li>
+<li>抽取 query 中的实体，例如日期、地点、人物、餐厅、时间；</li>
+<li>把语义结构映射到具体资源，比如 Yelp、OpenTable、Wolfram
+Alpha、Google、Bing；</li>
+<li>得到答案后转成自然语言，再用语音读出来。</li>
+</ol>
+<p>PPT 还强调了上下文的重要性：</p>
+<p>用户说：Book a table at Il Fornaio at 7:00 with my mom.</p>
+<p>之后又说：Also send her an email reminder.</p>
+<p>系统要知道：</p>
+<ul>
+<li><code>her</code> 指的是 <code>my mom</code>；</li>
+<li><code>7:00</code> 多半是晚上 7 点；</li>
+<li><code>Il Fornaio</code> 是餐厅；</li>
+<li>这是一个订餐任务，不只是普通搜索。</li>
+</ul>
+<p><strong>8. IBM Watson 的候选答案评分</strong></p>
+<p>Watson 的核心不是只找一个答案，而是生成很多 candidate
+answers，然后给每个候选答案打分。</p>
+<p>评分可以来自几十个特征，例如：</p>
+<ul>
+<li>逻辑匹配；</li>
+<li>文本中的证据；</li>
+<li>地理关系；</li>
+<li>时间关系；</li>
+<li>实体类型是否匹配；</li>
+<li>外部知识库支持；</li>
+<li>分类关系。</li>
+</ul>
+<p>比如问题问 “15th hotel in Japan”，候选答案必须是 hotel，并且地点要在
+Japan。如果问题问某人的出生时间，候选答案应该是 date，而不是
+person。</p>
+<p><strong>9. QA 系统的三阶段架构</strong></p>
+<p>PPT 把 QA 系统分成三个主要阶段：</p>
+<p><strong>第一阶段：Question Processing</strong></p>
+<p>系统要理解问题：</p>
+<ul>
+<li>判断问题类型：who、what、when、where、how many；</li>
+<li>识别重要实体；</li>
+<li>判断答案类型；</li>
+<li>生成适合发给搜索引擎的 query。</li>
+</ul>
+<p>例如：</p>
+<table>
+<thead>
+<tr>
+<th>问题词</th>
+<th>可能答案类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Who</td>
+<td>Person / Organization</td>
+</tr>
+<tr>
+<td>When</td>
+<td>Date / Year</td>
+</tr>
+<tr>
+<td>Where</td>
+<td>Location</td>
+</tr>
+<tr>
+<td>How many</td>
+<td>Number</td>
+</tr>
+</tbody>
+</table>
+<p><strong>第二阶段：Passage Retrieval</strong></p>
+<p>系统不是直接搜索整篇文档，而是找可能包含答案的
+passage，也就是短文本片段。</p>
+<p>它会：</p>
+<ul>
+<li>把问题转换成多个 query；</li>
+<li>用搜索引擎召回 snippet 或文档；</li>
+<li>按答案类型过滤；</li>
+<li>根据关键词重叠、实体匹配、n-gram overlap 等特征排序 passage。</li>
+</ul>
+<p><strong>第三阶段：Answer Processing</strong></p>
+<p>系统从 passage 中抽取候选答案，并排序。</p>
+<p>比如问题问 “Who”，系统会优先找人名或组织名；问题问
+“When”，系统会优先找日期或年份；问题问 “How
+many”，系统会找数字表达。</p>
+<p>最后根据文本证据、类型匹配、外部知识库等信息选出最佳答案。</p>
+<p><strong>10. 问题分类和答案类型</strong></p>
+<p>PPT 中有一个 question taxonomy，说明问题可以细分得非常多。</p>
+<p>例如：</p>
+<ul>
+<li>Location → country、city、province、continent；</li>
+<li>Number →
+speed、degree、dimension、rate、duration、percentage、count；</li>
+<li>Human → individual、group；</li>
+<li>Organization；</li>
+<li>Product；</li>
+<li>Currency；</li>
+<li>Language；</li>
+<li>Animal；</li>
+<li>Game。</li>
+</ul>
+<p>分类越细，系统越容易判断“应该找什么类型的答案”。 例如问：What 20th
+century poet wrote Howl?</p>
+<p>系统应该找的是一个 <strong>poet/person</strong>，而不是任意名词。</p>
+<p><strong>11. QA 需要的 NLP 能力</strong></p>
+<p>PPT 总结了一些 QA 系统常用 NLP 技术：</p>
+<ul>
+<li><strong>POS tagging</strong>：识别名词、动词、形容词等词性；</li>
+<li><strong>Named Entity
+Recognition</strong>：识别人名、地点、组织、时间、金额等实体；</li>
+<li><strong>Semantic relations</strong>：识别实体之间的语义关系；</li>
+<li><strong>WordNet / dictionaries /
+thesauri</strong>：用于同义词、上下位词、语义扩展；</li>
+<li><strong>Coreference resolution</strong>：判断代词指向谁；</li>
+<li><strong>Information
+extraction</strong>：从句子中抽取实体和关系，构建知识图谱。</li>
+</ul>
+<p>例如 “John was born in Liverpool, to Julia and Alfred Lennon.”</p>
+<p>系统可以抽取出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">John Lennon — birthplace → Liverpool</span><br><span class="line">John Lennon — childOf → Julia Lennon</span><br><span class="line">John Lennon — childOf → Alfred Lennon</span><br></pre></td></tr></table></figure>
+<p>这就是从自然语言构建知识图谱的过程。</p>
+<p><strong>12. Keyword Expansion</strong></p>
+<p>为了提高召回率，系统会扩展关键词。</p>
+<p>PPT 提到三类扩展：</p>
+<p><strong>Morphological variants</strong>：词形变化 例如
+<code>invented → inventor → inventions</code></p>
+<p><strong>Lexical variants</strong>：近义词 例如
+<code>killer → assassin</code>，<code>far → distance</code></p>
+<p><strong>Semantic variants</strong>：语义相关词 例如
+<code>like → prefer</code></p>
+<p>这样可以避免因为表达方式不同而漏掉答案。</p>
+<p><strong>13. BERT 在 QA 中的作用</strong> BERT 是 Bidirectional
+Encoder Representations from Transformers，由 Google 在 2018
+年开源，后来被用于 Google 搜索中理解更复杂的自然语言。</p>
+<p>BERT 的特点是
+<strong>双向理解上下文</strong>。它不是只从左到右读句子，而是同时利用词前后的上下文判断含义。</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The man went to the bank to deposit money.</span><br></pre></td></tr></table></figure>
+<p>和</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The man sat on the river bank.</span><br></pre></td></tr></table></figure>
+<p>两个 <code>bank</code> 意思不同，BERT 可以利用上下文区分。</p>
+<p>在 QA 中，BERT
+可以把问题和段落一起输入，然后预测段落中哪一段文本最可能是答案。 PPT
+例子中：</p>
+<p>Input Question:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Where do water droplets collide with ice crystals to form precipitation?</span><br></pre></td></tr></table></figure>
+<p>Input Paragraph 中包含：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">... within a cloud ...</span><br></pre></td></tr></table></figure>
+<p>BERT 输出答案：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">within a cloud</span><br></pre></td></tr></table></figure>
+<p>这说明现代 QA 不只是靠规则和关键词，而是可以直接学习“问题—段落—答案
+span”之间的关系。</p>
+<p><strong>总结</strong></p>
+<p><strong>Question Answering
+是从“找文档”到“直接找答案”的升级。它需要先理解问题类型和实体，再检索可能包含答案的
+passage，最后用 NLP、知识图谱、候选答案评分或 BERT
+等模型抽取并排序答案。</strong></p>
+<h2 id="autocorrect-auto-complete">Autocorrect, auto Complete</h2>
+<p><strong>1. 为什么搜索引擎需要自动纠错</strong></p>
+<p>Google / Bing
+的例子：用户输入拼错的词时，搜索引擎会自动提示或直接改成更可能的查询。</p>
+<p>拼写错误非常常见，尤其在手机输入中更明显。不同研究给出的拼写错误率不同，例如网页
+query、无退格重输、手机输入等场景下都存在明显错误率。因此，对于搜索引擎来说，纠错不是附加功能，而是信息检索体验的重要组成部分。</p>
+<p><strong>2. 常见拼写错误原因</strong></p>
+<p>PPT 把 misspelling 的原因分成几类：</p>
+<table>
+<thead>
+<tr>
+<th>原因</th>
+<th>错误例子</th>
+<th>正确形式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>typing quickly</td>
+<td><code>exxit</code></td>
+<td><code>exit</code></td>
+</tr>
+<tr>
+<td>keyboard adjacency</td>
+<td><code>impotant</code></td>
+<td><code>important</code></td>
+</tr>
+<tr>
+<td>inconsistent rules</td>
+<td><code>concieve</code></td>
+<td><code>conceive</code></td>
+</tr>
+<tr>
+<td>ambiguous word breaking</td>
+<td><code>silver light</code></td>
+<td><code>silverlight</code></td>
+</tr>
+<tr>
+<td>new words</td>
+<td><code>kinnect</code></td>
+<td><code>kinect</code></td>
+</tr>
+</tbody>
+</table>
+<p>这里有个重要点：有些“错误”不是传统意义上的拼错，而是新词、品牌名、合成词、空格切分错误，系统必须结合上下文和用户行为判断。</p>
+<p><strong>3. 两个核心任务：检测错误 + 生成纠正</strong></p>
+<p>第一是 <strong>Spelling Error
+Detection</strong>：判断一个词是不是错了。
+最简单方法是查词典：不在词典里，就可能是错误。但这不总可靠，因为新词、人名、品牌名可能也不在词典里。</p>
+<p>第二是 <strong>Spelling Error
+Correction</strong>：如果错了，找出正确词。
+这一步更难，因为系统要从很多候选词里选最可能的那个。</p>
+<p>通常会结合两类信息：</p>
+<ol type="1">
+<li><strong>Edit
+distance（编辑距离）</strong>：候选词和错误词有多接近。</li>
+<li><strong>N-gram /
+probability（语言概率）</strong>：候选词在真实文本或查询日志中有多常见。</li>
+</ol>
+<p><strong>4. 三类拼写错误</strong></p>
+<p><strong>Non-word errors</strong>：拼出来的词根本不是合法词。
+例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">graf → giraffe</span><br></pre></td></tr></table></figure>
+<p>这种相对容易，因为词典能发现 <code>graf</code> 不存在。</p>
+<p><strong>Typographical
+errors</strong>：打字错误，但结果可能仍是合法词。 例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">three → there</span><br></pre></td></tr></table></figure>
+<p>这更难，因为 <code>there</code> 本身也是合法词。</p>
+<p><strong>Cognitive errors</strong>：认知或同音词错误。 例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">piece → peace</span><br><span class="line">too → two</span><br><span class="line">your → you&#x27;re</span><br></pre></td></tr></table></figure>
+<p>这种必须靠上下文判断，单看词本身无法确定。</p>
+<p><strong>5. Non-word 错误怎么纠正</strong></p>
+<p>对 non-word error，基本流程是：</p>
+<ol type="1">
+<li>发现该词不在 dictionary 里；</li>
+<li>从 dictionary 中找出和它“很像”的候选词；</li>
+<li>用 edit distance 衡量相似度；</li>
+<li>再用概率模型选择最可能的候选。</li>
+</ol>
+<p>例如用户输入 <code>acress</code>，系统可以找到多个编辑距离为 1
+的候选词：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">actress</span><br><span class="line">cress</span><br><span class="line">caress</span><br><span class="line">access</span><br><span class="line">across</span><br><span class="line">acres</span><br></pre></td></tr></table></figure>
+<p>然后根据频率或上下文判断哪个最可能。</p>
+<p><strong>6. 为什么上下文很重要</strong></p>
+<p>有些错误必须结合上下文。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flew form Heathrow to LAX</span><br></pre></td></tr></table></figure>
+<p>这里 <code>form</code> 是合法词，但在上下文中应该是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flew from Heathrow to LAX</span><br></pre></td></tr></table></figure>
+<p>再比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Power cord</span><br></pre></td></tr></table></figure>
+<p>和</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Video card</span><br></pre></td></tr></table></figure>
+<p>系统要知道 <code>cord</code> 和 <code>card</code>
+在不同语境下都可能正确。</p>
+<p>还有些词读音相近，比如用户写了一个同音错误，系统需要用类似 Soundex
+的算法找发音相近的候选。</p>
+<p><strong>7. Noisy Channel Model</strong></p>
+<p><strong>Noisy Channel Model（噪声信道模型）</strong>的思想是：</p>
+<p>用户本来想输入一个正确词，但在输入过程中经过“噪声信道”，发生了插入、删除、替换、转置等错误，最终变成了错误词。</p>
+<p>所以纠错任务可以反过来理解：</p>
+<p><strong>给定用户输入的错误词，找出最可能的原始正确词。</strong></p>
+<p>形式上就是在候选词中选择概率最高的那个：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">argmax P(correct word | observed typo)</span><br></pre></td></tr></table></figure>
+<p>实际中会同时考虑：</p>
+<ul>
+<li>这个正确词本身有多常见；</li>
+<li>它变成当前错误词的概率有多大；</li>
+<li>当前上下文是否支持这个词。</li>
+</ul>
+<p><strong>8. 基础拼写纠错算法</strong></p>
+<p>基本算法是：</p>
+<ol type="1">
+<li>建一个 dictionary，并能快速检索；</li>
+<li>用户提交 query 后，对每个不在词典里的词查找可能编辑；</li>
+<li>考虑插入、删除、替换、转置等操作；</li>
+<li>大多数错误在 edit distance 1 内，几乎所有错误在 edit distance 2
+内；</li>
+<li>对候选词计算概率；</li>
+<li>选概率最高的候选作为纠正。</li>
+</ol>
+<p>更精细的版本会先生成所有编辑距离小于等于 K
+的字符串，然后和词典取交集，最后按 n-gram 频率或上下文概率排序。</p>
+<p><strong>9. Dictionary 和 Trie 的作用</strong></p>
+<p>为了快速找到可能纠正，PPT 提到需要一个适合 <strong>prefix
+matching（前缀匹配）</strong> 的数据结构，常见的是
+<strong>trie（前缀树）</strong>。</p>
+<p>Trie 很适合自动补全：</p>
+<p>用户输入一个前缀，比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">comp</span><br></pre></td></tr></table></figure>
+<p>系统可以沿着 trie 找到所有以 <code>comp</code> 开头的词，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">computer</span><br><span class="line">company</span><br><span class="line">compare</span><br><span class="line">complete</span><br></pre></td></tr></table></figure>
+<p>然后根据频率、个性化、上下文等因素排序。</p>
+<p>这也是 autocomplete 的基础。</p>
+<p><strong>10. N-gram 在纠错中的作用</strong></p>
+<p><strong>N-gram</strong>
+是一种概率语言模型，用来估计词序列出现的可能性。 比如系统可以比较：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">serve as the independent</span><br><span class="line">serve as the index</span><br><span class="line">serve as the indicater</span><br></pre></td></tr></table></figure>
+<p>哪一个短语在大规模语料中更常见，就更可能是正确表达。</p>
+<p>N-gram 的优势是简单、可扩展，能在大语料上高效统计。Google
+曾发布过大规模 n-gram 数据，包含海量 tokens 和多阶 n-grams。</p>
+<p>在拼写纠错里，n-gram 可以帮助判断
+<strong>上下文中哪个候选词更自然</strong>。</p>
+<p><strong>11. Edit Distance / Levenshtein Distance</strong></p>
+<p>PPT 重点讲了 <strong>edit distance（编辑距离）</strong>，也叫
+Levenshtein distance。</p>
+<p>它表示把一个字符串变成另一个字符串所需的最少编辑操作数。</p>
+<p>常见操作包括：</p>
+<ul>
+<li>insertion：插入字符；</li>
+<li>deletion：删除字符；</li>
+<li>substitution：替换字符。</li>
+</ul>
+<p>例如从 <code>sitten</code> 变成
+<code>sitting</code>，需要替换和插入等操作。
+系统会用动态规划计算最小编辑距离，而不是暴力枚举所有路径。</p>
+<p>编辑距离越小，两个词越可能互为拼写错误和纠正候选。</p>
+<p><strong>12. Weighted Edit Distance</strong></p>
+<p>普通 edit distance 默认每种错误代价一样，但现实不是这样。</p>
+<p>PPT 最后讲 <strong>weighted edit
+distance</strong>：不同编辑操作应该有不同权重。</p>
+<p>例如：</p>
+<ul>
+<li>键盘上相邻字母更容易打错；</li>
+<li>某些字母组合更常混淆；</li>
+<li><code>e</code> 和 <code>i</code> 的错误可能比 <code>q</code> 和
+<code>z</code> 更常见；</li>
+<li>某些语言里特定拼写规则更容易出错。</li>
+</ul>
+<p>所以系统可以用 <strong>confusion matrix（混淆矩阵）</strong>
+统计哪些字符更容易被误打成哪些字符，再给这些错误更低的代价。</p>
+<p>这样比普通 edit distance 更贴近真实用户输入行为。</p>
+<p><strong>总结</strong></p>
+<p><strong>自动纠错/补全不是简单查词典，而是结合词典、编辑距离、上下文、n-gram
+概率、用户输入习惯和候选词排序，推断用户最可能想输入什么。</strong></p>
+<h2 id="clustering-and-classification">Clustering and
+classification</h2>
+<p><strong>1. Clustering 是什么</strong></p>
+<p><strong>Clustering（聚类）</strong>就是把一堆对象自动分成若干组，让同一组里的对象彼此相似，不同组之间尽量不相似。</p>
+<p>在 IR
+里，对象通常是文档。比如一批计算机科学文档，系统可能自动聚成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NLP</span><br><span class="line">AI</span><br><span class="line">Graphics</span><br><span class="line">Theory</span><br><span class="line">Architecture</span><br></pre></td></tr></table></figure>
+<p>聚类属于 <strong>unsupervised
+learning（无监督学习）</strong>，因为一开始没有人工给定类别标签，系统只根据文档之间的相似度自己找结构。</p>
+<p>搜索引擎里的 “related searches”、早期 Yahoo 分类目录、Yippy
+搜索结果聚类，都可以看作聚类思想的应用。</p>
+<p><strong>2. 好的聚类是什么样</strong></p>
+<p>PPT 提到好的聚类要满足两个核心标准：</p>
+<p><strong>intra-class similarity 高</strong>：同一个 cluster
+内部文档相似。 <strong>inter-class similarity 低</strong>：不同 cluster
+之间文档差异大。</p>
+<p>此外，一个好的聚类算法还应该：</p>
+<ul>
+<li>数据增加时结果不要剧烈变化；</li>
+<li>对小的描述错误不敏感；</li>
+<li>不依赖输入文档的顺序；</li>
+<li>避免产生太大或太小的“无意义 cluster”。</li>
+</ul>
+<p>比如如果所有文档都被放到一个大类里，那就没有帮助；如果每篇文档都单独成类，也没太大意义。</p>
+<p><strong>3. Clustering 和 Classification 的区别</strong></p>
+<p>这份 PPT 反复强调两者区别。</p>
+<p><strong>Clustering：先不知道类别。</strong>
+系统根据相似度自己发现文档之间的结构。</p>
+<p><strong>Classification：类别已经定义好。</strong>
+系统拿到一个新文档，要判断它属于哪个已有类别。</p>
+<p>所以：</p>
+<table>
+<thead>
+<tr>
+<th>任务</th>
+<th>是否有预定义类别</th>
+<th>学习类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Clustering</td>
+<td>没有</td>
+<td>无监督学习</td>
+</tr>
+<tr>
+<td>Classification</td>
+<td>有</td>
+<td>监督学习</td>
+</tr>
+</tbody>
+</table>
+<p>例如，如果系统已经知道类别是
+<code>Algorithms</code>、<code>AI</code>、<code>Databases</code>、<code>Operating Systems</code>，并且有标注好的训练文档，那么给新论文分类就是
+classification。</p>
+<p><strong>4. 文档如何表示：向量空间</strong></p>
+<p>聚类和分类都需要先把文档表示成向量。</p>
+<p>常见做法是用词项权重，比如
+tf-idf，形成一个高维向量，然后就可以用相似度或距离来比较文档。</p>
+<p>PPT 里常见的度量包括：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Cosine similarity</span><br><span class="line">Euclidean distance</span><br><span class="line">Manhattan distance / L1 norm</span><br><span class="line">Minkowski distance</span><br></pre></td></tr></table></figure>
+<p>在文本处理中，最常用的是 <strong>cosine
+similarity</strong>，因为文档长度差异很大，余弦相似度更关注方向，而不是绝对长度。</p>
+<p><strong>5. Hard clustering vs Soft clustering</strong></p>
+<p><strong>Hard clustering</strong>：每个文档只能属于一个 cluster。
+这更简单，也更常见。</p>
+<p><strong>Soft clustering</strong>：一个文档可以属于多个 cluster。
+这在实际搜索中很合理。比如一篇关于 Los Angeles
+的新闻，可能同时属于：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">local news</span><br><span class="line">national news</span><br><span class="line">politics</span><br></pre></td></tr></table></figure>
+<p>商品也一样，一双运动鞋可以同时属于 <code>sports apparel</code> 和
+<code>shoes</code>。</p>
+<p><strong>6. K-means 聚类</strong></p>
+<p>它属于 <strong>partitioning based algorithm</strong>：先指定要分成 K
+个 cluster，然后把 N 个点分到 K 类里。</p>
+<p>基本流程是：</p>
+<ol type="1">
+<li>随机选择 K 个初始中心点，叫 <strong>centroids</strong>。</li>
+<li>把每个文档分配给离它最近的 centroid。</li>
+<li>对每个 cluster 重新计算 centroid。</li>
+<li>重复第 2、3 步，直到 centroid 不再变化，或达到最大迭代次数。</li>
+</ol>
+<p>centroid 就是 cluster 中所有向量的平均值：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">centroid = cluster 内所有文档向量的平均</span><br></pre></td></tr></table></figure>
+<p>K-means 的特点是：</p>
+<ul>
+<li>简单、快；</li>
+<li>通常前几轮就会收敛很多；</li>
+<li>结果依赖初始 centroid；</li>
+<li>必须提前指定 K；</li>
+<li>不保证找到全局最优，只是 greedy algorithm。</li>
+</ul>
+<p>同一组点可以被分成 2 类、4 类、6 类，说明 <strong>K
+的选择会极大影响聚类结果</strong>。</p>
+<p><strong>7. 层次聚类 Hierarchical Clustering</strong></p>
+<p>第二类是 <strong>hierarchical clustering（层次聚类）</strong>。
+它不是直接给出一个固定 K，而是生成一个层级结构，常用
+<strong>dendrogram（树状图）</strong> 展示。</p>
+<p>主要有两种方法：</p>
+<p><strong>Agglomerative clustering，自底向上。</strong>
+一开始每个文档都是一个 cluster，然后不断合并最相似的两个
+cluster，直到只剩一个大 cluster，或剩下 K 个 cluster。</p>
+<p><strong>Divisive clustering，自顶向下。</strong>
+一开始所有文档在一个大 cluster 中，然后不断把 cluster
+拆分成更小部分，直到每个文档单独成类，或达到目标 K。</p>
+<p>PPT 里更强调 HAC，也就是 hierarchical agglomerative
+clustering。它适合产生层级浏览结果，比如搜索结果分组、目录结构等。</p>
+<p><strong>8. Rocchio Algorithm</strong></p>
+<p><strong>Rocchio algorithm</strong>最早用于 relevance
+feedback，也可以用于分类。</p>
+<p>Rocchio 的基本思想是：如果我们知道哪些文档 relevant，哪些
+non-relevant，就可以计算两个 centroid：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">relevant documents 的中心</span><br><span class="line">non-relevant documents 的中心</span><br></pre></td></tr></table></figure>
+<p>然后构造一个更好的查询向量，让它靠近相关文档，远离不相关文档。</p>
+<p>简化公式是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">q_opt = relevant centroid - non-relevant centroid</span><br></pre></td></tr></table></figure>
+<p>更直观地说：</p>
+<p><strong>把 query
+往相关文档方向拉，把它从不相关文档方向推开。</strong></p>
+<p>在分类里，Rocchio 会为每个类别建立
+centroid。新文档来了以后，看它离哪个类别 centroid
+最近，就分到哪个类别。</p>
+<p>它的优点是简单、速度快；缺点是边界通常是线性的，遇到复杂形状的数据时效果有限。</p>
+<p><strong>9. Rocchio 的几何解释</strong></p>
+<p>PPT 用很多 2D 图说明 Rocchio。</p>
+<p>假设圆圈是 relevant documents，叉号是 non-relevant documents：</p>
+<ol type="1">
+<li>先算 relevant 的 centroid。</li>
+<li>再算 non-relevant 的 centroid。</li>
+<li>用两者差向量调整 query。</li>
+<li>得到一个更能区分相关/不相关文档的方向。</li>
+</ol>
+<p>PPT 中还强调，Rocchio 的边界不是圆，而通常是
+<strong>hyperplane（超平面）</strong>。 这意味着 Rocchio
+更像一个线性分类器。</p>
+<p><strong>10. Classification 的问题定义</strong></p>
+<p>分类任务可以形式化为：</p>
+<p>给定：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">一个实例 x</span><br><span class="line">一组类别 C = &#123;c1, c2, ..., cn&#125;</span><br></pre></td></tr></table></figure>
+<p>目标是找到一个函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c(x) ∈ C</span><br></pre></td></tr></table></figure>
+<p>也就是判断 x 属于哪个类别。这个函数就叫
+<strong>classifier</strong>。</p>
+<p>在向量空间里，学习分类器等价于学习一些边界，把不同类别的区域分开。</p>
+<p><strong>11. K-Nearest Neighbor, KNN</strong></p>
+<p><strong>KNN（K-nearest neighbor）</strong>：KNN 的想法很直接：</p>
+<p>给定一个新文档 d：</p>
+<ol type="1">
+<li>在训练集中找到离它最近的 K 个已标注文档；</li>
+<li>看这 K 个邻居中哪个类别出现最多；</li>
+<li>把 d 分到这个多数类别。</li>
+</ol>
+<p>比如 K=6 时，如果 5 个邻居是 red 类，1 个是 green 类，那么新点就分到
+red 类。</p>
+<p>KNN 的特点：</p>
+<ul>
+<li>没有真正的训练步骤，只需要存储训练数据；</li>
+<li>因此也叫 memory-based learning、case-based learning、lazy
+learning；</li>
+<li>可以处理非线性边界；</li>
+<li>通常比 Rocchio 更灵活；</li>
+<li>但预测时要计算与很多训练样本的距离，可能较慢。</li>
+</ul>
+<p><strong>12. K 的选择</strong></p>
+<p>K 的选择很重要。如果 K 太小，比如 K=1，模型容易受噪声影响。如果 K
+太大，邻居可能包含其他类别的点，边界会变得过于平滑。</p>
+<p>通常：</p>
+<ul>
+<li>K 取奇数可以避免二分类平票；</li>
+<li>K 可以通过 validation set 或 cross-validation 选择；</li>
+<li>常见经验范围是 3 到 10。</li>
+</ul>
+<p><strong>13. Voronoi Diagram 和 1-NN</strong></p>
+<p>当 K=1 时，KNN 变成 <strong>1-nearest neighbor</strong>。
+每个训练点会定义空间中的一个区域：区域内所有点都离这个训练点最近。</p>
+<p>这些区域形成 <strong>Voronoi diagram</strong>。 PPT
+中展示了平面被切成很多多边形区域，每个区域对应一个最近邻点。</p>
+<p>这也说明 KNN 是一个
+<strong>非线性分类器</strong>，因为它的决策边界可以非常复杂；而 Rocchio
+更偏线性分类器。</p>
+<p><strong>总结</strong></p>
+<p><strong>Clustering 是无监督地发现文档群组，Classification
+是有监督地把新文档分到已有类别。</strong></p>
+<p>重点算法可以这样记：</p>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 25%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>方法</th>
+<th>类型</th>
+<th>核心思想</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>K-means</td>
+<td>聚类</td>
+<td>选 K 个中心，不断分配点并更新中心</td>
+</tr>
+<tr>
+<td>Hierarchical clustering</td>
+<td>聚类</td>
+<td>自底向上合并或自顶向下拆分，形成树状结构</td>
+</tr>
+<tr>
+<td>Rocchio</td>
+<td>分类 / relevance feedback</td>
+<td>用类别 centroid 或相关/不相关 centroid 做线性判断</td>
+</tr>
+<tr>
+<td>KNN</td>
+<td>分类</td>
+<td>看最近 K 个已标注邻居，多数投票决定类别</td>
+</tr>
+</tbody>
+</table>
+<p>一句话概括：
+<strong>聚类是在没有标签时自动找结构；分类是在有标签时学习边界，并把新文档放到合适类别中。</strong></p>
+<h2 id="recommendation-system">Recommendation system</h2>
+<p><strong>1. 推荐系统要解决什么问题</strong></p>
+<p>推荐系统的目标是回答：</p>
+<p><strong>“你还可能想知道、想看、想买、想听什么？”</strong></p>
+<p>课件先讲了一个背景：互联网商品和内容极其丰富，用户不可能逐个浏览，所以系统需要帮助用户发现新东西。理论上，推荐系统应该增加多样性，帮助长尾内容被发现；但实际中，很多算法会偏向已经流行的东西，因为过去销量、评分、点击越多，越容易被继续推荐。</p>
+<p><strong>2. 两类推荐系统</strong></p>
+<p>PPT 把推荐系统分成两大类。</p>
+<p><strong>Content-based filtering（基于内容的推荐）</strong>：</p>
+<p>看物品本身的特征，然后推荐和用户过去喜欢的物品相似的东西。例如用户喜欢某个意大利餐厅，那么系统可能推荐另一个意大利餐厅。音乐推荐里，如果用户喜欢某些
+“acoustic guitar”“female vocal”“slow tempo”
+的歌，系统就推荐具有类似音乐属性的歌。</p>
+<p><strong>Collaborative filtering（协同过滤）</strong>：</p>
+<p>看用户之间的行为相似性，利用“相似用户喜欢什么”来推荐。例如 Alice 和
+Bob 都喜欢很多相同餐厅，那么 Alice 喜欢但 Bob 没试过的餐厅，就可能推荐给
+Bob。</p>
+<p>现实中的商业系统通常是 <strong>hybrid
+systems（混合推荐）</strong>，会同时使用内容特征和协同过滤。</p>
+<p><strong>3. Utility Matrix：推荐系统的核心数据结构</strong></p>
+<p>很重要的概念是 <strong>utility matrix（效用矩阵）</strong>。</p>
+<p>矩阵的：</p>
+<ul>
+<li>行表示用户；</li>
+<li>列表示物品；</li>
+<li>单元格表示用户对物品的偏好。</li>
+</ul>
+<p>例如餐厅推荐里，行是 Alice、Bob、Cindy
+等用户，列是不同餐厅，格子里可能是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Yes / No</span><br><span class="line">1 / -1</span><br><span class="line">评分 1-5</span><br><span class="line">空白 unknown</span><br></pre></td></tr></table></figure>
+<p>空白很重要： 它不是 0，而是
+<strong>unknown</strong>，表示系统不知道用户是否喜欢这个物品。</p>
+<p>推荐系统的核心任务就是：
+<strong>根据已知格子，预测未知格子的值。</strong></p>
+<p>比如 Bob 没评价过 Il Fornaio，但 Alice、Dave、Estie 的评价和 Bob
+很相似，那么系统可能预测 Bob 也会喜欢 Il Fornaio。</p>
+<p><strong>4. 最简单的方法：推荐最热门物品</strong></p>
+<p>Algorithm
+0：直接推荐最受欢迎的餐厅，例如正评价最多、负评价最少的。</p>
+<p>这个方法简单，但会忽略：</p>
+<ul>
+<li>用户自己的口味；</li>
+<li>相似用户的判断；</li>
+<li>小众兴趣；</li>
+<li>新物品。</li>
+</ul>
+<p>所以它通常只能作为 baseline，不是真正个性化推荐。</p>
+<p><strong>5. 基于内容的推荐 Content-Based Filtering</strong></p>
+<p>基于内容的推荐会为每个物品建立 <strong>item
+profile</strong>，也就是物品特征向量。</p>
+<p>例如电影可以用演员作为特征：</p>
+<table>
+<thead>
+<tr>
+<th>Movie</th>
+<th>Actor A</th>
+<th>Actor B</th>
+<th>Actor C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Movie 1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Movie 2</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>如果用户看过 5 部电影，其中 2 部有 Actor A，3 部有 Actor
+B，那么用户画像可以是这些物品画像的平均：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Actor A weight = 2/5 = 0.4</span><br><span class="line">Actor B weight = 3/5 = 0.6</span><br></pre></td></tr></table></figure>
+<p>之后系统拿用户画像和新电影画像做相似度计算，比如用 cosine
+similarity。如果相似度高，就推荐。</p>
+<p><strong>6. Content-based 方法的优点</strong></p>
+<ul>
+<li>不需要其他用户的数据；</li>
+<li>可以服务口味很独特的用户；</li>
+<li>可以推荐新的、不流行的物品；</li>
+<li>没有 first-rater
+problem，因为只要物品有内容特征，即使没人评价过也能推荐；</li>
+<li>可以解释推荐原因，例如“因为你喜欢某演员/某类型”。</li>
+</ul>
+<p><strong>7. Content-based 方法的缺点</strong></p>
+<p>缺点也很明显：</p>
+<ul>
+<li>合适的特征不一定容易找，例如图片、音乐、复杂文本内容；</li>
+<li>容易过度专业化，只推荐和用户过去喜欢的东西非常相似的内容；</li>
+<li>不容易利用其他用户的质量判断；</li>
+<li>对新用户有 cold-start
+problem，因为新用户没有历史行为，用户画像难以建立。</li>
+</ul>
+<p>简单说：
+<strong>基于内容的方法懂物品特征，但不太懂群体智慧。</strong></p>
+<p><strong>8. 协同过滤 Collaborative Filtering</strong></p>
+<p>协同过滤的核心假设是：</p>
+<p><strong>如果 A 和 B 在很多事情上的看法相似，那么 A 喜欢的其他东西，B
+也可能喜欢。</strong></p>
+<p>PPT 里先讲 user-user collaborative filtering，也就是找相似用户。</p>
+<p>流程是：</p>
+<ol type="1">
+<li>用 utility matrix 表示用户评分；</li>
+<li>计算用户之间的相似度；</li>
+<li>找到与目标用户最相似的一批用户；</li>
+<li>看这些相似用户喜欢但目标用户还没评价过的物品；</li>
+<li>预测目标用户是否会喜欢。</li>
+</ol>
+<p><strong>9. 用户相似度：Jaccard、Cosine、Centered Cosine</strong></p>
+<p><strong>Jaccard similarity</strong>：</p>
+<p>只看两个用户共同评价过哪些物品，不太关心评分值。问题是它会忽略评分高低。</p>
+<p>例如 A 和 B 都看过 Harry Potter 和 Star
+Wars，但一个给高分、一个给低分，Jaccard 仍可能觉得他们相似。</p>
+<p><strong>Cosine similarity</strong>：</p>
+<p>把用户评分当成向量，计算夹角相似度。它会考虑评分值，比 Jaccard
+更细。</p>
+<p>但普通 cosine 有个问题：如果把未知评分当成
+0，会让用户之间看起来比实际更远，因为 0 其实代表 unknown，不代表
+dislike。</p>
+<p><strong>Centered cosine / Pearson correlation</strong>：</p>
+<p>先减去用户自己的平均评分，再计算相似度。这样可以处理“有人天生给分高，有人天生给分低”的问题。</p>
+<p>比如 Alice 平均打分很高，Bob
+平均打分很低，直接比较原始分数可能不公平；中心化后，系统比较的是他们相对于自己平均值的偏好。</p>
+<p><strong>10. Item-item collaborative filtering</strong></p>
+<p>除了 user-user，PPT 还讲了 <strong>item-item collaborative
+filtering</strong>。</p>
+<p>它不问“谁和我像”，而是问：</p>
+<p><strong>这个物品和哪些物品相似？</strong></p>
+<p>例如很多用户都同时喜欢 Movie 1 和 Movie 3，那么 Movie 1 和 Movie 3
+就相似。 如果用户喜欢 Movie 3，而没看过 Movie 1，就可以推荐 Movie
+1。</p>
+<p>预测某用户对物品 i 的评分时，可以看：</p>
+<ul>
+<li>用户已经评分过的物品；</li>
+<li>这些物品和目标物品 i 的相似度；</li>
+<li>用相似度加权平均得到预测评分。</li>
+</ul>
+<p>PPT 中的例子里，目标是估计 user 5 对 movie 1 的评分。系统找到与 movie
+1 最相似的 movie 3 和 movie
+6，然后用它们的相似度和用户对它们的评分加权，得到预测值约为 2.6。</p>
+<p><strong>11. Item-item vs User-user</strong></p>
+<p>理论上，user-user 和 item-item 是对偶的：
+一个看用户相似，一个看物品相似。</p>
+<p>但实践中，<strong>item-item 往往表现更好</strong>，原因是：</p>
+<ul>
+<li>物品通常比用户更稳定；</li>
+<li>用户兴趣会变，状态更多样；</li>
+<li>物品可以稳定归入类型、风格、主题；</li>
+<li>物品相似性通常比用户相似性更可靠。</li>
+</ul>
+<p>例如一部电影的类型、演员、受众相对稳定；但用户今天想看喜剧，明天可能想看纪录片。</p>
+<p><strong>总结</strong></p>
+<p><strong>推荐系统通过 utility matrix
+记录用户—物品偏好，然后预测未知偏好。</strong></p>
+<p>主要方法可以这样记：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>看什么</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>热门推荐</td>
+<td>全局流行度</td>
+<td>简单</td>
+<td>不个性化</td>
+</tr>
+<tr>
+<td>Content-based</td>
+<td>物品特征</td>
+<td>可解释、能推新物品</td>
+<td>容易推荐太窄</td>
+</tr>
+<tr>
+<td>User-user CF</td>
+<td>相似用户</td>
+<td>利用群体智慧</td>
+<td>用户相似度不稳定</td>
+</tr>
+<tr>
+<td>Item-item CF</td>
+<td>相似物品</td>
+<td>实践中常更稳定</td>
+<td>依赖足够行为数据</td>
+</tr>
+</tbody>
+</table>
+<p>一句话概括：
+<strong>基于内容推荐“和你喜欢的东西相似的东西”，协同过滤推荐“和你相似的人喜欢的东西”，而现代系统通常把两者结合起来。</strong></p>
+<h2 id="assorted-topics-part-a">Assorted topics part A</h2>
+<p><strong>1. IR 一直在演化</strong></p>
+<p><strong>信息检索领域一直在变化</strong>。
+除了传统的网页搜索、倒排索引、PageRank、query
+processing，现在还有很多新数据、新算法，以及来自机器学习、NLP、数据库、视觉模型等领域的交叉技术。</p>
+<p>所以这份 PPT
+是一个“快速扫盲式”介绍，每个主题都只讲一点，方便以后继续深入。</p>
+<p><strong>2. 图像理解与图像搜索</strong></p>
+<p><strong>Image understanding and search</strong>。</p>
+<p>核心例子是 <strong>ImageNet</strong>：一个大规模人工标注图片数据库。
+它可以用来训练机器学习模型，比如 CNN、Vision Transformer
+等，让系统理解图片内容。</p>
+<p>这和 IR 的关系是：搜索不再只处理文本，也要能处理图片。
+比如用户搜“一只坐在草地上的狗”，系统需要理解图片中有什么对象、场景和关系。</p>
+<p><strong>3. 代码搜索 Code Search</strong></p>
+<p>例子是 GitHub 的代码搜索和 GitHub Copilot。
+代码搜索不同于普通文本搜索，因为代码有语法结构、变量名、函数调用、依赖关系等信息。</p>
+<p>普通关键词搜索只能找字符串，而更好的代码搜索要理解：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">函数做什么</span><br><span class="line">代码结构是什么</span><br><span class="line">变量之间如何关联</span><br><span class="line">用户想找实现方式还是 API 用法</span><br></pre></td></tr></table></figure>
+<p>Copilot
+则进一步从搜索走向生成：不仅帮你找代码，还能根据上下文生成代码。</p>
+<p><strong>4. Location-Based Search / Proximity Search</strong></p>
+<p><strong>LBS / PS</strong>，也就是基于位置的搜索或邻近搜索。</p>
+<p>它的核心是： 搜索引擎不仅看 query 本身，还看 query 发出的位置。</p>
+<p>比如用户搜：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">coffee shop</span><br></pre></td></tr></table></figure>
+<p>系统会优先返回附近咖啡店，而不是全世界最著名的咖啡店。</p>
+<p>但位置搜索有隐私风险。如果系统能根据搜索或服务请求精确推断用户位置，就可能被用于
+tracking。</p>
+<p><strong>5. Vector DB 和相似度搜索</strong></p>
+<p><strong>Similarity search using vector DBs</strong>。</p>
+<p>传统搜索主要靠关键词匹配；向量数据库会把文本、图片、代码、音频等数据转成向量
+embedding，然后用向量相似度搜索，比如 cosine similarity。</p>
+<p>直观来说：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">语义相近的内容 → 向量空间中距离近</span><br><span class="line">语义不相关的内容 → 向量空间中距离远</span><br></pre></td></tr></table></figure>
+<p>例如用户搜：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">how to fix a leaking pipe</span><br></pre></td></tr></table></figure>
+<p>即使文档没有完全出现这些词，只要语义接近，也可能被搜到。</p>
+<p>PPT 还提到，向量数据库可以作为生成式工具的 “infinite
+memory”，也就是给大模型提供长期外部知识库，支持 semantic search
+engine。</p>
+<p><strong>6. LDA 和 Topic Modeling</strong></p>
+<p>LDA 是一种主题建模方法，用来判断文档可能属于哪些主题。</p>
+<p>例如一篇文章中频繁出现：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">neural network</span><br><span class="line">training</span><br><span class="line">model</span><br><span class="line">gradient</span><br></pre></td></tr></table></figure>
+<p>系统可能判断它的主题是 machine learning。</p>
+<p>如果出现：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">election</span><br><span class="line">vote</span><br><span class="line">senate</span><br><span class="line">policy</span><br></pre></td></tr></table></figure>
+<p>主题可能是 politics。</p>
+<p>LDA 的作用是：
+<strong>从大量文档中自动发现潜在主题结构。</strong></p>
+<p>这和前面学过的 clustering 有点像，但 LDA
+通常允许一篇文档混合多个主题。</p>
+<p><strong>7. ANN 和 Faiss</strong></p>
+<p><strong>ANN，Approximate Nearest
+Neighbor</strong>，近似最近邻搜索。</p>
+<p>在向量数据库中，如果有几亿个向量，精确找最近邻会很慢。 ANN
+的思想是：不一定找绝对精确的最近向量，而是用更快的方法找到“足够接近”的结果。</p>
+<p>Faiss 是一个常见的 ANN 工具库。</p>
+<p>这在现代 IR 和 RAG 系统中特别重要，因为语义搜索常常需要在海量
+embedding 中快速找相似内容。</p>
+<p><strong>8. Task-specific Fine-tuning</strong></p>
+<p>Fine-tuning 是把一个通用模型进一步训练成适合某个具体任务的模型。</p>
+<p>比如一个通用语言模型可以被 fine-tune 成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">专门生成科研论文摘要</span><br><span class="line">专门做法律问答</span><br><span class="line">专门做医疗文本分类</span><br><span class="line">专门写某种风格的代码</span><br></pre></td></tr></table></figure>
+<p>GPT-2 被 fine-tune 生成 scientific paper abstracts，Unsloth 等用于
+LLM fine-tuning 的工具。</p>
+<p>核心思想是：基础模型有通用能力，fine-tuning
+让它更适合特定领域或任务。**</p>
+<p><strong>9. Task-specific Embedding</strong></p>
+<p>普通 embedding 只是把文本转成向量，但不同任务需要不同的语义重点。</p>
+<p>例如同一句话，在不同任务中可能需要不同表示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">做情感分析：关注情绪</span><br><span class="line">做主题分类：关注主题</span><br><span class="line">做问答检索：关注是否能回答问题</span><br><span class="line">做代码搜索：关注功能意图</span><br></pre></td></tr></table></figure>
+<p>Task-specific embedding 的思想是：
+<strong>根据任务需求生成更合适的向量表示。</strong></p>
+<p>这样一个系统可以更好地支持多种 NLP 或 IR 任务。</p>
+<h2 id="assorted-topics-part-b">Assorted topics part B</h2>
+<p><strong>1. IR 领域继续快速变化</strong></p>
+<p>这部分继续看一些 “cutting edge” 技术和工业实现，包括：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">retrieval</span><br><span class="line">recommendations</span><br><span class="line">knowledge extraction</span><br><span class="line">LLM + memory</span><br><span class="line">agent systems</span><br><span class="line">vector search</span><br><span class="line">AR / maps</span><br></pre></td></tr></table></figure>
+<p>核心观点是：<strong>信息检索 IR
+是变化最快的领域之一</strong>，因为现代社会几乎所有系统都依赖信息获取、组织和推荐。</p>
+<p><strong>2. LLM + External Memory</strong></p>
+<p><strong>外部记忆增强 LLM</strong>。</p>
+<p>普通 LLM
+本身是一个通用文本引擎，不一定掌握某个企业、数据库或领域的最新知识。
+所以现在常见做法是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LLM + 外部数据库 / 知识库 / 向量库 / 图数据库</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<ul>
+<li>用自然语言查询 Neo4j 图数据库，而不是手写 Cypher；</li>
+<li>让 LLM 生成 SQL 查询数据库；</li>
+<li>用 external KB 帮助模型完成推理任务；</li>
+<li>Retrieval Transformer 用外部 memory，让核心模型可以更小。</li>
+</ul>
+<p>这其实就是后来很多 RAG 系统的思路：
+<strong>模型负责理解和生成，外部知识库负责存储事实和领域知识。</strong></p>
+<p><strong>3. Autonomous Task-Achieving：自主完成任务的
+Agent</strong></p>
+<p><strong>agent-based architecture</strong>。</p>
+<p>传统聊天是用户一步步问，模型一步步答。 而 agent
+的目标是：用户只给一个任务，系统自己拆成子任务并执行。</p>
+<p>例如用户说：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">帮我研究某个市场，整理竞争对手，生成报告</span><br></pre></td></tr></table></figure>
+<p>Agent 系统可能自动做：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">搜索资料 → 提取信息 → 比较公司 → 写报告 → 检查遗漏</span><br></pre></td></tr></table></figure>
+<p>PPT 提到 AutoGPT 和 generative agents。前者试图让 LLM
+自动规划和执行任务；后者则用 LLM
+模拟人的行为和记忆，构造“生成式代理”。</p>
+<p><strong>4. LLM + Tasks + Memory = 新型“计算机系统”</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">传统计算机 = processor + code + data</span><br><span class="line">LLM 系统 = LLM + tasks + DB / memory</span><br></pre></td></tr></table></figure>
+<p>也就是说，LLM 可以看作“处理器”，prompt / task templates
+类似“程序”，数据库或向量库类似“内存”。</p>
+<p>PPT 提到：</p>
+<ul>
+<li><strong>BabyAGI</strong>：尝试让系统自动生成任务、执行任务、再生成新任务；</li>
+<li><strong>LangChain</strong>：把 prompts、tools、retrieval、memory
+串成任务流程；</li>
+<li><strong>OPL stack</strong>：OpenAI + Pinecone + LangChain；</li>
+<li><strong>SudoLang</strong>：一种面向 LLM 任务编排的语言风格。</li>
+</ul>
+<p>第 6 页截图展示了 Pinecone meetup，主题是用 OpenAI + Pinecone 构建 AI
+apps，说明这种 stack 当时已经进入开发者生态。</p>
+<p><strong>5. NER：命名实体识别</strong></p>
+<p><strong>Named Entity Recognition</strong>。</p>
+<p>NER 的任务是：从文本、图像、视频、音频中识别出实体，比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">person</span><br><span class="line">place</span><br><span class="line">organization</span><br><span class="line">product</span><br><span class="line">date</span><br><span class="line">event</span><br><span class="line">thing</span><br></pre></td></tr></table></figure>
+<p>例如句子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Barack Obama was born in Hawaii.</span><br></pre></td></tr></table></figure>
+<p>NER 应该识别：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Barack Obama → Person</span><br><span class="line">Hawaii → Location</span><br></pre></td></tr></table></figure>
+<p>PPT 提到可以用 BERT 做 NER。 在 IR 中，NER
+很重要，因为搜索引擎和问答系统需要知道 query
+或文档里提到的到底是人、地点、公司还是事件。</p>
+<p><strong>6. BERTopic：基于 BERT 的主题建模</strong></p>
+<p><strong>Topic Modeling</strong>，尤其是
+<strong>BERTopic</strong>。</p>
+<p>之前 Misc_1 讲过 LDA。这里的 BERTopic 是更现代的主题建模方法，它使用
+BERT embedding 表示文本语义，然后聚类出主题。</p>
+<p>它比传统 LDA 更适合处理语义相近但词面不同的文本。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">car</span><br><span class="line">automobile</span><br><span class="line">vehicle</span><br></pre></td></tr></table></figure>
+<p>这些词表面不同，但 embedding 会把它们放得更近。</p>
+<p><strong>7. Knowledge Graph Construction</strong></p>
+<p><strong>知识图谱构建</strong>。</p>
+<p>知识图谱用结构化三元组表示知识：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(subject, predicate, object)</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(Paris, capitalOf, France)</span><br><span class="line">(Apple, foundedBy, Steve Jobs)</span><br></pre></td></tr></table></figure>
+<p>KG 是很好的知识表示方式，因为结构清晰、方便查询和推理。现在可以用 LLM
+从非结构化文本中抽取实体和关系，自动构建知识图谱。</p>
+<p>这和前面 QA、Knowledge Graph、NER 课程内容是连在一起的： <strong>NER
+识别实体，关系抽取识别实体之间关系，KG 把它们组织起来。</strong></p>
+<p><strong>8. Recommendation Engines：工业推荐系统</strong></p>
+<p>TikTok / ByteDance 的 Monolith 推荐系统，以及 Twitter “For You”
+timeline 和 Lyft 推荐系统。</p>
+<p>第 12 页图展示了 Twitter 推荐 “For You” timeline
+的流程，大致包括：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">candidate sourcing</span><br><span class="line">global filtering</span><br><span class="line">scoring &amp; ranking</span><br><span class="line">filtering for diversity</span><br><span class="line">mixing ads / who to follow / tweets</span><br></pre></td></tr></table></figure>
+<p>第 13 页还列出 Twitter 的 5 个阶段：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. Candidate Sourcing：从海量 tweets 里召回候选</span><br><span class="line">2. Global Filtering：过滤到大约 1500 candidates</span><br><span class="line">3. Scoring &amp; Ranking：用神经网络排序</span><br><span class="line">4. Filtering：保证作者和内容多样性</span><br><span class="line">5. Mixing：混入广告、关注推荐等模块</span><br></pre></td></tr></table></figure>
+<p>这说明现实中的推荐系统不是一个简单公式，而是一个多阶段 pipeline：
+先粗召回，再过滤，再精排，再做多样性和业务规则混合。</p>
+<p><strong>9. 更多聚类方法</strong></p>
+<p>之前主课讲了 K-means。这里列出一些更现代或常用的方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">t-SNE</span><br><span class="line">HDBSCAN</span><br><span class="line">UMAP</span><br></pre></td></tr></table></figure>
+<p>它们常用于高维数据可视化、聚类和结构发现。</p>
+<p>简单理解：</p>
+<ul>
+<li><strong>t-SNE</strong>：适合把高维数据降到 2D/3D 可视化；</li>
+<li><strong>UMAP</strong>：也用于降维，速度快，常用于 embedding
+可视化；</li>
+<li><strong>HDBSCAN</strong>：密度聚类方法，不需要像 K-means 那样固定
+K，能发现不规则形状 cluster。</li>
+</ul>
+<p><strong>10. Search 的其他方向</strong></p>
+<p><strong>Creative Commons
+search</strong>：搜索可复用授权内容，比如图片、音频。 <strong>Manifold
+search</strong>：用流形学习做相似搜索。 <strong>Graph-based nearest
+neighbor
+search</strong>：在图上做最近邻搜索，而不是只在普通度量空间中查找。
+<strong>Redis vector search</strong>：用 Redis 做 AI-driven vector
+search。 <strong>Discord search</strong>：Discord
+用倒排索引搜索海量消息。</p>
+<p>核心是：搜索的对象和底层结构越来越多样，已经不只是网页文本和普通倒排索引。</p>
+<p><strong>11. NeRF、AR、Location-Based Search</strong></p>
+<p>传统 LBS 返回的是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">地址</span><br><span class="line">地图</span><br><span class="line">附近地点</span><br><span class="line">路线</span><br></pre></td></tr></table></figure>
+<p>而新的地图搜索可能返回 <strong>immersive
+views（沉浸式视图）</strong>。 这些视图可以通过融合大量照片、航拍图和 3D
+渲染技术生成。</p>
+<p>PPT 提到 NeRF，也提到 3D Gaussian Splatting。
+意思是：未来的位置搜索不仅是“给你一个地点”，而是可能直接给你一个可交互、沉浸式的
+3D 场景。</p>
+<h2 id="assorted-topics-part-c">Assorted topics part C</h2>
+<p><strong>1. Transformer 和 Attention</strong></p>
+<p>开头重点是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A Transformer computes self-attention.</span><br></pre></td></tr></table></figure>
+<p>也就是：Transformer 的核心机制是
+<strong>self-attention（自注意力）</strong>。</p>
+<p>自注意力让模型在处理一句话时，能判断每个词应该关注其他哪些词。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The animal didn&#x27;t cross the street because it was too tired.</span><br></pre></td></tr></table></figure>
+<p>模型要知道 <code>it</code> 指的是 <code>animal</code>，不是
+<code>street</code>。 Transformer 就是通过 attention
+机制捕捉这种上下文关系。</p>
+<p>PPT 还提到 Transformer
+不只用于语言模型，也能扩展到其他领域，比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Vision Transformer, ViT</span><br><span class="line">time-series prediction</span><br><span class="line">music generation</span><br></pre></td></tr></table></figure>
+<p>也就是说，Transformer 已经从 NLP 扩展成一种通用建模架构。</p>
+<p><strong>2. LLM 训练数据格式：JSONL</strong></p>
+<p>一种常见训练数据格式：<strong>JSONL / JSON Lines</strong>。</p>
+<p>JSONL 的特点是：每一行都是一个独立 JSON 对象。 例如 instruction
+tuning 数据可能长这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;instruction&quot;: &quot;Explain PageRank&quot;, &quot;response&quot;: &quot;PageRank is...&quot;&#125;</span><br><span class="line">&#123;&quot;instruction&quot;: &quot;Summarize this article&quot;, &quot;response&quot;: &quot;...&quot;&#125;</span><br></pre></td></tr></table></figure>
+<p>PPT 用 Databricks Dolly 15k 作为例子，说明 LLM
+微调数据常以这种格式组织。</p>
+<p><strong>3. Context 和 Attention 的二次复杂度瓶颈</strong></p>
+<p>讲 <strong>context length</strong> 的问题：</p>
+<p>LLM 很依赖上下文，但普通 Transformer 的 attention 计算有一个问题：
+随着上下文长度增加，计算成本通常按平方增长，也就是所谓：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">quadratic bottleneck</span><br></pre></td></tr></table></figure>
+<p>所以长上下文很贵、很慢。</p>
+<p>一些解决方向：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Hyena</span><br><span class="line">Mamba</span><br><span class="line">Jamba</span><br><span class="line">Hymba</span><br><span class="line">long convolution</span><br><span class="line">mixed architecture</span><br></pre></td></tr></table></figure>
+<p>这些方法试图在不完全依赖标准 attention
+的情况下，更高效地捕捉长距离依赖。</p>
+<p>NVIDIA 的 <strong>Hymba</strong>它是一种面向小模型的 mixed
+architecture，用来更高效捕捉上下文。</p>
+<p><strong>4. Fine-tuning：让模型适应特定领域</strong></p>
+<p>通用 LLM 虽然能力强，但不一定适合专业领域，比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">medicine</span><br><span class="line">law</span><br><span class="line">finance</span><br><span class="line">scientific writing</span><br><span class="line">enterprise documents</span><br></pre></td></tr></table></figure>
+<p>Fine-tuning 的作用是：
+<strong>把通用模型进一步训练成某个领域或某个任务更擅长的模型。</strong></p>
+<p>PPT 还提到 ReFT 以及一个 fine-tuning 技术综述。
+核心意思是：fine-tuning 是增强 LLM
+的一种主要方式，但现在方法很多，不只是传统全参数微调，还包括各种参数高效微调和表示微调。</p>
+<p><strong>5. RAG：用外部知识增强模型</strong></p>
+<p>Retrieval-Augmented Generation**。</p>
+<p>RAG 的思想是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LLM 本身负责理解和生成</span><br><span class="line">外部知识库负责提供事实和上下文</span><br></pre></td></tr></table></figure>
+<p>外部知识库可以是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vector DB</span><br><span class="line">knowledge graph</span><br><span class="line">relational DB</span><br><span class="line">document store</span><br></pre></td></tr></table></figure>
+<p>当用户提问时，系统先检索相关资料，再把资料放进 prompt 让 LLM
+回答。</p>
+<p>PPT 还提到 <strong>Hybrid RAG</strong>：
+把多种检索方式结合起来，比如向量数据库 + 知识图谱。</p>
+<p>但 PPT 也强调 RAG 有问题，例如：</p>
+<ul>
+<li>context mismatch：检索到的内容和问题不完全匹配；</li>
+<li>chunking 错误：文档切块不合理，导致关键信息被切断；</li>
+<li>vector DB 规模变大后准确性可能下降；</li>
+<li>复杂文档，如表格、PDF、账单，很难直接转成适合 LLM 的上下文。</li>
+</ul>
+<p>EyeLevel / GroundX 的截图说明，有公司专门把复杂文档处理成 “LLM-ready
+data”。</p>
+<p><strong>6. HyDE：RAG 的增强版本</strong></p>
+<p>第 11 页提到 <strong>HyDE</strong>，PPT 里称它类似 “RAG++”。</p>
+<p>HyDE 的大意是： 面对一个
+query，先让模型生成一个“假想答案”或“假想文档”，再用这个生成内容去检索真实文档。</p>
+<p>这样做的原因是：原始 query
+可能太短、太模糊，而生成出来的假想文档语义更丰富，更容易匹配到相关资料。</p>
+<p><strong>7. GenAI：生成式 AI 不只是 GPT</strong></p>
+<p>第 12 页讲 <strong>Generative AI</strong>。</p>
+<p>PPT 说生成式模型不只有 GPT，还有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GANs</span><br><span class="line">VAEs</span><br><span class="line">diffusion models</span><br><span class="line">radiance modeling</span><br><span class="line">point-cloud modeling</span><br><span class="line">music pattern modeling</span><br></pre></td></tr></table></figure>
+<p>生成对象也不只是文本，还包括：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">images</span><br><span class="line">audio</span><br><span class="line">video</span><br><span class="line">3D</span><br><span class="line">molecules</span><br><span class="line">architecture plans</span><br><span class="line">circuit layouts</span><br><span class="line">business cards</span><br></pre></td></tr></table></figure>
+<p>所以 GenAI 的核心是：
+<strong>模型学习数据分布，然后生成新的、类似但不完全相同的内容。</strong></p>
+<p><strong>8. LLM 的新方向</strong></p>
+<p>包括：</p>
+<p><strong>硬件优化</strong>：更适合大模型训练和推理的芯片与系统。</p>
+<p><strong>非 Transformer 架构</strong>： 例如
+SSM、Mamba、Hyena、Jamba、Hymba，以及 diffusion-based LLM。</p>
+<p><strong>位置编码改进</strong>： 比如 RoPE，用来帮助模型理解 token
+的顺序和相对位置。</p>
+<p><strong>SLM，小语言模型</strong>：
+不是所有任务都需要超大模型，小模型更便宜、更容易本地运行。</p>
+<p><strong>VLM / multimodal LLM</strong>：
+模型同时处理文本、图像、音频、视频。</p>
+<p><strong>bit-crushed weights</strong>： 把权重量化到很低精度，比如
+<code>-1/+1</code> 或 <code>-1/0/+1</code>，让模型更小、更快。</p>
+<p><strong>agentic approaches</strong>： 结合 reasoning、tool
+use、MoE、CoT、ToT、GoT 等，让模型像 agent 一样完成任务。</p>
+<p><strong>local running</strong>： 在本地设备上运行
+LLM，减少云端依赖。</p>
+<p><strong>visual dataflow environments</strong>： 比如
+ComfyUI、LangFlow，用可视化方式搭建 AI 应用流程。</p>
+<p><strong>standards</strong>： 如 DSPy、A2A、MCP 等，说明 LLM
+应用生态正在逐渐工程化、标准化。</p>
+<p><strong>9. LLM Apps</strong></p>
+<p>很多新应用不是自己从零训练模型，而是基于 LLM 构建功能，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">finance assistant</span><br><span class="line">research assistant</span><br><span class="line">document QA</span><br><span class="line">NotebookLM-style apps</span><br><span class="line">enterprise knowledge assistant</span><br><span class="line">code assistant</span><br></pre></td></tr></table></figure>
+<p>FinGPT、BloombergGPT、NotebookLM、Databricks 的 GenAI app
+架构等。</p>
+<p>核心观点是： <strong>LLM 正在成为应用开发的基础组件。</strong></p>
+<p><strong>10. LLMOps</strong></p>
+<p>把 LLM demo 做出来不难，但真正上线需要工程化流程，包括：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">prompt management</span><br><span class="line">evaluation</span><br><span class="line">retrieval quality monitoring</span><br><span class="line">latency optimization</span><br><span class="line">cost control</span><br><span class="line">guardrails</span><br><span class="line">logging</span><br><span class="line">model/version management</span><br><span class="line">A/B testing</span><br><span class="line">data privacy</span><br><span class="line">deployment</span><br></pre></td></tr></table></figure>
+<p>这就是 LLMOps： <strong>把 LLM
+应用可靠、安全、可维护地放到生产环境。</strong></p>
+<p>它类似传统 MLOps，但多了
+prompt、RAG、工具调用、模型输出评估等新问题。</p>
+<p><strong>11. Agentic IR / AIR</strong></p>
+<p>最后一页讲 <strong>Agentic IR</strong>，也就是 Agent
+化的信息检索。</p>
+<p>传统 IR 是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户输入 query → 系统返回结果</span><br></pre></td></tr></table></figure>
+<p>Agentic IR 可能变成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户表达目标 → agent 理解任务 → 自动搜索 → 调用工具 → 验证信息 → 综合答案 → 继续迭代</span><br></pre></td></tr></table></figure>
+<p>也就是说，未来的信息检索可能不只是“找资料”，而是一个能主动完成信息任务的
+agent。</p>
+<p>PPT 最后举了类似：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OpenAI phone + Samsung glasses</span><br></pre></td></tr></table></figure>
+<p>这种未来设备形态，暗示 IR 可能会进入随身、持续、语义化、agent
+化的阶段。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://wangchunchia.github.io">Chunchia Wang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://wangchunchia.github.io/2026/05/15/USC%20CSCI-572%E7%AC%94%E8%AE%B0/">https://wangchunchia.github.io/2026/05/15/USC%20CSCI-572%E7%AC%94%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://wangchunchia.github.io" target="_blank">祇树给孤独园</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/image/%E7%AB%A0%E9%B1%BC%E5%93%A5.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2026/03/31/%E7%BE%8E%E5%9B%BD%E6%B8%B8%E8%AE%B0/" title="美国游记两篇"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">美国游记两篇</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/image/%E7%AB%A0%E9%B1%BC%E5%93%A5.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Chunchia Wang</div><div class="author-info__description">自由而无用</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/wangchunchia"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#search-engine-basics"><span class="toc-number">1.</span> <span class="toc-text">Search Engine basics</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web-serving-basics"><span class="toc-number">2.</span> <span class="toc-text">Web Serving Basics</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#search-engine-evaluation"><span class="toc-number">3.</span> <span class="toc-text">Search Engine Evaluation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web-crawling"><span class="toc-number">4.</span> <span class="toc-text">Web Crawling</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#deduplication"><span class="toc-number">5.</span> <span class="toc-text">Deduplication</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#information-retrieval"><span class="toc-number">6.</span> <span class="toc-text">Information Retrieval</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#text-processing"><span class="toc-number">7.</span> <span class="toc-text">Text Processing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#inverted-index"><span class="toc-number">8.</span> <span class="toc-text">Inverted Index</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#video-search-engines"><span class="toc-number">9.</span> <span class="toc-text">Video Search Engines</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#querying"><span class="toc-number">10.</span> <span class="toc-text">Querying</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#search-engine-advertising"><span class="toc-number">11.</span> <span class="toc-text">Search engine advertising</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%9F%E4%B8%AD%E5%A4%8D%E4%B9%A0"><span class="toc-number">12.</span> <span class="toc-text">期中复习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mapreduce"><span class="toc-number">13.</span> <span class="toc-text">MapReduce</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#knowledge-graphs"><span class="toc-number">14.</span> <span class="toc-text">Knowledge Graphs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#snippets"><span class="toc-number">15.</span> <span class="toc-text">Snippets</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pagerank"><span class="toc-number">16.</span> <span class="toc-text">PageRank</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#query-processing"><span class="toc-number">17.</span> <span class="toc-text">Query Processing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#question-answering"><span class="toc-number">18.</span> <span class="toc-text">Question Answering</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#autocorrect-auto-complete"><span class="toc-number">19.</span> <span class="toc-text">Autocorrect, auto Complete</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#clustering-and-classification"><span class="toc-number">20.</span> <span class="toc-text">Clustering and
+classification</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#recommendation-system"><span class="toc-number">21.</span> <span class="toc-text">Recommendation system</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assorted-topics-part-a"><span class="toc-number">22.</span> <span class="toc-text">Assorted topics part A</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assorted-topics-part-b"><span class="toc-number">23.</span> <span class="toc-text">Assorted topics part B</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#assorted-topics-part-c"><span class="toc-number">24.</span> <span class="toc-text">Assorted topics part C</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/05/15/USC%20CSCI-572%E7%AC%94%E8%AE%B0/" title="USC CSCI-572 notes">USC CSCI-572 notes</a><time datetime="2026-05-14T16:00:00.000Z" title="发表于 2026-05-15 00:00:00">2026-05-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/31/%E7%BE%8E%E5%9B%BD%E6%B8%B8%E8%AE%B0/" title="美国游记两篇">美国游记两篇</a><time datetime="2026-03-31T07:00:00.000Z" title="发表于 2026-03-31 15:00:00">2026-03-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/21/USC%20CSCI-577A%E7%AC%94%E8%AE%B0/" title="USC CSCI-577A notes">USC CSCI-577A notes</a><time datetime="2026-03-21T07:00:00.000Z" title="发表于 2026-03-21 15:00:00">2026-03-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/01/USC%20CSCI-585%E7%AC%94%E8%AE%B0/" title="USC CSCI-585 notes">USC CSCI-585 notes</a><time datetime="2026-01-01T08:00:00.000Z" title="发表于 2026-01-01 16:00:00">2026-01-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/20/%E6%AF%95%E8%AE%BE%E8%87%B4%E8%B0%A2/" title="毕设致谢">毕设致谢</a><time datetime="2025-06-20T07:00:00.000Z" title="发表于 2025-06-20 15:00:00">2025-06-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2026 By Chunchia Wang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'Ov23lipGb2DQkRK6VkDe',
+      clientSecret: '16fd173d7022be11562011dc97f4f654941f7f77',
+      repo: 'wangchunchia.github.io',
+      owner: 'wangchunchia',
+      admin: ['wangchunchia'],
+      id: '15a381ba09605b638b349357bd6c4603',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Gitalk' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
